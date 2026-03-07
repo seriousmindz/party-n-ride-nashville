@@ -19,8 +19,9 @@ export default function Home() {
   return (
     <>
       {/* Global Background Elements */}
-      <div className="fixed inset-0 z-0 opacity-5 pointer-events-none bg-cyber-grid bg-[length:40px_40px]"></div>
-      <div className="fixed inset-0 z-0 bg-gradient-to-b from-slate-50 via-transparent to-slate-50 pointer-events-none"></div>
+      <div className="fixed inset-0 z-0 bg-white"></div>
+      <div className="fixed inset-0 z-0 opacity-[0.03] pointer-events-none bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[length:40px_40px]"></div>
+      <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-50 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(255,255,255,0.8)_100%)]"></div>
 
       {/* MAIN CONTAINER */}
       <main className="relative z-10 w-full flex flex-col items-center gap-32 py-24 px-4 md:px-8">
