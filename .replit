@@ -1,0 +1,7 @@
+[agent]
+stack = "MOCKUP_JS"
+mockupState = "PENDING"
+
+[[ports]]
+localPort = 5904
+externalPort = 80
