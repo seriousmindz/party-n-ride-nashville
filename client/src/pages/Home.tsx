@@ -1,5 +1,12 @@
 import React from 'react';
 
+import logoImg from '@assets/logo.png';
+import bacheloretteImg from '@assets/IMG_20220526_234848_507_1772858254044.jpg';
+import birthdayImg from '@assets/IMG_20220723_114303_064_1772858334450.jpg';
+import tailgateImg from '@assets/IMG_20220124_211840_009_1772858028717.jpg';
+import corporateImg from '@assets/20220729_124917_1772857936688.jpg';
+import experienceImg from '@assets/IMG_20220522_233123_203_1772858183644.jpg';
+
 declare global {
   namespace JSX {
     interface IntrinsicElements {
@@ -22,6 +29,9 @@ export default function Home() {
         {/* SECTION 1: PARTY BUS EXPERIENCES */}
         <section className="w-full max-w-7xl relative">
           <div className="mb-16 border-l-4 border-crimson-600 pl-6 py-2">
+            <div className="mb-8">
+              <img src={logoImg} alt="Party 'N Ride Nashville" className="h-20 md:h-28 object-contain" />
+            </div>
             <div className="flex items-center gap-2 mb-2 text-crimson-600 text-xs font-bold tracking-[0.2em] uppercase">
               <iconify-icon icon="solar:music-notes-linear" className="w-4 h-4 text-base" style={{ strokeWidth: 1.5 }}></iconify-icon>
               <span>Nashville Party Bus Matrix v.1.0</span>
@@ -37,7 +47,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 gap-y-12 w-full">
             {/* 01: Bachelorette Bash */}
             <div className="group relative w-full h-[320px] bg-void-800 -skew-x-12 border border-neutral-800 hover:border-crimson-600 transition-all duration-300 overflow-hidden shadow-2xl">
-              <div className="absolute inset-0 skew-x-12 scale-125 bg-[url('https://images.unsplash.com/photo-1533101681375-1b30b358e5b4?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center grayscale opacity-40 group-hover:opacity-80 group-hover:grayscale-0 group-hover:mix-blend-hard-light transition-all duration-500 ease-out"></div>
+              <div className="absolute inset-0 skew-x-12 scale-125 bg-cover bg-center grayscale opacity-40 group-hover:opacity-80 group-hover:grayscale-0 group-hover:mix-blend-hard-light transition-all duration-500 ease-out" style={{ backgroundImage: `url(${bacheloretteImg})` }}></div>
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent skew-x-12 scale-125"></div>
               <div className="absolute bottom-0 left-0 w-full p-6 skew-x-12 flex flex-col justify-end h-full group-hover:-translate-y-2 transition-transform duration-300">
                 <div className="flex justify-between items-end border-b border-neutral-800 pb-2 mb-3 group-hover:border-crimson-600 transition-colors">
@@ -58,7 +68,7 @@ export default function Home() {
 
             {/* 02: Broadway Birthday */}
             <div className="group relative w-full h-[320px] bg-void-800 -skew-x-12 border border-neutral-800 hover:border-crimson-600 transition-all duration-300 overflow-hidden shadow-2xl mt-0 md:mt-8">
-              <div className="absolute inset-0 skew-x-12 scale-125 bg-[url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center grayscale opacity-40 group-hover:opacity-80 group-hover:grayscale-0 group-hover:mix-blend-hard-light transition-all duration-500 ease-out"></div>
+              <div className="absolute inset-0 skew-x-12 scale-125 bg-cover bg-center grayscale opacity-40 group-hover:opacity-80 group-hover:grayscale-0 group-hover:mix-blend-hard-light transition-all duration-500 ease-out" style={{ backgroundImage: `url(${birthdayImg})` }}></div>
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent skew-x-12 scale-125"></div>
               <div className="absolute bottom-0 left-0 w-full p-6 skew-x-12 flex flex-col justify-end h-full group-hover:-translate-y-2 transition-transform duration-300">
                 <div className="flex justify-between items-end border-b border-neutral-800 pb-2 mb-3 group-hover:border-crimson-600 transition-colors">
@@ -79,7 +89,7 @@ export default function Home() {
 
             {/* 03: Game Day Tailgate */}
             <div className="group relative w-full h-[320px] bg-void-800 -skew-x-12 border border-neutral-800 hover:border-crimson-600 transition-all duration-300 overflow-hidden shadow-2xl">
-              <div className="absolute inset-0 skew-x-12 scale-125 bg-[url('https://images.unsplash.com/photo-1518604666860-9ed391f76460?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center grayscale opacity-40 group-hover:opacity-80 group-hover:grayscale-0 group-hover:mix-blend-hard-light transition-all duration-500 ease-out"></div>
+              <div className="absolute inset-0 skew-x-12 scale-125 bg-cover bg-center grayscale opacity-40 group-hover:opacity-80 group-hover:grayscale-0 group-hover:mix-blend-hard-light transition-all duration-500 ease-out" style={{ backgroundImage: `url(${tailgateImg})` }}></div>
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent skew-x-12 scale-125"></div>
               <div className="absolute bottom-0 left-0 w-full p-6 skew-x-12 flex flex-col justify-end h-full group-hover:-translate-y-2 transition-transform duration-300">
                 <div className="flex justify-between items-end border-b border-neutral-800 pb-2 mb-3 group-hover:border-crimson-600 transition-colors">
@@ -100,7 +110,7 @@ export default function Home() {
 
             {/* 04: Corporate & Events */}
             <div className="group relative w-full h-[320px] bg-void-800 -skew-x-12 border border-neutral-800 hover:border-crimson-600 transition-all duration-300 overflow-hidden shadow-2xl mt-0 md:mt-8">
-              <div className="absolute inset-0 skew-x-12 scale-125 bg-[url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center grayscale opacity-40 group-hover:opacity-80 group-hover:grayscale-0 group-hover:mix-blend-hard-light transition-all duration-500 ease-out"></div>
+              <div className="absolute inset-0 skew-x-12 scale-125 bg-cover bg-center grayscale opacity-40 group-hover:opacity-80 group-hover:grayscale-0 group-hover:mix-blend-hard-light transition-all duration-500 ease-out" style={{ backgroundImage: `url(${corporateImg})` }}></div>
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent skew-x-12 scale-125"></div>
               <div className="absolute bottom-0 left-0 w-full p-6 skew-x-12 flex flex-col justify-end h-full group-hover:-translate-y-2 transition-transform duration-300">
                 <div className="flex justify-between items-end border-b border-neutral-800 pb-2 mb-3 group-hover:border-crimson-600 transition-colors">
@@ -213,7 +223,7 @@ export default function Home() {
             <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-crimson-600 translate-x-1 translate-y-1"></div>
 
             <div className="w-full h-full skew-x-12 overflow-hidden relative bg-black border border-neutral-800">
-              <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center opacity-60 group-hover:opacity-80 transition-opacity duration-700"></div>
+              <div className="absolute inset-0 bg-cover bg-center opacity-60 group-hover:opacity-80 transition-opacity duration-700" style={{ backgroundImage: `url(${experienceImg})` }}></div>
               <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-10 bg-[length:100%_2px,3px_100%] pointer-events-none"></div>
 
               <div className="absolute inset-0 z-20 flex items-center justify-center">
