@@ -6,6 +6,7 @@ import birthdayImg from '@assets/IMG_20220723_114303_064_1772858334450.jpg';
 import tailgateImg from '@assets/IMG_20220124_211840_009_1772858028717.jpg';
 import corporateImg from '@assets/20220729_124917_1772857936688.jpg';
 import experienceImg from '@assets/IMG_20220522_233123_203_1772858183644.jpg';
+import bgVideo from '@assets/Website_Background_Animation_Creation_1773353327622.mp4';
 
 declare global {
   namespace JSX {
@@ -19,9 +20,17 @@ export default function Home() {
   return (
     <>
       {/* Global Background Elements */}
-      <div className="fixed inset-0 z-0 bg-white"></div>
-      <div className="fixed inset-0 z-0 opacity-[0.03] pointer-events-none bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[length:40px_40px]"></div>
-      <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-50 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(255,255,255,0.8)_100%)]"></div>
+      <video 
+        autoPlay 
+        loop 
+        muted 
+        playsInline 
+        className="fixed inset-0 w-full h-full object-cover z-0 opacity-20"
+      >
+        <source src={bgVideo} type="video/mp4" />
+      </video>
+      <div className="fixed inset-0 z-0 bg-white/80 pointer-events-none"></div>
+      <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-50 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(255,255,255,0.6)_100%)]"></div>
 
       {/* MAIN CONTAINER */}
       <main className="relative z-10 w-full flex flex-col items-center gap-32 py-24 px-4 md:px-8">
