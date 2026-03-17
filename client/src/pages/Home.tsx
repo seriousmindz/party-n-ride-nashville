@@ -162,7 +162,11 @@ export function HeroPage() {
           <div className="w-full lg:w-1/2 text-center lg:text-left">
             <h1 className="mb-6">
               <span className="block text-3xl sm:text-4xl md:text-5xl font-nashville text-slate-900 leading-tight tracking-wide">Nashville's</span>
-              <span className="inline-block font-script text-5xl sm:text-6xl md:text-8xl text-red-600 animate-text-glow leading-tight -rotate-2 laser-border">Premier Party Bus</span>
+              <span className="inline-block font-script text-5xl sm:text-6xl md:text-8xl leading-tight -rotate-2 laser-text">
+                {"Premier Party Bus".split('').map((char, i) => (
+                  <span key={i} className={`laser-letter${char === ' ' ? ' space-char' : ''}`} style={{ '--delay': `${i * 0.15}s` } as React.CSSProperties}>{char === ' ' ? '\u00A0' : char}</span>
+                ))}
+              </span>
               <span className="block text-3xl sm:text-4xl md:text-5xl font-display text-blue-600 leading-tight tracking-wide uppercase mt-1">&amp; Shuttle Service</span>
             </h1>
             <p className="text-base md:text-lg text-slate-600 font-display font-normal mb-8 max-w-xl mx-auto lg:mx-0 tracking-wide" data-testid="text-hero-description">
