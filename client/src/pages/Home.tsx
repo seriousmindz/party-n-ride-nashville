@@ -170,7 +170,11 @@ export function HeroPage() {
                   <span key={i + 13} className="laser-letter" style={{ '--delay': `${(i + 13) * 0.15}s` } as React.CSSProperties}>{char}</span>
                 ))}
               </span>
-              <span className="block text-3xl sm:text-4xl md:text-5xl font-display text-blue-600 leading-tight tracking-wide uppercase mt-3 clear-both">&amp; Shuttle Service</span>
+              <span className="block font-script text-3xl sm:text-4xl md:text-6xl leading-tight -rotate-2 laser-text laser-text-blue whitespace-nowrap ml-8 sm:ml-16 md:ml-24 mt-1">
+                {["&"," ","S","h","u","t","t","l","e"," ","S","e","r","v","i","c","e"].map((char, i) => (
+                  <span key={i + 16} className={`laser-letter laser-letter-blue${char === ' ' ? ' space-char' : ''}`} style={{ '--delay': `${(i + 16) * 0.1}s` } as React.CSSProperties}>{char === ' ' ? '\u00A0' : char}</span>
+                ))}
+              </span>
             </h1>
             <p className="text-base md:text-lg text-slate-900 font-display font-semibold mb-8 max-w-xl mx-auto lg:mx-0 tracking-wide drop-shadow-[0_1px_2px_rgba(255,255,255,0.8)]" data-testid="text-hero-description">
               Party 'N Ride is proud to be one of Music City's premier party bus experiences. Our fully enclosed, multifunctional buses are purpose-built to support all your touring, shuttle, and event transportation needs.
