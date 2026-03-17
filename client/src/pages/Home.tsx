@@ -9,7 +9,7 @@ import birthdayImg from '@assets/IMG_20220723_114303_064_1772858334450.jpg';
 import tailgateImg from '@assets/IMG_20220124_211840_009_1772858028717.jpg';
 import corporateImg from '@assets/20220729_124917_1772857936688.jpg';
 import experienceImg from '@assets/IMG_20220522_233123_203_1772858183644.jpg';
-import nashvilleRiverfrontImg from '@assets/nashville_riverfront.png';
+import nashvilleRiverfrontImg from '@assets/nashville_bg.png';
 
 declare global {
   namespace JSX {
@@ -135,8 +135,8 @@ function NavBar({ openBooking, currentPage }: { openBooking: (pkg: string) => vo
 
 function PageShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative h-screen w-screen overflow-hidden" style={{ margin: 0, padding: 0 }}>
-      <div className="absolute inset-0" style={{ backgroundImage: `url(${nashvilleRiverfrontImg})`, backgroundSize: 'cover', backgroundPosition: 'center center', backgroundRepeat: 'no-repeat' }}></div>
+    <div className="relative overflow-hidden" style={{ margin: 0, padding: 0, width: '100vw', height: '100vh' }}>
+      <div className="absolute" style={{ top: '-2px', left: '-2px', right: '-2px', bottom: '-2px', backgroundImage: `url(${nashvilleRiverfrontImg})`, backgroundSize: 'cover', backgroundPosition: 'center center', backgroundRepeat: 'no-repeat', backgroundColor: '#1e293b' }}></div>
       <div className="absolute inset-0 bg-white/40"></div>
       <div className="relative z-10 h-full w-full overflow-hidden flex flex-col">
         {children}
