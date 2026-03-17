@@ -155,4 +155,64 @@
   .font-script {
     font-family: var(--font-script);
   }
+
+  .laser-border {
+    position: relative;
+    padding: 0.5rem 1.5rem;
+    isolation: isolate;
+  }
+
+  .laser-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    padding: 3px;
+    background: conic-gradient(
+      from var(--laser-angle, 0deg),
+      rgba(220, 38, 38, 0.0) 0%,
+      rgba(220, 38, 38, 1) 5%,
+      rgba(255, 255, 255, 1) 8%,
+      rgba(37, 99, 235, 1) 11%,
+      rgba(37, 99, 235, 0.0) 16%,
+      transparent 50%
+    );
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    animation: laser-spin 2.5s linear infinite;
+    z-index: -1;
+  }
+
+  .laser-border::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 1.25rem;
+    background: conic-gradient(
+      from var(--laser-angle, 0deg),
+      rgba(220, 38, 38, 0.0) 0%,
+      rgba(220, 38, 38, 0.4) 5%,
+      rgba(255, 255, 255, 0.3) 8%,
+      rgba(37, 99, 235, 0.4) 11%,
+      rgba(37, 99, 235, 0.0) 16%,
+      transparent 50%
+    );
+    filter: blur(12px);
+    animation: laser-spin 2.5s linear infinite;
+    z-index: -2;
+  }
+
+  @keyframes laser-spin {
+    to {
+      --laser-angle: 360deg;
+    }
+  }
+
+  @property --laser-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
 }
