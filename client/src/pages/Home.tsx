@@ -135,15 +135,13 @@ function NavBar({ openBooking, currentPage }: { openBooking: (pkg: string) => vo
 
 function PageShell({ children }: { children: React.ReactNode }) {
   return (
-    <>
-      <div className="fixed top-0 left-0 right-0 bottom-0 z-0 overflow-hidden m-0 p-0">
-        <img src={nashvilleRiverfrontImg} alt="Nashville Riverfront Skyline" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto object-cover" />
-        <div className="absolute top-0 left-0 right-0 bottom-0 bg-white/40"></div>
-      </div>
-      <div className="relative z-10 h-screen w-full overflow-hidden flex flex-col">
+    <div className="relative h-screen w-screen overflow-hidden" style={{ margin: 0, padding: 0 }}>
+      <div className="absolute inset-0" style={{ backgroundImage: `url(${nashvilleRiverfrontImg})`, backgroundSize: 'cover', backgroundPosition: 'center center', backgroundRepeat: 'no-repeat' }}></div>
+      <div className="absolute inset-0 bg-white/40"></div>
+      <div className="relative z-10 h-full w-full overflow-hidden flex flex-col">
         {children}
       </div>
-    </>
+    </div>
   );
 }
 
@@ -162,9 +160,14 @@ export function HeroPage() {
           <div className="w-full lg:w-1/2 text-center lg:text-left">
             <h1 className="mb-6">
               <span className="block text-3xl sm:text-4xl md:text-5xl font-nashville text-slate-900 leading-tight tracking-wide">Nashville's</span>
-              <span className="inline-block font-script text-5xl sm:text-6xl md:text-8xl leading-tight -rotate-2 laser-text whitespace-nowrap">
-                {["P","r","e","m","i","e","r"," ","P","a","r","t","y"," ","B","u","s"].map((char, i) => (
+              <span className="block font-script text-5xl sm:text-6xl md:text-8xl leading-tight -rotate-2 laser-text whitespace-nowrap">
+                {["P","r","e","m","i","e","r"," ","P","a","r","t","y"].map((char, i) => (
                   <span key={i} className={`laser-letter${char === ' ' ? ' space-char' : ''}`} style={{ '--delay': `${i * 0.15}s` } as React.CSSProperties}>{char === ' ' ? '\u00A0' : char}</span>
+                ))}
+              </span>
+              <span className="block font-script text-5xl sm:text-6xl md:text-8xl leading-tight -rotate-2 laser-text whitespace-nowrap ml-4 sm:ml-8 md:ml-12">
+                {["B","u","s"].map((char, i) => (
+                  <span key={i + 13} className="laser-letter" style={{ '--delay': `${(i + 13) * 0.15}s` } as React.CSSProperties}>{char}</span>
                 ))}
               </span>
               <span className="block text-3xl sm:text-4xl md:text-5xl font-display text-blue-600 leading-tight tracking-wide uppercase mt-3 clear-both">&amp; Shuttle Service</span>
