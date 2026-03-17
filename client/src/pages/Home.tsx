@@ -136,9 +136,9 @@ function NavBar({ openBooking, currentPage }: { openBooking: (pkg: string) => vo
 function PageShell({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <div className="fixed inset-0 z-0 w-screen h-screen">
-        <img src={nashvilleRiverfrontImg} alt="Nashville Riverfront Skyline" className="absolute inset-0 w-full h-full object-cover scale-105" />
-        <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-white/40 to-slate-900/60"></div>
+      <div className="fixed top-0 left-0 right-0 bottom-0 z-0 overflow-hidden m-0 p-0">
+        <img src={nashvilleRiverfrontImg} alt="Nashville Riverfront Skyline" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto object-cover" />
+        <div className="absolute top-0 left-0 right-0 bottom-0 bg-white/40"></div>
       </div>
       <div className="relative z-10 h-screen w-full overflow-hidden flex flex-col">
         {children}
@@ -162,14 +162,14 @@ export function HeroPage() {
           <div className="w-full lg:w-1/2 text-center lg:text-left">
             <h1 className="mb-6">
               <span className="block text-3xl sm:text-4xl md:text-5xl font-nashville text-slate-900 leading-tight tracking-wide">Nashville's</span>
-              <span className="inline-block font-script text-5xl sm:text-6xl md:text-8xl leading-tight -rotate-2 laser-text">
-                {"Premier Party Bus".split('').map((char, i) => (
+              <span className="inline-block font-script text-5xl sm:text-6xl md:text-8xl leading-tight -rotate-2 laser-text whitespace-nowrap">
+                {["P","r","e","m","i","e","r"," ","P","a","r","t","y"," ","B","u","s"].map((char, i) => (
                   <span key={i} className={`laser-letter${char === ' ' ? ' space-char' : ''}`} style={{ '--delay': `${i * 0.15}s` } as React.CSSProperties}>{char === ' ' ? '\u00A0' : char}</span>
                 ))}
               </span>
-              <span className="block text-3xl sm:text-4xl md:text-5xl font-display text-blue-600 leading-tight tracking-wide uppercase mt-1">&amp; Shuttle Service</span>
+              <span className="block text-3xl sm:text-4xl md:text-5xl font-display text-blue-600 leading-tight tracking-wide uppercase mt-3 clear-both">&amp; Shuttle Service</span>
             </h1>
-            <p className="text-base md:text-lg text-slate-600 font-display font-normal mb-8 max-w-xl mx-auto lg:mx-0 tracking-wide" data-testid="text-hero-description">
+            <p className="text-base md:text-lg text-slate-900 font-display font-semibold mb-8 max-w-xl mx-auto lg:mx-0 tracking-wide drop-shadow-[0_1px_2px_rgba(255,255,255,0.8)]" data-testid="text-hero-description">
               Party 'N Ride is proud to be one of Music City's premier party bus experiences. Our fully enclosed, multifunctional buses are purpose-built to support all your touring, shuttle, and event transportation needs.
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-5 justify-center lg:justify-start">
