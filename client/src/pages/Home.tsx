@@ -9,7 +9,7 @@ import birthdayImg from '@assets/IMG_20220723_114303_064_1772858334450.jpg';
 import tailgateImg from '@assets/IMG_20220124_211840_009_1772858028717.jpg';
 import corporateImg from '@assets/20220729_124917_1772857936688.jpg';
 import experienceImg from '@assets/IMG_20220522_233123_203_1772858183644.jpg';
-import bgVideo from '@assets/Website_Background_Animation_Creation_1773353327622.mp4';
+import nashvilleRiverfrontImg from '@assets/nashville_riverfront.png';
 
 declare global {
   namespace JSX {
@@ -136,10 +136,10 @@ function NavBar({ openBooking, currentPage }: { openBooking: (pkg: string) => vo
 function PageShell({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <video autoPlay loop muted playsInline className="fixed inset-0 w-full h-full object-cover z-0 opacity-20">
-        <source src={bgVideo} type="video/mp4" />
-      </video>
-      <div className="fixed inset-0 z-0 bg-white/80 pointer-events-none"></div>
+      <div className="fixed inset-0 z-0">
+        <img src={nashvilleRiverfrontImg} alt="Nashville Riverfront Skyline" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-white/75 backdrop-blur-[2px]"></div>
+      </div>
       <div className="relative z-10 h-screen w-full overflow-hidden flex flex-col">
         {children}
       </div>
