@@ -134,6 +134,34 @@ function NavBar({ openBooking, currentPage }: { openBooking: (pkg: string) => vo
   );
 }
 
+function Footer() {
+  return (
+    <footer className="w-full bg-slate-900/90 backdrop-blur-sm py-2 px-3 sm:px-6 text-center z-20 shrink-0">
+      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-1 sm:gap-4">
+        <p className="text-slate-400 text-[10px] sm:text-xs font-display tracking-wide">
+          Designed and managed by{' '}
+          <a href="https://build.seriousmindz.ai" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 transition-colors underline underline-offset-2" data-testid="link-footer-seriousmindz">
+            SeriousMindz AI
+          </a>
+        </p>
+        <div className="flex items-center gap-3 sm:gap-4">
+          <a href="https://www.theparkingguys.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white text-[10px] sm:text-xs font-display tracking-wide transition-colors" data-testid="link-footer-parkingguys">
+            The Parking Guys
+          </a>
+          <span className="text-slate-600 text-[10px]">|</span>
+          <a href="https://seriousmindz.ai" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white text-[10px] sm:text-xs font-display tracking-wide transition-colors" data-testid="link-footer-seriousmindz-main">
+            seriousmindz.ai
+          </a>
+          <span className="text-slate-600 text-[10px]">|</span>
+          <a href="https://api.seriousmindz.ai" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white text-[10px] sm:text-xs font-display tracking-wide transition-colors" data-testid="link-footer-seriousmindz-api">
+            api.seriousmindz.ai
+          </a>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
 function PageShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="relative overflow-hidden" style={{ margin: 0, padding: 0, width: '100vw', height: '100vh' }}>
@@ -141,6 +169,7 @@ function PageShell({ children }: { children: React.ReactNode }) {
       <div className="absolute inset-0 bg-white/40"></div>
       <div className="relative z-10 h-full w-full overflow-hidden flex flex-col">
         {children}
+        <Footer />
       </div>
     </div>
   );
