@@ -136,9 +136,9 @@ function NavBar({ openBooking, currentPage }: { openBooking: (pkg: string) => vo
 function PageShell({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <div className="fixed inset-0 z-0">
-        <img src={nashvilleRiverfrontImg} alt="Nashville Riverfront Skyline" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-white/75 backdrop-blur-[2px]"></div>
+      <div className="fixed inset-0 z-0 w-screen h-screen">
+        <img src={nashvilleRiverfrontImg} alt="Nashville Riverfront Skyline" className="absolute inset-0 w-full h-full object-cover scale-105" />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-white/40 to-slate-900/60"></div>
       </div>
       <div className="relative z-10 h-screen w-full overflow-hidden flex flex-col">
         {children}
