@@ -51,24 +51,24 @@ function BookingModal({ isOpen, onClose, defaultPackage }: { isOpen: boolean; on
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" data-testid="booking-modal">
       <div className="absolute inset-0 bg-slate-900/70 backdrop-blur-sm" onClick={onClose}></div>
-      <div className="relative bg-white rounded-3xl shadow-2xl p-8 md:p-10 w-full max-w-lg max-h-[90vh] overflow-y-auto border-2 border-sky-200">
+      <div className="relative bg-white rounded-3xl shadow-2xl p-8 md:p-10 w-full max-w-lg max-h-[90vh] overflow-y-auto border-2 border-blue-200">
         <button onClick={onClose} className="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-2xl font-bold" data-testid="button-close-modal">&times;</button>
         {submitted ? (
           <div className="text-center py-8" data-testid="booking-success">
             <div className="text-6xl mb-4">&#127881;</div>
             <h3 className="text-3xl font-display font-black text-slate-900 uppercase mb-4">Booking Request Sent!</h3>
             <p className="text-slate-600 font-medium mb-6">We'll reach out within 24 hours to confirm your party bus experience. Get ready to ride!</p>
-            <button onClick={onClose} className="bg-sky-500 text-white font-bold px-8 py-3 rounded-full uppercase tracking-widest hover:bg-sky-600 transition-colors" data-testid="button-close-success">Got It</button>
+            <button onClick={onClose} className="bg-blue-600 text-white font-bold px-8 py-3 rounded-full uppercase tracking-widest hover:bg-blue-700 transition-colors" data-testid="button-close-success">Got It</button>
           </div>
         ) : (
           <>
             <h3 className="text-3xl font-display font-black text-slate-900 uppercase mb-2 tracking-tight">Book Your Ride</h3>
             <p className="text-slate-500 font-medium mb-6">Fill out the form and we'll get back to you within 24 hours.</p>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <input type="text" placeholder="Your Name" required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none font-medium text-slate-800" data-testid="input-name" />
-              <input type="email" placeholder="Email Address" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none font-medium text-slate-800" data-testid="input-email" />
-              <input type="tel" placeholder="Phone Number" required value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none font-medium text-slate-800" data-testid="input-phone" />
-              <select value={formData.packageType} onChange={e => setFormData({...formData, packageType: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none font-medium text-slate-800" data-testid="select-package">
+              <input type="text" placeholder="Your Name" required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none font-medium text-slate-800" data-testid="input-name" />
+              <input type="email" placeholder="Email Address" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none font-medium text-slate-800" data-testid="input-email" />
+              <input type="tel" placeholder="Phone Number" required value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none font-medium text-slate-800" data-testid="input-phone" />
+              <select value={formData.packageType} onChange={e => setFormData({...formData, packageType: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none font-medium text-slate-800" data-testid="select-package">
                 <option value="bachelorette">Bachelorette Party</option>
                 <option value="birthday">Birthday Celebration</option>
                 <option value="gameday">Game Day Tailgate</option>
@@ -76,10 +76,10 @@ function BookingModal({ isOpen, onClose, defaultPackage }: { isOpen: boolean; on
                 <option value="shuttle">Shuttle Service</option>
                 <option value="custom">Custom Package</option>
               </select>
-              <input type="date" required value={formData.eventDate} onChange={e => setFormData({...formData, eventDate: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none font-medium text-slate-800" data-testid="input-date" />
-              <input type="text" placeholder="Group Size (e.g. 10-15 people)" required value={formData.groupSize} onChange={e => setFormData({...formData, groupSize: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none font-medium text-slate-800" data-testid="input-group-size" />
-              <textarea placeholder="Tell us about your event (optional)" value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} rows={3} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none font-medium text-slate-800 resize-none" data-testid="input-message" />
-              <button type="submit" disabled={mutation.isPending} className="w-full bg-orange-500 text-white font-bold text-lg py-4 rounded-full uppercase tracking-widest hover:bg-orange-600 transition-all shadow-xl shadow-orange-500/30 animate-glow disabled:opacity-50" data-testid="button-submit-booking">
+              <input type="date" required value={formData.eventDate} onChange={e => setFormData({...formData, eventDate: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none font-medium text-slate-800" data-testid="input-date" />
+              <input type="text" placeholder="Group Size (e.g. 10-15 people)" required value={formData.groupSize} onChange={e => setFormData({...formData, groupSize: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none font-medium text-slate-800" data-testid="input-group-size" />
+              <textarea placeholder="Tell us about your event (optional)" value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} rows={3} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none font-medium text-slate-800 resize-none" data-testid="input-message" />
+              <button type="submit" disabled={mutation.isPending} className="w-full bg-red-600 text-white font-bold text-lg py-4 rounded-full uppercase tracking-widest hover:bg-red-700 transition-all shadow-xl shadow-red-600/30 animate-glow disabled:opacity-50" data-testid="button-submit-booking">
                 {mutation.isPending ? 'Sending...' : 'Submit Booking Request'}
               </button>
               {mutation.isError && <p className="text-red-500 text-sm font-medium text-center">Something went wrong. Please try again.</p>}
@@ -112,9 +112,9 @@ function NavBar({ openBooking, currentPage }: { openBooking: (pkg: string) => vo
           <img src={logoImg} alt="Party N Ride Nashville" className="h-14 object-contain drop-shadow-md cursor-pointer" onClick={() => navigate("/")} data-testid="img-logo" />
           <div className="hidden lg:flex space-x-2 items-center">
             {navItems.map(item => (
-              <button key={item.path} onClick={() => navigate(item.path)} className={`font-display font-bold uppercase tracking-wider text-sm px-3 py-1.5 rounded-lg border-2 transition-all duration-300 ${currentPage === item.path ? 'text-white bg-sky-500 border-sky-500 shadow-lg shadow-sky-500/30 animate-nav-glow' : 'text-slate-700 border-transparent hover:text-orange-500 hover:border-orange-400 hover:shadow-md hover:shadow-orange-400/20'}`} data-testid={`link-${item.label.toLowerCase().replace(/[^a-z]/g, '')}`}>{item.label}</button>
+              <button key={item.path} onClick={() => navigate(item.path)} className={`font-display font-bold uppercase tracking-wider text-sm px-3 py-1.5 rounded-lg border-2 transition-all duration-300 ${currentPage === item.path ? 'text-white bg-blue-600 border-blue-600 shadow-lg shadow-blue-600/30 animate-nav-glow' : 'text-slate-700 border-transparent hover:text-red-600 hover:border-red-500 hover:shadow-md hover:shadow-red-500/20'}`} data-testid={`link-${item.label.toLowerCase().replace(/[^a-z]/g, '')}`}>{item.label}</button>
             ))}
-            <button onClick={() => openBooking('custom')} className="bg-gradient-to-r from-orange-500 to-orange-600 text-white font-display font-bold px-6 py-2.5 rounded-full uppercase tracking-wider text-sm hover:from-orange-600 hover:to-orange-700 hover:scale-105 transition-all duration-300 shadow-xl animate-glow ml-2" data-testid="button-nav-book">Book Now</button>
+            <button onClick={() => openBooking('custom')} className="bg-gradient-to-r from-red-600 to-red-700 text-white font-display font-bold px-6 py-2.5 rounded-full uppercase tracking-wider text-sm hover:from-red-700 hover:to-red-800 hover:scale-105 transition-all duration-300 shadow-xl animate-glow ml-2" data-testid="button-nav-book">Book Now</button>
           </div>
           <button className="lg:hidden text-slate-800 text-3xl" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} data-testid="button-mobile-menu">
             {mobileMenuOpen ? '\u2715' : '\u2630'}
@@ -124,9 +124,9 @@ function NavBar({ openBooking, currentPage }: { openBooking: (pkg: string) => vo
       {mobileMenuOpen && (
         <div className="lg:hidden bg-white border-t border-slate-100 px-4 py-4 space-y-2">
           {navItems.map(item => (
-            <button key={item.path} onClick={() => { navigate(item.path); setMobileMenuOpen(false); }} className={`block w-full text-left font-display font-bold uppercase tracking-wider text-base py-2.5 px-3 rounded-lg transition-all duration-200 ${currentPage === item.path ? 'text-white bg-sky-500 shadow-md' : 'text-slate-800 hover:text-orange-500 hover:bg-orange-50'}`}>{item.label}</button>
+            <button key={item.path} onClick={() => { navigate(item.path); setMobileMenuOpen(false); }} className={`block w-full text-left font-display font-bold uppercase tracking-wider text-base py-2.5 px-3 rounded-lg transition-all duration-200 ${currentPage === item.path ? 'text-white bg-blue-600 shadow-md' : 'text-slate-800 hover:text-red-600 hover:bg-red-50'}`}>{item.label}</button>
           ))}
-          <button onClick={() => { openBooking('custom'); setMobileMenuOpen(false); }} className="block w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-display font-bold py-3 rounded-full uppercase tracking-wider text-base text-center animate-glow mt-2">Book Now</button>
+          <button onClick={() => { openBooking('custom'); setMobileMenuOpen(false); }} className="block w-full bg-gradient-to-r from-red-600 to-red-700 text-white font-display font-bold py-3 rounded-full uppercase tracking-wider text-base text-center animate-glow mt-2">Book Now</button>
         </div>
       )}
     </nav>
@@ -162,26 +162,26 @@ export function HeroPage() {
           <div className="w-full lg:w-1/2 text-center lg:text-left">
             <h1 className="mb-6">
               <span className="block text-3xl sm:text-4xl md:text-5xl font-display text-slate-900 leading-tight tracking-wide uppercase">Nashville's</span>
-              <span className="block font-script text-5xl sm:text-6xl md:text-8xl text-orange-500 animate-text-glow leading-tight -rotate-2">Premier Party Bus</span>
-              <span className="block text-3xl sm:text-4xl md:text-5xl font-display text-sky-500 leading-tight tracking-wide uppercase mt-1">&amp; Shuttle Service</span>
+              <span className="block font-script text-5xl sm:text-6xl md:text-8xl text-red-600 animate-text-glow leading-tight -rotate-2">Premier Party Bus</span>
+              <span className="block text-3xl sm:text-4xl md:text-5xl font-display text-blue-600 leading-tight tracking-wide uppercase mt-1">&amp; Shuttle Service</span>
             </h1>
             <p className="text-base md:text-lg text-slate-600 font-display font-normal mb-8 max-w-xl mx-auto lg:mx-0 tracking-wide" data-testid="text-hero-description">
               Party 'N Ride is proud to be one of Music City's premier party bus experiences. Our fully enclosed, multifunctional buses are purpose-built to support all your touring, shuttle, and event transportation needs.
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-5 justify-center lg:justify-start">
-              <button onClick={() => openBooking('custom')} className="bg-gradient-to-r from-orange-500 to-orange-600 text-white font-display text-lg md:text-xl px-10 py-4 rounded-full uppercase tracking-wider hover:from-orange-600 hover:to-orange-700 hover:scale-105 transition-all duration-300 shadow-xl shadow-orange-500/30 animate-glow w-full sm:w-auto" data-testid="button-hero-book">
+              <button onClick={() => openBooking('custom')} className="bg-gradient-to-r from-red-600 to-red-700 text-white font-display text-lg md:text-xl px-10 py-4 rounded-full uppercase tracking-wider hover:from-red-700 hover:to-red-800 hover:scale-105 transition-all duration-300 shadow-xl shadow-red-600/30 animate-glow w-full sm:w-auto" data-testid="button-hero-book">
                 Book Now
               </button>
-              <a href="tel:6153374342" className="text-lg md:text-xl font-display font-bold text-sky-600 animate-text-glow hover:text-sky-700 transition-colors" data-testid="link-hero-phone">
+              <a href="tel:6153374342" className="text-lg md:text-xl font-display font-bold text-blue-700 animate-text-glow hover:text-blue-800 transition-colors" data-testid="link-hero-phone">
                 Call NOW: 615-337-4342
               </a>
             </div>
-            <button onClick={() => navigate('/packages')} className="mt-6 text-sky-600 font-bold uppercase tracking-widest text-sm hover:text-orange-500 transition-colors flex items-center gap-2 mx-auto lg:mx-0" data-testid="button-hero-next">
+            <button onClick={() => navigate('/packages')} className="mt-6 text-blue-700 font-bold uppercase tracking-widest text-sm hover:text-red-600 transition-colors flex items-center gap-2 mx-auto lg:mx-0" data-testid="button-hero-next">
               View Packages <span className="text-xl">&rarr;</span>
             </button>
           </div>
           <div className="w-full lg:w-1/2 flex justify-center lg:justify-end relative">
-            <div className="absolute inset-0 bg-sky-500/20 rounded-full blur-3xl animate-pulse w-3/4 h-3/4 m-auto"></div>
+            <div className="absolute inset-0 bg-blue-600/20 rounded-full blur-3xl animate-pulse w-3/4 h-3/4 m-auto"></div>
             <img src={tailgateImg} alt="Party Bus Experience" className="w-full max-w-md rounded-2xl shadow-2xl relative z-10 border-4 border-white transform rotate-2 hover:rotate-0 transition-transform duration-500" data-testid="img-hero" />
           </div>
         </div>
@@ -197,10 +197,10 @@ export function PackagesPage() {
   const openBooking = (pkg: string) => { setBookingPackage(pkg); setBookingOpen(true); };
 
   const cards = [
-    { img: bacheloretteImg, title: "Bachelorette", desc: "2-hour private enclosed party bus for up to 20 guests, BYOB, cups, coolers, and ice included. Cruise Broadway, The Gulch, and Midtown.", pkg: "bachelorette", border: "hover:border-sky-500", shadow: "hover:shadow-sky-500/20", btn: "bg-sky-500 hover:bg-orange-500" },
-    { img: birthdayImg, title: "Birthday", desc: "Celebrate another lap around the sun with a 2-hour rolling nightclub. Custom playlist, LED club lighting, and route tailored to your favorite hotspots.", pkg: "birthday", border: "hover:border-orange-500", shadow: "hover:shadow-orange-500/20", btn: "bg-orange-500 hover:bg-sky-500" },
-    { img: tailgateImg, title: "Game Day", desc: "3-hour Titans or Preds pre-game party bus. One pickup, one stadium-area drop-off, and a rolling tailgate with your crew, drinks, and music.", pkg: "gameday", border: "hover:border-sky-500", shadow: "hover:shadow-sky-500/20", btn: "bg-sky-500 hover:bg-orange-500" },
-    { img: corporateImg, title: "Corporate", desc: "Impress clients and teams with a private shuttle that can run full party mode or a toned-down lounge. Perfect for conferences and offsites.", pkg: "corporate", border: "hover:border-orange-500", shadow: "hover:shadow-orange-500/20", btn: "bg-orange-500 hover:bg-sky-500" },
+    { img: bacheloretteImg, title: "Bachelorette", desc: "2-hour private enclosed party bus for up to 20 guests, BYOB, cups, coolers, and ice included. Cruise Broadway, The Gulch, and Midtown.", pkg: "bachelorette", border: "hover:border-blue-600", shadow: "hover:shadow-blue-600/20", btn: "bg-blue-600 hover:bg-red-600" },
+    { img: birthdayImg, title: "Birthday", desc: "Celebrate another lap around the sun with a 2-hour rolling nightclub. Custom playlist, LED club lighting, and route tailored to your favorite hotspots.", pkg: "birthday", border: "hover:border-red-600", shadow: "hover:shadow-red-600/20", btn: "bg-red-600 hover:bg-blue-600" },
+    { img: tailgateImg, title: "Game Day", desc: "3-hour Titans or Preds pre-game party bus. One pickup, one stadium-area drop-off, and a rolling tailgate with your crew, drinks, and music.", pkg: "gameday", border: "hover:border-blue-600", shadow: "hover:shadow-blue-600/20", btn: "bg-blue-600 hover:bg-red-600" },
+    { img: corporateImg, title: "Corporate", desc: "Impress clients and teams with a private shuttle that can run full party mode or a toned-down lounge. Perfect for conferences and offsites.", pkg: "corporate", border: "hover:border-red-600", shadow: "hover:shadow-red-600/20", btn: "bg-red-600 hover:bg-blue-600" },
   ];
 
   return (
@@ -212,8 +212,8 @@ export function PackagesPage() {
           <h2 className="text-3xl md:text-5xl font-display text-slate-900 tracking-wide uppercase mb-1">
             Packages
           </h2>
-          <p className="font-script text-2xl md:text-4xl text-sky-500 -rotate-1 mb-2">Tailered for Any Occassion</p>
-          <p className="text-lg md:text-xl text-orange-500 font-display uppercase tracking-widest animate-text-glow" data-testid="text-packages-subtitle">Just For YOU!</p>
+          <p className="font-script text-2xl md:text-4xl text-blue-600 -rotate-1 mb-2">Tailered for Any Occassion</p>
+          <p className="text-lg md:text-xl text-red-600 font-display uppercase tracking-widest animate-text-glow" data-testid="text-packages-subtitle">Just For YOU!</p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 w-full max-w-7xl">
@@ -234,9 +234,9 @@ export function PackagesPage() {
 
         <div className="flex items-center gap-6 mt-6">
           <a href="tel:6153374342" className="text-lg md:text-xl font-display font-black text-slate-900 flex items-center gap-3" data-testid="link-packages-phone">
-            Call NOW: <span className="text-orange-500 animate-text-glow">615-337-4342</span>
+            Call NOW: <span className="text-red-600 animate-text-glow">615-337-4342</span>
           </a>
-          <button onClick={() => navigate('/sites')} className="text-sky-600 font-bold uppercase tracking-widest text-sm hover:text-orange-500 transition-colors flex items-center gap-2" data-testid="button-packages-next">
+          <button onClick={() => navigate('/sites')} className="text-blue-700 font-bold uppercase tracking-widest text-sm hover:text-red-600 transition-colors flex items-center gap-2" data-testid="button-packages-next">
             Sites <span className="text-xl">&rarr;</span>
           </button>
         </div>
@@ -266,30 +266,30 @@ export function SitesPage() {
       <div className="flex-1 flex items-center justify-center px-4 md:px-8 pt-20">
         <div className="w-full max-w-6xl bg-slate-900 rounded-3xl p-6 md:p-12 shadow-2xl overflow-hidden relative">
           <div className="absolute inset-0 opacity-20 bg-cover bg-center" style={{ backgroundImage: `url(${experienceImg})` }}></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-sky-900/90 to-slate-900/90"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-slate-900/90"></div>
 
           <div className="relative z-10 text-center mb-8">
             <h2 className="mb-3 drop-shadow-lg">
-              <span className="font-script text-4xl md:text-6xl text-orange-500 -rotate-1">Sites</span>
+              <span className="font-script text-4xl md:text-6xl text-red-600 -rotate-1">Sites</span>
             </h2>
-            <p className="text-sm md:text-base text-sky-200 font-display tracking-wide max-w-3xl mx-auto" data-testid="text-sites-description">
+            <p className="text-sm md:text-base text-blue-200 font-display tracking-wide max-w-3xl mx-auto" data-testid="text-sites-description">
               Great attractions, landmarks and fun sites that make a perfect stop or scenic route, whether you're doing a themed tour, sightseeing cruise, brewery crawl, or just wanting to sit back and Party N Ride NASHVILLE!
             </p>
           </div>
 
           <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-center max-w-5xl mx-auto">
             {SITES.map((site, i) => (
-              <div key={i} className="bg-white/10 backdrop-blur-md rounded-xl p-3 border border-white/20 hover:bg-orange-500/20 hover:border-orange-500/50 transition-all duration-300 cursor-default" data-testid={`text-site-${i}`}>
+              <div key={i} className="bg-white/10 backdrop-blur-md rounded-xl p-3 border border-white/20 hover:bg-red-600/20 hover:border-red-600/50 transition-all duration-300 cursor-default" data-testid={`text-site-${i}`}>
                 <span className="text-white font-display text-sm md:text-base tracking-wide">{site}</span>
               </div>
             ))}
           </div>
 
           <div className="relative z-10 flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
-            <button onClick={() => openBooking('custom')} className="bg-sky-500 text-white font-bold text-lg px-10 py-4 rounded-full uppercase tracking-widest hover:bg-white hover:text-sky-600 hover:scale-105 transition-all duration-300 shadow-[0_0_30px_rgba(14,165,233,0.5)] animate-glow" data-testid="button-sites-book">
+            <button onClick={() => openBooking('custom')} className="bg-blue-600 text-white font-bold text-lg px-10 py-4 rounded-full uppercase tracking-widest hover:bg-white hover:text-blue-700 hover:scale-105 transition-all duration-300 shadow-[0_0_30px_rgba(37,99,235,0.5)] animate-glow" data-testid="button-sites-book">
               Book Your Route
             </button>
-            <button onClick={() => navigate('/pricing')} className="text-sky-300 font-bold uppercase tracking-widest text-sm hover:text-orange-400 transition-colors flex items-center gap-2" data-testid="button-sites-next">
+            <button onClick={() => navigate('/pricing')} className="text-blue-300 font-bold uppercase tracking-widest text-sm hover:text-red-500 transition-colors flex items-center gap-2" data-testid="button-sites-next">
               Pricing <span className="text-xl">&rarr;</span>
             </button>
           </div>
@@ -311,24 +311,24 @@ export function PricingPage() {
       <NavBar openBooking={openBooking} currentPage="/pricing" />
       <div className="flex-1 flex items-center justify-center px-4 md:px-8 pt-20">
         <div className="w-full max-w-3xl bg-white rounded-3xl p-8 md:p-14 shadow-xl border border-slate-200 text-center relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-40 h-40 bg-orange-500/10 rounded-bl-full"></div>
-          <div className="absolute bottom-0 left-0 w-40 h-40 bg-sky-500/10 rounded-tr-full"></div>
+          <div className="absolute top-0 right-0 w-40 h-40 bg-red-600/10 rounded-bl-full"></div>
+          <div className="absolute bottom-0 left-0 w-40 h-40 bg-blue-600/10 rounded-tr-full"></div>
 
           <h2 className="mb-10 relative z-10">
-            <span className="font-script text-5xl md:text-7xl text-orange-500 -rotate-1">Pricing</span>
+            <span className="font-script text-5xl md:text-7xl text-red-600 -rotate-1">Pricing</span>
           </h2>
 
           <div className="bg-slate-50 w-full rounded-2xl p-8 md:p-10 mb-10 border border-slate-100 relative z-10">
-            <h3 className="text-2xl md:text-3xl font-display text-sky-600 uppercase tracking-widest mb-3" data-testid="text-pricing-minimum">2 Hour Minimum Booking</h3>
+            <h3 className="text-2xl md:text-3xl font-display text-blue-700 uppercase tracking-widest mb-3" data-testid="text-pricing-minimum">2 Hour Minimum Booking</h3>
             <p className="text-slate-500 font-display uppercase tracking-wider mb-6 text-lg">Starting Rate</p>
             <p className="text-lg md:text-xl text-slate-700 font-display italic tracking-wide">ADDITIONAL HOURS AVAILABLE TAILED TO FIT YOUR EVENT</p>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 relative z-10">
-            <button onClick={() => openBooking('custom')} className="bg-orange-500 text-white font-bold text-xl px-12 py-5 rounded-full uppercase tracking-widest hover:bg-orange-600 hover:scale-105 transition-all duration-300 shadow-xl shadow-orange-500/30 animate-glow" data-testid="button-pricing-book">
+            <button onClick={() => openBooking('custom')} className="bg-red-600 text-white font-bold text-xl px-12 py-5 rounded-full uppercase tracking-widest hover:bg-red-700 hover:scale-105 transition-all duration-300 shadow-xl shadow-red-600/30 animate-glow" data-testid="button-pricing-book">
               Book Now
             </button>
-            <button onClick={() => navigate('/shuttle')} className="text-sky-600 font-bold uppercase tracking-widest text-sm hover:text-orange-500 transition-colors flex items-center gap-2" data-testid="button-pricing-next">
+            <button onClick={() => navigate('/shuttle')} className="text-blue-700 font-bold uppercase tracking-widest text-sm hover:text-red-600 transition-colors flex items-center gap-2" data-testid="button-pricing-next">
               Shuttle Service <span className="text-xl">&rarr;</span>
             </button>
           </div>
@@ -350,27 +350,27 @@ export function ShuttlePage() {
       <NavBar openBooking={openBooking} currentPage="/shuttle" />
       <div className="flex-1 flex items-center justify-center px-4 md:px-8 pt-20">
         <div className="w-full max-w-3xl bg-white rounded-3xl p-8 md:p-14 shadow-xl border border-slate-200 text-center relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-40 h-40 bg-sky-500/10 rounded-br-full"></div>
-          <div className="absolute bottom-0 right-0 w-40 h-40 bg-orange-500/10 rounded-tl-full"></div>
+          <div className="absolute top-0 left-0 w-40 h-40 bg-blue-600/10 rounded-br-full"></div>
+          <div className="absolute bottom-0 right-0 w-40 h-40 bg-red-600/10 rounded-tl-full"></div>
 
           <h2 className="mb-8 relative z-10">
             <span className="font-display text-3xl md:text-5xl text-slate-900 tracking-wide uppercase">Shuttle</span>{' '}
-            <span className="font-script text-4xl md:text-6xl text-sky-500 -rotate-1">Service</span>
+            <span className="font-script text-4xl md:text-6xl text-blue-600 -rotate-1">Service</span>
           </h2>
 
           <p className="text-base md:text-lg text-slate-600 font-display leading-relaxed mb-8 relative z-10 tracking-wide" data-testid="text-shuttle-description">
             At Party N Ride NASHVILLE, we offer custom shuttle - only party bus/group transportation packages you can use for corporate, special occasion or general group shuttle needs in Nashville, TN. Whether it's one way or round trip, we can take your group from point A to B comfortably and efficiently!
           </p>
 
-          <div className="bg-orange-50 rounded-2xl p-6 w-full border border-orange-100 mb-8 relative z-10">
-            <p className="text-orange-600 font-display text-lg tracking-wide">Call today to inquiry about pricing for your tailed needs!</p>
+          <div className="bg-red-50 rounded-2xl p-6 w-full border border-red-100 mb-8 relative z-10">
+            <p className="text-red-700 font-display text-lg tracking-wide">Call today to inquiry about pricing for your tailed needs!</p>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 relative z-10">
-            <a href="tel:6153374342" className="text-2xl md:text-3xl font-display font-black text-slate-900 flex items-center gap-3 hover:text-sky-600 transition-colors" data-testid="link-shuttle-phone">
-              Call NOW: <span className="text-sky-500 animate-text-glow">615-337-4342</span>
+            <a href="tel:6153374342" className="text-2xl md:text-3xl font-display font-black text-slate-900 flex items-center gap-3 hover:text-blue-700 transition-colors" data-testid="link-shuttle-phone">
+              Call NOW: <span className="text-blue-600 animate-text-glow">615-337-4342</span>
             </a>
-            <button onClick={() => navigate('/faq')} className="text-sky-600 font-bold uppercase tracking-widest text-sm hover:text-orange-500 transition-colors flex items-center gap-2" data-testid="button-shuttle-next">
+            <button onClick={() => navigate('/faq')} className="text-blue-700 font-bold uppercase tracking-widest text-sm hover:text-red-600 transition-colors flex items-center gap-2" data-testid="button-shuttle-next">
               FAQ's <span className="text-xl">&rarr;</span>
             </button>
           </div>
@@ -405,21 +405,21 @@ export function FaqPage() {
         <div className="w-full max-w-3xl bg-white rounded-3xl shadow-xl p-6 md:p-10 border border-slate-200 my-4">
           <h2 className="text-center mb-8">
             <span className="font-display text-2xl md:text-4xl text-slate-900 tracking-wide uppercase">Frequently Asked</span>{' '}
-            <span className="font-script text-3xl md:text-5xl text-orange-500 -rotate-1">Questions</span>
+            <span className="font-script text-3xl md:text-5xl text-red-600 -rotate-1">Questions</span>
           </h2>
           <div className="space-y-5">
             {FAQ_DATA.map((faq, i) => (
               <div key={i} className={i < FAQ_DATA.length - 1 ? "border-b border-slate-100 pb-4" : ""} data-testid={`faq-item-${i}`}>
-                <h4 className="text-base md:text-lg font-display text-sky-600 mb-1 tracking-wide">{faq.q}</h4>
+                <h4 className="text-base md:text-lg font-display text-blue-700 mb-1 tracking-wide">{faq.q}</h4>
                 <p className="text-slate-600 font-display text-sm md:text-base tracking-wide">{faq.a}</p>
               </div>
             ))}
           </div>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-8">
-            <button onClick={() => openBooking('custom')} className="bg-orange-500 text-white font-bold text-lg px-10 py-4 rounded-full uppercase tracking-widest hover:bg-orange-600 hover:scale-105 transition-all duration-300 shadow-xl shadow-orange-500/30 animate-glow" data-testid="button-faq-book">
+            <button onClick={() => openBooking('custom')} className="bg-red-600 text-white font-bold text-lg px-10 py-4 rounded-full uppercase tracking-widest hover:bg-red-700 hover:scale-105 transition-all duration-300 shadow-xl shadow-red-600/30 animate-glow" data-testid="button-faq-book">
               Book Now
             </button>
-            <button onClick={() => navigate('/contact')} className="text-sky-600 font-bold uppercase tracking-widest text-sm hover:text-orange-500 transition-colors flex items-center gap-2" data-testid="button-faq-next">
+            <button onClick={() => navigate('/contact')} className="text-blue-700 font-bold uppercase tracking-widest text-sm hover:text-red-600 transition-colors flex items-center gap-2" data-testid="button-faq-next">
               Contact Us <span className="text-xl">&rarr;</span>
             </button>
           </div>
@@ -459,7 +459,7 @@ export function ContactPage() {
           <div className="flex-1 bg-white rounded-3xl shadow-xl p-6 md:p-10 border border-slate-200">
             <h2 className="mb-6">
               <span className="font-display text-2xl md:text-3xl text-slate-900 tracking-wide uppercase">Contact</span>{' '}
-              <span className="font-script text-3xl md:text-4xl text-sky-500 -rotate-1">Us</span>
+              <span className="font-script text-3xl md:text-4xl text-blue-600 -rotate-1">Us</span>
             </h2>
             {submitted ? (
               <div className="text-center py-8" data-testid="contact-success">
@@ -469,11 +469,11 @@ export function ContactPage() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
-                <input type="text" placeholder="Your Name" required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none font-medium text-slate-800" data-testid="input-contact-name" />
-                <input type="email" placeholder="Email Address" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none font-medium text-slate-800" data-testid="input-contact-email" />
-                <input type="tel" placeholder="Phone Number" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none font-medium text-slate-800" data-testid="input-contact-phone" />
-                <textarea placeholder="Your Message" required value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} rows={3} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none font-medium text-slate-800 resize-none" data-testid="input-contact-message" />
-                <button type="submit" disabled={mutation.isPending} className="w-full bg-sky-500 text-white font-bold text-lg py-4 rounded-full uppercase tracking-widest hover:bg-sky-600 transition-all shadow-lg animate-glow disabled:opacity-50" data-testid="button-submit-contact">
+                <input type="text" placeholder="Your Name" required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none font-medium text-slate-800" data-testid="input-contact-name" />
+                <input type="email" placeholder="Email Address" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none font-medium text-slate-800" data-testid="input-contact-email" />
+                <input type="tel" placeholder="Phone Number" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none font-medium text-slate-800" data-testid="input-contact-phone" />
+                <textarea placeholder="Your Message" required value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} rows={3} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none font-medium text-slate-800 resize-none" data-testid="input-contact-message" />
+                <button type="submit" disabled={mutation.isPending} className="w-full bg-blue-600 text-white font-bold text-lg py-4 rounded-full uppercase tracking-widest hover:bg-blue-700 transition-all shadow-lg animate-glow disabled:opacity-50" data-testid="button-submit-contact">
                   {mutation.isPending ? 'Sending...' : 'Send Message'}
                 </button>
               </form>
@@ -483,10 +483,10 @@ export function ContactPage() {
           <div className="lg:w-72 bg-slate-900 rounded-3xl shadow-xl p-6 md:p-8 text-white flex flex-col justify-center items-center text-center">
             <img src={logoImg} alt="Party N Ride Nashville" className="h-14 object-contain mb-6 filter brightness-0 invert" data-testid="img-contact-logo" />
             <h3 className="text-xl font-display font-black uppercase tracking-widest mb-4">PartyNRide Nashville</h3>
-            <a href="tel:6153374342" className="text-sky-400 font-bold text-2xl mb-4 animate-text-glow block hover:text-sky-300 transition-colors" data-testid="link-contact-phone">615-337-4342</a>
+            <a href="tel:6153374342" className="text-blue-400 font-bold text-2xl mb-4 animate-text-glow block hover:text-blue-300 transition-colors" data-testid="link-contact-phone">615-337-4342</a>
             <p className="text-slate-300 font-medium" data-testid="text-contact-address">1120 Dickerson Pike</p>
             <p className="text-slate-300 font-medium mb-6">Nashville, TN 37208</p>
-            <button onClick={() => openBooking('custom')} className="bg-orange-500 text-white font-bold px-8 py-3 rounded-full uppercase tracking-widest text-sm hover:bg-orange-600 transition-colors shadow-lg animate-glow" data-testid="button-contact-book">Book Now</button>
+            <button onClick={() => openBooking('custom')} className="bg-red-600 text-white font-bold px-8 py-3 rounded-full uppercase tracking-widest text-sm hover:bg-red-700 transition-colors shadow-lg animate-glow" data-testid="button-contact-book">Book Now</button>
           </div>
         </div>
       </div>
