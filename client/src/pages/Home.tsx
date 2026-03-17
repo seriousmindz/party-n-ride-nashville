@@ -21,73 +21,26 @@ declare global {
   }
 }
 
-function BookingModal({ isOpen, onClose, defaultPackage }: { isOpen: boolean; onClose: () => void; defaultPackage: string }) {
-  const [formData, setFormData] = useState({
-    name: '', email: '', phone: '', packageType: defaultPackage, eventDate: '', groupSize: '', message: '',
-  });
-  const [submitted, setSubmitted] = useState(false);
+const FAREHARBOR_URL = "https://fareharbor.com/embeds/book/partynridenashville/?full-items=yes";
 
-  const mutation = useMutation({
-    mutationFn: async (data: typeof formData) => {
-      const res = await apiRequest('POST', '/api/bookings', data);
-      return res.json();
-    },
-    onSuccess: () => setSubmitted(true),
-  });
-
-  React.useEffect(() => {
-    if (isOpen) {
-      setFormData({ name: '', email: '', phone: '', packageType: defaultPackage, eventDate: '', groupSize: '', message: '' });
-      setSubmitted(false);
-      mutation.reset();
-    }
-  }, [isOpen, defaultPackage]);
-
+function BookingModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void; defaultPackage?: string }) {
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    mutation.mutate(formData);
-  };
-
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" data-testid="booking-modal">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4" data-testid="booking-modal">
       <div className="absolute inset-0 bg-slate-900/70 backdrop-blur-sm" onClick={onClose}></div>
-      <div className="relative bg-white rounded-3xl shadow-2xl p-8 md:p-10 w-full max-w-lg max-h-[90vh] overflow-y-auto border-2 border-blue-200">
-        <button onClick={onClose} className="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-2xl font-bold" data-testid="button-close-modal">&times;</button>
-        {submitted ? (
-          <div className="text-center py-8" data-testid="booking-success">
-            <div className="text-6xl mb-4">&#127881;</div>
-            <h3 className="text-3xl font-display font-black text-slate-900 uppercase mb-4">Booking Request Sent!</h3>
-            <p className="text-slate-600 font-medium mb-6">We'll reach out within 24 hours to confirm your party bus experience. Get ready to ride!</p>
-            <button onClick={onClose} className="bg-blue-600 text-white font-bold px-8 py-3 rounded-full uppercase tracking-widest hover:bg-blue-700 transition-colors" data-testid="button-close-success">Got It</button>
-          </div>
-        ) : (
-          <>
-            <h3 className="text-3xl font-display font-black text-slate-900 uppercase mb-2 tracking-tight">Book Your Ride</h3>
-            <p className="text-slate-500 font-medium mb-6">Fill out the form and we'll get back to you within 24 hours.</p>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <input type="text" placeholder="Your Name" required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none font-medium text-slate-800" data-testid="input-name" />
-              <input type="email" placeholder="Email Address" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none font-medium text-slate-800" data-testid="input-email" />
-              <input type="tel" placeholder="Phone Number" required value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none font-medium text-slate-800" data-testid="input-phone" />
-              <select value={formData.packageType} onChange={e => setFormData({...formData, packageType: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none font-medium text-slate-800" data-testid="select-package">
-                <option value="bachelorette">Bachelorette Party</option>
-                <option value="birthday">Birthday Celebration</option>
-                <option value="gameday">Game Day Tailgate</option>
-                <option value="corporate">Corporate &amp; Events</option>
-                <option value="shuttle">Shuttle Service</option>
-                <option value="custom">Custom Package</option>
-              </select>
-              <input type="date" required value={formData.eventDate} onChange={e => setFormData({...formData, eventDate: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none font-medium text-slate-800" data-testid="input-date" />
-              <input type="text" placeholder="Group Size (e.g. 10-15 people)" required value={formData.groupSize} onChange={e => setFormData({...formData, groupSize: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none font-medium text-slate-800" data-testid="input-group-size" />
-              <textarea placeholder="Tell us about your event (optional)" value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} rows={3} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none font-medium text-slate-800 resize-none" data-testid="input-message" />
-              <button type="submit" disabled={mutation.isPending} className="w-full bg-red-600 text-white font-bold text-lg py-4 rounded-full uppercase tracking-widest hover:bg-red-700 transition-all shadow-xl shadow-red-600/30 animate-glow disabled:opacity-50" data-testid="button-submit-booking">
-                {mutation.isPending ? 'Sending...' : 'Submit Booking Request'}
-              </button>
-              {mutation.isError && <p className="text-red-500 text-sm font-medium text-center">Something went wrong. Please try again.</p>}
-            </form>
-          </>
-        )}
+      <div className="relative bg-white rounded-2xl sm:rounded-3xl shadow-2xl w-full max-w-4xl h-[90vh] border-2 border-blue-200 flex flex-col overflow-hidden">
+        <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-200 shrink-0">
+          <h3 className="text-xl sm:text-2xl font-display font-black text-slate-900 uppercase tracking-tight">Book Your Ride</h3>
+          <button onClick={onClose} className="text-slate-400 hover:text-slate-700 text-2xl font-bold" data-testid="button-close-modal">&times;</button>
+        </div>
+        <iframe
+          src={FAREHARBOR_URL}
+          className="flex-1 w-full border-0"
+          title="Book Party N Ride Nashville"
+          allow="payment"
+          data-testid="iframe-fareharbor"
+        />
       </div>
     </div>
   );
