@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { apiRequest } from '../lib/queryClient';
 
 import logoImg from '@assets/logo.png';
 import bacheloretteImg from '@assets/IMG_20220526_234848_507_1772858254044.jpg';
@@ -16,287 +18,370 @@ declare global {
   }
 }
 
+function BookingModal({ isOpen, onClose, defaultPackage }: { isOpen: boolean; onClose: () => void; defaultPackage: string }) {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    packageType: defaultPackage,
+    eventDate: '',
+    groupSize: '',
+    message: '',
+  });
+  const [submitted, setSubmitted] = useState(false);
+
+  const mutation = useMutation({
+    mutationFn: async (data: typeof formData) => {
+      const res = await apiRequest('POST', '/api/bookings', data);
+      return res.json();
+    },
+    onSuccess: () => {
+      setSubmitted(true);
+    },
+  });
+
+  React.useEffect(() => {
+    setFormData(prev => ({ ...prev, packageType: defaultPackage }));
+  }, [defaultPackage]);
+
+  if (!isOpen) return null;
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    mutation.mutate(formData);
+  };
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" data-testid="booking-modal">
+      <div className="absolute inset-0 bg-slate-900/70 backdrop-blur-sm" onClick={onClose}></div>
+      <div className="relative bg-white rounded-3xl shadow-2xl p-8 md:p-10 w-full max-w-lg max-h-[90vh] overflow-y-auto border-2 border-sky-200">
+        <button onClick={onClose} className="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-2xl font-bold" data-testid="button-close-modal">&times;</button>
+
+        {submitted ? (
+          <div className="text-center py-8" data-testid="booking-success">
+            <div className="text-6xl mb-4">&#127881;</div>
+            <h3 className="text-3xl font-display font-black text-slate-900 uppercase mb-4">Booking Request Sent!</h3>
+            <p className="text-slate-600 font-medium mb-6">We'll reach out within 24 hours to confirm your party bus experience. Get ready to ride!</p>
+            <button onClick={onClose} className="bg-sky-500 text-white font-bold px-8 py-3 rounded-full uppercase tracking-widest hover:bg-sky-600 transition-colors" data-testid="button-close-success">Got It</button>
+          </div>
+        ) : (
+          <>
+            <h3 className="text-3xl font-display font-black text-slate-900 uppercase mb-2 tracking-tight">Book Your Ride</h3>
+            <p className="text-slate-500 font-medium mb-6">Fill out the form and we'll get back to you within 24 hours.</p>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <input type="text" placeholder="Your Name" required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none font-medium text-slate-800" data-testid="input-name" />
+              <input type="email" placeholder="Email Address" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none font-medium text-slate-800" data-testid="input-email" />
+              <input type="tel" placeholder="Phone Number" required value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none font-medium text-slate-800" data-testid="input-phone" />
+              <select value={formData.packageType} onChange={e => setFormData({...formData, packageType: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none font-medium text-slate-800" data-testid="select-package">
+                <option value="bachelorette">Bachelorette Party</option>
+                <option value="birthday">Birthday Celebration</option>
+                <option value="gameday">Game Day Tailgate</option>
+                <option value="corporate">Corporate &amp; Events</option>
+                <option value="shuttle">Shuttle Service</option>
+                <option value="custom">Custom Package</option>
+              </select>
+              <input type="date" required value={formData.eventDate} onChange={e => setFormData({...formData, eventDate: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none font-medium text-slate-800" data-testid="input-date" />
+              <input type="text" placeholder="Group Size (e.g. 10-15 people)" required value={formData.groupSize} onChange={e => setFormData({...formData, groupSize: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none font-medium text-slate-800" data-testid="input-group-size" />
+              <textarea placeholder="Tell us about your event (optional)" value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} rows={3} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none font-medium text-slate-800 resize-none" data-testid="input-message" />
+              <button type="submit" disabled={mutation.isPending} className="w-full bg-orange-500 text-white font-bold text-lg py-4 rounded-full uppercase tracking-widest hover:bg-orange-600 transition-all shadow-xl shadow-orange-500/30 animate-glow disabled:opacity-50" data-testid="button-submit-booking">
+                {mutation.isPending ? 'Sending...' : 'Submit Booking Request'}
+              </button>
+              {mutation.isError && <p className="text-red-500 text-sm font-medium text-center">Something went wrong. Please try again.</p>}
+            </form>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function ContactSection() {
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
+  const [submitted, setSubmitted] = useState(false);
+
+  const mutation = useMutation({
+    mutationFn: async (data: typeof formData) => {
+      const res = await apiRequest('POST', '/api/contacts', data);
+      return res.json();
+    },
+    onSuccess: () => setSubmitted(true),
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    mutation.mutate(formData);
+  };
+
+  return (
+    <section id="contact" className="w-full max-w-4xl bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-slate-200">
+      <h2 className="text-4xl font-display font-black text-center text-slate-900 tracking-tighter uppercase mb-8">
+        Contact <span className="text-sky-500">Us</span>
+      </h2>
+      {submitted ? (
+        <div className="text-center py-8" data-testid="contact-success">
+          <div className="text-5xl mb-4">&#9993;</div>
+          <h3 className="text-2xl font-display font-black text-slate-900 mb-2">Message Sent!</h3>
+          <p className="text-slate-600 font-medium">We'll get back to you soon.</p>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input type="text" placeholder="Your Name" required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none font-medium text-slate-800" data-testid="input-contact-name" />
+          <input type="email" placeholder="Email Address" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none font-medium text-slate-800" data-testid="input-contact-email" />
+          <input type="tel" placeholder="Phone Number" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none font-medium text-slate-800" data-testid="input-contact-phone" />
+          <div></div>
+          <textarea placeholder="Your Message" required value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} rows={4} className="md:col-span-2 px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none font-medium text-slate-800 resize-none" data-testid="input-contact-message" />
+          <div className="md:col-span-2 flex justify-center">
+            <button type="submit" disabled={mutation.isPending} className="bg-sky-500 text-white font-bold text-lg px-10 py-4 rounded-full uppercase tracking-widest hover:bg-sky-600 transition-all shadow-lg animate-glow disabled:opacity-50" data-testid="button-submit-contact">
+              {mutation.isPending ? 'Sending...' : 'Send Message'}
+            </button>
+          </div>
+        </form>
+      )}
+    </section>
+  );
+}
+
+const FAQ_DATA = [
+  { q: "Is there a bathroom on board?", a: "No, 1 hour into ride there is a stop for a bathroom break." },
+  { q: "Can we extend our party time longer than pre-booked?", a: "Yes, additional time can be added dependent on availability." },
+  { q: "Are tours cancelled due to rain or inclement weather?", a: "We ride either rain or shine with exception to severe weather warnings being issued." },
+  { q: "Should we tip the driver and attendant?", a: "We strive to please, greatly appreciated!" },
+  { q: "Is smoking allowed on bus?", a: "No smoking is not allowed on bus." },
+  { q: "What is the cancellation policy?", a: "Reservations have to be cancelled more than 14 days prior to scheduled booking. Payment will be refunded minus a 25% non-refundable deposit." },
+  { q: "Are ice and cups provided?", a: "Yes, plain cups, ice and custom-built wet bars for safe storage of beverages." },
+  { q: "Is BYOB allowed?", a: "Yes, bring your own beverages (No glass, all beverages must meet allowed guidelines.)" },
+];
+
+const SITES = [
+  "Titan Stadium", "Bridgestone Arena", "Nashville's Famous Broadway Street",
+  "Captivating Skyline", "12 South", "SoBro",
+  "The Gulch", "Midtown", "Music Row",
+  "Country Music Hall of Fame", "National Museum of African American Music", "Iconic Murals around City",
+  "Centennial Park", "Grand Ole Opry"
+];
+
 export default function Home() {
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const [bookingPackage, setBookingPackage] = useState('bachelorette');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const openBooking = (pkg: string) => {
+    setBookingPackage(pkg);
+    setBookingOpen(true);
+  };
+
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    setMobileMenuOpen(false);
+  };
+
   return (
     <>
-      {/* Global Background Elements */}
-      <video 
-        autoPlay 
-        loop 
-        muted 
-        playsInline 
-        className="fixed inset-0 w-full h-full object-cover z-0 opacity-20"
-      >
+      <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} defaultPackage={bookingPackage} />
+
+      <video autoPlay loop muted playsInline className="fixed inset-0 w-full h-full object-cover z-0 opacity-20">
         <source src={bgVideo} type="video/mp4" />
       </video>
       <div className="fixed inset-0 z-0 bg-white/80 pointer-events-none"></div>
-      <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-50 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(255,255,255,0.6)_100%)]"></div>
 
-      {/* MAIN CONTAINER */}
-      <main className="relative z-10 w-full flex flex-col items-center gap-32 py-24 px-4 md:px-8">
+      <nav className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-20 items-center">
+            <img src={logoImg} alt="Party N Ride Nashville" className="h-14 object-contain drop-shadow-md cursor-pointer" onClick={() => scrollTo('hero')} data-testid="img-logo" />
+            <div className="hidden lg:flex space-x-6 items-center">
+              {["hero:Home","packages:Packages","sites:Sites","pricing:Pricing","shuttle:Shuttle Service","faq:FAQ's","contact:Contact"].map(item => {
+                const [id, label] = item.split(':');
+                return <button key={id} onClick={() => scrollTo(id)} className="text-slate-800 font-bold hover:text-orange-500 uppercase tracking-widest text-xs transition-colors" data-testid={`link-${id}`}>{label}</button>;
+              })}
+              <button onClick={() => openBooking('custom')} className="bg-orange-500 text-white font-bold px-6 py-2 rounded-full uppercase tracking-widest text-xs hover:bg-orange-600 transition-colors shadow-lg animate-glow" data-testid="button-nav-book">Book Now</button>
+            </div>
+            <button className="lg:hidden text-slate-800 text-3xl" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} data-testid="button-mobile-menu">
+              {mobileMenuOpen ? '\u2715' : '\u2630'}
+            </button>
+          </div>
+        </div>
+        {mobileMenuOpen && (
+          <div className="lg:hidden bg-white border-t border-slate-100 px-4 py-4 space-y-3">
+            {["hero:Home","packages:Packages","sites:Sites","pricing:Pricing","shuttle:Shuttle Service","faq:FAQ's","contact:Contact"].map(item => {
+              const [id, label] = item.split(':');
+              return <button key={id} onClick={() => scrollTo(id)} className="block w-full text-left text-slate-800 font-bold hover:text-orange-500 uppercase tracking-widest text-sm py-2">{label}</button>;
+            })}
+            <button onClick={() => { openBooking('custom'); setMobileMenuOpen(false); }} className="block w-full bg-orange-500 text-white font-bold py-3 rounded-full uppercase tracking-widest text-sm text-center animate-glow">Book Now</button>
+          </div>
+        )}
+      </nav>
 
-        {/* SECTION 1: PARTY BUS EXPERIENCES */}
-        <section className="w-full max-w-7xl relative">
-          <div className="mb-16 border-l-4 border-sky-500 pl-6 py-2">
-            <div className="mb-8">
-              <img src={logoImg} alt="Party 'N Ride Nashville" className="h-20 md:h-28 object-contain drop-shadow-md" />
+      <main className="relative z-10 w-full flex flex-col items-center gap-20 pt-28 pb-24 px-4 md:px-8">
+
+        {/* HERO */}
+        <section id="hero" className="w-full max-w-7xl flex flex-col lg:flex-row items-center justify-between mt-8 mb-4">
+          <div className="w-full lg:w-1/2 text-center lg:text-left mb-10 lg:mb-0">
+            <h1 className="text-5xl md:text-7xl font-display font-black text-slate-900 leading-tight tracking-tighter mb-6 uppercase">
+              Nashville's <br/>
+              <span className="text-orange-500 animate-text-glow">Premier Party Bus</span> &amp; <br/>
+              <span className="text-sky-500">Shuttle Service</span>
+            </h1>
+            <p className="text-lg text-slate-600 font-medium mb-8 max-w-xl mx-auto lg:mx-0" data-testid="text-hero-description">
+              Party 'N Ride is proud to be one of Music City's premier party bus experiences. Our fully enclosed, multifunctional buses are purpose-built to support all your touring, shuttle, and event transportation needs.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center gap-6 justify-center lg:justify-start">
+              <button onClick={() => openBooking('custom')} className="bg-orange-500 text-white font-bold text-xl px-10 py-4 rounded-full uppercase tracking-widest hover:bg-orange-600 hover:scale-105 transition-all duration-300 shadow-xl shadow-orange-500/30 animate-glow w-full sm:w-auto" data-testid="button-hero-book">
+                Book Now
+              </button>
+              <a href="tel:6153374342" className="text-xl font-display font-bold text-sky-600 animate-text-glow hover:text-sky-700 transition-colors" data-testid="link-hero-phone">
+                Call NOW: 615-337-4342
+              </a>
             </div>
-            <div className="flex items-center gap-2 mb-2 text-sky-600 text-xs font-bold tracking-[0.2em] uppercase">
-              <iconify-icon icon="solar:music-notes-linear" className="w-4 h-4 text-base" style={{ strokeWidth: 1.5 }}></iconify-icon>
-              <span>Nashville Party Bus Matrix v.1.0</span>
-            </div>
-            <h2 className="text-4xl md:text-6xl font-display font-bold text-slate-900 tracking-tighter uppercase mb-2">
-              Party <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-blue-600">Protocols</span>
+          </div>
+          <div className="w-full lg:w-1/2 flex justify-center lg:justify-end relative">
+            <div className="absolute inset-0 bg-sky-500/20 rounded-full blur-3xl animate-pulse w-3/4 h-3/4 m-auto"></div>
+            <img src={tailgateImg} alt="Party Bus Experience" className="w-full max-w-lg rounded-2xl shadow-2xl relative z-10 border-4 border-white transform rotate-2 hover:rotate-0 transition-transform duration-500" data-testid="img-hero" />
+          </div>
+        </section>
+
+        {/* PACKAGES */}
+        <section id="packages" className="w-full max-w-7xl relative">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-display font-black text-slate-900 tracking-tighter uppercase mb-4">
+              Packages <span className="text-sky-500">Tailored For Any Occasion</span>
             </h2>
-            <p className="text-lg md:text-xl text-slate-600 max-w-2xl font-medium tracking-wide">
-              Private, enclosed, BYOB Nashville party bus experiences engineered for bachelorettes, birthdays, game days, and VIP nights out.
+            <p className="text-xl text-orange-500 font-bold uppercase tracking-widest animate-text-glow" data-testid="text-packages-subtitle">
+              Just For YOU!
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 gap-y-12 w-full">
-            {/* 01: Bachelorette Bash */}
-            <div className="group relative w-full h-[320px] bg-white -skew-x-12 border border-slate-200 hover:border-sky-500 transition-all duration-300 overflow-hidden shadow-xl hover:shadow-2xl">
-              <div className="absolute inset-0 skew-x-12 scale-125 bg-cover bg-center grayscale-0 opacity-20 group-hover:opacity-40 transition-all duration-500 ease-out" style={{ backgroundImage: `url(${bacheloretteImg})` }}></div>
-              <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent skew-x-12 scale-125"></div>
-              <div className="absolute bottom-0 left-0 w-full p-6 skew-x-12 flex flex-col justify-end h-full group-hover:-translate-y-2 transition-transform duration-300">
-                <div className="flex justify-between items-end border-b border-slate-200 pb-2 mb-3 group-hover:border-sky-500 transition-colors">
-                  <h3 className="text-2xl font-display font-bold text-slate-900 tracking-tight uppercase">Bachelorette Bash</h3>
-                  <span className="text-3xl font-display font-bold text-slate-200 group-hover:text-sky-500 transition-colors">01</span>
-                </div>
-                <p className="text-sm text-slate-600 mb-3 leading-tight relative z-10">
-                  2‑hour private enclosed party bus for up to 20 guests, BYOB, cups, coolers, and ice included. Cruise Broadway, The Gulch, and Midtown with bathroom and photo stops.
-                </p>
-                <p className="text-xs text-slate-500 mb-3 font-medium">
-                  From <span className="text-sky-600 font-bold">$495 Sun–Thu</span> · From <span className="text-sky-600 font-bold">$595 Fri–Sat</span>
-                </p>
-                <div className="flex items-center gap-2 text-sky-600 text-sm font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  Book Bachelorette <iconify-icon icon="solar:arrow-right-linear" className="w-4 h-4 text-base" style={{ strokeWidth: 1.5 }}></iconify-icon>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 gap-y-10 w-full">
+            {[
+              { img: bacheloretteImg, title: "Bachelorette", desc: "2-hour private enclosed party bus for up to 20 guests, BYOB, cups, coolers, and ice included. Cruise Broadway, The Gulch, and Midtown.", pkg: "bachelorette", border: "hover:border-sky-500", shadow: "hover:shadow-sky-500/20", btn: "bg-sky-500 hover:bg-orange-500" },
+              { img: birthdayImg, title: "Birthday", desc: "Celebrate another lap around the sun with a 2-hour rolling nightclub. Custom playlist, LED club lighting, and route tailored to your favorite hotspots.", pkg: "birthday", border: "hover:border-orange-500", shadow: "hover:shadow-orange-500/20", btn: "bg-orange-500 hover:bg-sky-500" },
+              { img: tailgateImg, title: "Game Day", desc: "3-hour Titans or Preds pre-game party bus. One pickup, one stadium-area drop-off, and a rolling tailgate with your crew, drinks, and music.", pkg: "gameday", border: "hover:border-sky-500", shadow: "hover:shadow-sky-500/20", btn: "bg-sky-500 hover:bg-orange-500" },
+              { img: corporateImg, title: "Corporate", desc: "Impress clients and teams with a private shuttle that can run full party mode or a toned-down lounge. Perfect for conferences and offsites.", pkg: "corporate", border: "hover:border-orange-500", shadow: "hover:shadow-orange-500/20", btn: "bg-orange-500 hover:bg-sky-500" },
+            ].map((card, i) => (
+              <div key={i} className={`group relative w-full h-[380px] bg-white rounded-2xl border-2 border-slate-200 ${card.border} transition-all duration-500 overflow-hidden shadow-xl ${card.shadow} hover:-translate-y-4`} data-testid={`card-package-${card.pkg}`}>
+                <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style={{ backgroundImage: `url(${card.img})` }}></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                <div className="absolute bottom-0 left-0 w-full p-6 flex flex-col justify-end h-full">
+                  <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                    <h3 className="text-3xl font-display font-black text-white tracking-tight uppercase mb-2 drop-shadow-md">{card.title}</h3>
+                    <p className="text-sm text-slate-200 mb-4 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100 max-h-0 group-hover:max-h-40 overflow-hidden">
+                      {card.desc}
+                    </p>
+                    <button onClick={() => openBooking(card.pkg)} className={`w-full ${card.btn} text-white font-bold py-3 rounded-xl uppercase tracking-widest transition-colors duration-300 shadow-lg`} data-testid={`button-book-${card.pkg}`}>
+                      Book Now
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
+          </div>
 
-            {/* 02: Broadway Birthday */}
-            <div className="group relative w-full h-[320px] bg-white -skew-x-12 border border-slate-200 hover:border-sky-500 transition-all duration-300 overflow-hidden shadow-xl hover:shadow-2xl mt-0 md:mt-8">
-              <div className="absolute inset-0 skew-x-12 scale-125 bg-cover bg-center grayscale-0 opacity-20 group-hover:opacity-40 transition-all duration-500 ease-out" style={{ backgroundImage: `url(${birthdayImg})` }}></div>
-              <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent skew-x-12 scale-125"></div>
-              <div className="absolute bottom-0 left-0 w-full p-6 skew-x-12 flex flex-col justify-end h-full group-hover:-translate-y-2 transition-transform duration-300">
-                <div className="flex justify-between items-end border-b border-slate-200 pb-2 mb-3 group-hover:border-sky-500 transition-colors">
-                  <h3 className="text-2xl font-display font-bold text-slate-900 tracking-tight uppercase">Broadway Birthday</h3>
-                  <span className="text-3xl font-display font-bold text-slate-200 group-hover:text-sky-500 transition-colors">02</span>
-                </div>
-                <p className="text-sm text-slate-600 mb-3 leading-tight relative z-10">
-                  Celebrate another lap around the sun with a 2‑hour rolling nightclub. Custom playlist, LED club lighting, and route tailored to your favorite Nashville hotspots.
-                </p>
-                <p className="text-xs text-slate-500 mb-3 font-medium">
-                  From <span className="text-sky-600 font-bold">$475 Sun–Thu</span> · From <span className="text-sky-600 font-bold">$575 Fri–Sat</span>
-                </p>
-                <div className="flex items-center gap-2 text-sky-600 text-sm font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  Book Birthday <iconify-icon icon="solar:arrow-right-linear" className="w-4 h-4 text-base" style={{ strokeWidth: 1.5 }}></iconify-icon>
-                </div>
-              </div>
-            </div>
-
-            {/* 03: Game Day Tailgate */}
-            <div className="group relative w-full h-[320px] bg-white -skew-x-12 border border-slate-200 hover:border-sky-500 transition-all duration-300 overflow-hidden shadow-xl hover:shadow-2xl">
-              <div className="absolute inset-0 skew-x-12 scale-125 bg-cover bg-center grayscale-0 opacity-20 group-hover:opacity-40 transition-all duration-500 ease-out" style={{ backgroundImage: `url(${tailgateImg})` }}></div>
-              <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent skew-x-12 scale-125"></div>
-              <div className="absolute bottom-0 left-0 w-full p-6 skew-x-12 flex flex-col justify-end h-full group-hover:-translate-y-2 transition-transform duration-300">
-                <div className="flex justify-between items-end border-b border-slate-200 pb-2 mb-3 group-hover:border-sky-500 transition-colors">
-                  <h3 className="text-2xl font-display font-bold text-slate-900 tracking-tight uppercase">Game Day Tailgate</h3>
-                  <span className="text-3xl font-display font-bold text-slate-200 group-hover:text-sky-500 transition-colors">03</span>
-                </div>
-                <p className="text-sm text-slate-600 mb-3 leading-tight relative z-10">
-                  3‑hour Titans or Preds pre‑game party bus. One pickup, one stadium‑area drop‑off, and a rolling tailgate with your crew, drinks, and music.
-                </p>
-                <p className="text-xs text-slate-500 mb-3 font-medium">
-                  From <span className="text-sky-600 font-bold">$695</span> per group
-                </p>
-                <div className="flex items-center gap-2 text-sky-600 text-sm font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  Book Game Day <iconify-icon icon="solar:arrow-right-linear" className="w-4 h-4 text-base" style={{ strokeWidth: 1.5 }}></iconify-icon>
-                </div>
-              </div>
-            </div>
-
-            {/* 04: Corporate & Events */}
-            <div className="group relative w-full h-[320px] bg-white -skew-x-12 border border-slate-200 hover:border-sky-500 transition-all duration-300 overflow-hidden shadow-xl hover:shadow-2xl mt-0 md:mt-8">
-              <div className="absolute inset-0 skew-x-12 scale-125 bg-cover bg-center grayscale-0 opacity-20 group-hover:opacity-40 transition-all duration-500 ease-out" style={{ backgroundImage: `url(${corporateImg})` }}></div>
-              <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent skew-x-12 scale-125"></div>
-              <div className="absolute bottom-0 left-0 w-full p-6 skew-x-12 flex flex-col justify-end h-full group-hover:-translate-y-2 transition-transform duration-300">
-                <div className="flex justify-between items-end border-b border-slate-200 pb-2 mb-3 group-hover:border-sky-500 transition-colors">
-                  <h3 className="text-2xl font-display font-bold text-slate-900 tracking-tight uppercase">Corporate &amp; Events</h3>
-                  <span className="text-3xl font-display font-bold text-slate-200 group-hover:text-sky-500 transition-colors">04</span>
-                </div>
-                <p className="text-sm text-slate-600 mb-3 leading-tight relative z-10">
-                  Impress clients and teams with a private shuttle that can run full party mode or a toned‑down lounge. Perfect for conferences, offsites, and incentive trips.
-                </p>
-                <p className="text-xs text-slate-500 mb-3 font-medium">
-                  Custom quotes based on route, timing, and guest count.
-                </p>
-                <div className="flex items-center gap-2 text-sky-600 text-sm font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  Get Custom Quote <iconify-icon icon="solar:arrow-right-linear" className="w-4 h-4 text-base" style={{ strokeWidth: 1.5 }}></iconify-icon>
-                </div>
-              </div>
-            </div>
+          <div className="flex justify-center mt-12">
+            <a href="tel:6153374342" className="text-2xl font-display font-black text-slate-900 bg-white/80 backdrop-blur-sm px-8 py-4 rounded-full shadow-lg border border-slate-200 flex items-center gap-4 hover:shadow-xl transition-shadow" data-testid="link-packages-phone">
+              Call NOW to Book: <span className="text-orange-500 animate-text-glow">615-337-4342</span>
+            </a>
           </div>
         </section>
 
-        {/* SECTION 2: WHY ENCLOSED / OUR PROCESS */}
-        <section className="w-full max-w-7xl relative pt-12">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-slate-300 pb-6">
-            <div>
-              <h2 className="text-3xl md:text-5xl font-display font-bold text-slate-900 tracking-tighter uppercase mb-2">
-                Ride <span className="text-sky-600">Protocol</span>
-              </h2>
-              <p className="text-slate-600 font-medium tracking-wide">
-                How your Nashville party bus goes from idea to “best night of the trip”.
-              </p>
-            </div>
-            <button className="mt-4 md:mt-0 bg-transparent -skew-x-12 border-2 border-sky-500 text-sky-600 hover:bg-sky-500 hover:text-white transition-all duration-300 px-8 py-3 group cursor-pointer shadow-sm hover:shadow-md">
-              <span className="block skew-x-12 font-bold uppercase tracking-widest text-sm flex items-center gap-2">
-                Check Availability <iconify-icon icon="solar:calendar-date-linear" className="w-4 h-4 text-base" style={{ strokeWidth: 1.5 }}></iconify-icon>
-              </span>
-            </button>
-          </div>
+        {/* SITES */}
+        <section id="sites" className="w-full max-w-7xl relative bg-slate-900 rounded-3xl p-8 md:p-16 shadow-2xl overflow-hidden">
+          <div className="absolute inset-0 opacity-20 bg-cover bg-center" style={{ backgroundImage: `url(${experienceImg})` }}></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-sky-900/90 to-slate-900/90"></div>
 
-          <div className="relative w-full flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="hidden md:block absolute top-1/2 left-0 w-full h-[2px] bg-slate-200 -z-10"></div>
-
-            {/* Step 01 */}
-            <div className="group relative w-full md:w-1/4 h-48 -skew-x-12 bg-white border border-slate-200 hover:border-sky-500 hover:bg-sky-50 transition-all duration-300 p-6 flex flex-col justify-between shadow-sm hover:shadow-md">
-              <div className="skew-x-12 flex justify-between items-start">
-                <span className="text-xs font-mono text-sky-600 font-bold tracking-widest">STEP_01</span>
-                <iconify-icon icon="solar:cursor-square-linear" className="w-6 h-6 text-2xl text-slate-400 group-hover:text-sky-600 transition-colors" style={{ strokeWidth: 1.5 }}></iconify-icon>
-              </div>
-              <div className="skew-x-12">
-                <h4 className="text-xl font-display font-bold text-slate-900 uppercase mb-1">Lock Your Date</h4>
-                <p className="text-xs text-slate-600 leading-relaxed font-medium">Choose your date, time, and package. Weekends often sell out 2–4 weeks in advance.</p>
-              </div>
-              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-sky-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            </div>
-
-            {/* Step 02 */}
-            <div className="group relative w-full md:w-1/4 h-48 -skew-x-12 bg-white border border-slate-200 hover:border-sky-500 hover:bg-sky-50 transition-all duration-300 p-6 flex flex-col justify-between md:translate-y-8 shadow-sm hover:shadow-md">
-              <div className="skew-x-12 flex justify-between items-start">
-                <span className="text-xs font-mono text-sky-600 font-bold tracking-widest">STEP_02</span>
-                <iconify-icon icon="solar:map-linear" className="w-6 h-6 text-2xl text-slate-400 group-hover:text-sky-600 transition-colors" style={{ strokeWidth: 1.5 }}></iconify-icon>
-              </div>
-              <div className="skew-x-12">
-                <h4 className="text-xl font-display font-bold text-slate-900 uppercase mb-1">Plan The Route</h4>
-                <p className="text-xs text-slate-600 leading-relaxed font-medium">We help you dial in pickup, photo stops, bathroom breaks, and drop‑off so the night flows.</p>
-              </div>
-              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-sky-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            </div>
-
-            {/* Step 03 */}
-            <div className="group relative w-full md:w-1/4 h-48 -skew-x-12 bg-white border border-slate-200 hover:border-sky-500 hover:bg-sky-50 transition-all duration-300 p-6 flex flex-col justify-between shadow-sm hover:shadow-md">
-              <div className="skew-x-12 flex justify-between items-start">
-                <span className="text-xs font-mono text-sky-600 font-bold tracking-widest">STEP_03</span>
-                <iconify-icon icon="solar:cup-linear" className="w-6 h-6 text-2xl text-slate-400 group-hover:text-sky-600 transition-colors" style={{ strokeWidth: 1.5 }}></iconify-icon>
-              </div>
-              <div className="skew-x-12">
-                <h4 className="text-xl font-display font-bold text-slate-900 uppercase mb-1">Stock &amp; Show Up</h4>
-                <p className="text-xs text-slate-600 leading-relaxed font-medium">Bring your drinks (no glass), we handle cups, coolers, ice, and a pro driver to keep it smooth.</p>
-              </div>
-              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-sky-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            </div>
-
-            {/* Step 04 */}
-            <div className="group relative w-full md:w-1/4 h-48 -skew-x-12 bg-white border border-slate-200 hover:border-sky-500 hover:bg-sky-50 transition-all duration-300 p-6 flex flex-col justify-between md:translate-y-8 shadow-sm hover:shadow-md">
-              <div className="skew-x-12 flex justify-between items-start">
-                <span className="text-xs font-mono text-sky-600 font-bold tracking-widest">STEP_04</span>
-                <iconify-icon icon="solar:emoji-funny-circle-linear" className="w-6 h-6 text-2xl text-slate-400 group-hover:text-sky-600 transition-colors" style={{ strokeWidth: 1.5 }}></iconify-icon>
-              </div>
-              <div className="skew-x-12">
-                <h4 className="text-xl font-display font-bold text-slate-900 uppercase mb-1">Ride &amp; Repeat</h4>
-                <p className="text-xs text-slate-600 leading-relaxed font-medium">We roll, you dance, and your crew walks away saying “that was the best part of the trip”.</p>
-              </div>
-              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-sky-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            </div>
-          </div>
-        </section>
-
-        {/* SECTION 3: BUS EXPERIENCE / VIDEO */}
-        <section className="w-full max-w-7xl relative pt-12">
-          <div className="flex justify-between items-end mb-8">
-            <h2 className="text-4xl md:text-6xl font-display font-bold text-slate-900 tracking-tighter uppercase">
-              Bus <span className="text-slate-400">Experience</span>
+          <div className="relative z-10 text-center mb-12">
+            <h2 className="text-4xl md:text-6xl font-display font-black text-white tracking-tighter uppercase mb-4 drop-shadow-lg">
+              Sites &amp; <span className="text-orange-500">Attractions</span>
             </h2>
-            <div className="hidden md:flex items-center gap-4 text-xs font-mono text-sky-600 font-bold">
-              <span>REC ●</span>
-              <span>[NASHVILLE_HD]</span>
-            </div>
+            <p className="text-lg text-sky-200 font-medium max-w-3xl mx-auto" data-testid="text-sites-description">
+              Great attractions, landmarks and fun sites that make a perfect stop or scenic route, whether you're doing a themed tour, sightseeing cruise, brewery crawl, or just wanting to sit back and Party 'N Ride NASHVILLE!
+            </p>
           </div>
 
-          <div className="relative w-full aspect-video md:aspect-[21/9] -skew-x-12 border-2 border-sky-200 bg-white p-2 md:p-4 shadow-xl mb-12 group">
-            <div className="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-sky-500 -translate-x-2 -translate-y-2"></div>
-            <div className="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-sky-500 translate-x-2 translate-y-2"></div>
-
-            <div className="w-full h-full skew-x-12 overflow-hidden relative bg-slate-900 border border-slate-200">
-              <div className="absolute inset-0 bg-cover bg-center opacity-80 group-hover:opacity-100 transition-opacity duration-700" style={{ backgroundImage: `url(${experienceImg})` }}></div>
-              <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0)_50%,rgba(255,255,255,0.1)_50%),linear-gradient(90deg,rgba(0,150,255,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-10 bg-[length:100%_2px,3px_100%] pointer-events-none mix-blend-overlay"></div>
-
-              <div className="absolute inset-0 z-20 flex items-center justify-center">
-                <button className="w-20 h-20 border-2 border-white/80 rounded-full flex items-center justify-center backdrop-blur-md hover:bg-sky-500 hover:border-sky-500 transition-all duration-300 group-btn cursor-pointer shadow-lg">
-                  <iconify-icon icon="solar:play-linear" className="w-8 h-8 text-3xl text-white ml-1 drop-shadow-md" style={{ strokeWidth: 2 }}></iconify-icon>
-                </button>
+          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-center max-w-5xl mx-auto">
+            {SITES.map((site, i) => (
+              <div key={i} className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20 hover:bg-orange-500/20 hover:border-orange-500/50 transition-all duration-300 cursor-default" data-testid={`text-site-${i}`}>
+                <span className="text-white font-bold text-lg">{site}</span>
               </div>
-
-              <div className="absolute bottom-8 left-8 z-20">
-                <h3 className="text-3xl font-display font-bold text-white uppercase tracking-wider mb-1 drop-shadow-lg">Party ’N Ride Nashville</h3>
-                <p className="text-sm text-sky-300 font-mono font-bold drop-shadow-md">ENCLOSED_PARTY_BUS // BYOB_READY</p>
-              </div>
-            </div>
+            ))}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="group h-32 -skew-x-12 bg-white border border-slate-200 hover:border-sky-500 pl-6 flex items-center transition-all cursor-pointer shadow-sm hover:shadow-md">
-              <div className="skew-x-12">
-                <span className="text-[10px] font-mono text-sky-600 font-bold block mb-1">ALL‑WEATHER_COMFORT</span>
-                <h4 className="text-xl font-bold font-display text-slate-900 group-hover:text-sky-600 transition-colors uppercase">
-                  Enclosed &amp; Climate‑Controlled
-                </h4>
-              </div>
-            </div>
-
-            <div className="group h-32 -skew-x-12 bg-white border border-slate-200 hover:border-sky-500 pl-6 flex items-center transition-all cursor-pointer shadow-sm hover:shadow-md">
-              <div className="skew-x-12">
-                <span className="text-[10px] font-mono text-sky-600 font-bold block mb-1">PRIVATE_VIP_MODE</span>
-                <h4 className="text-xl font-bold font-display text-slate-900 group-hover:text-sky-600 transition-colors uppercase">
-                  Your Crew, Your Music
-                </h4>
-              </div>
-            </div>
-
-            <div className="group h-32 -skew-x-12 bg-white border border-slate-200 hover:border-sky-500 pl-6 flex items-center transition-all cursor-pointer shadow-sm hover:shadow-md">
-              <div className="skew-x-12">
-                <span className="text-[10px] font-mono text-sky-600 font-bold block mb-1">NASHVILLE_ROUTE</span>
-                <h4 className="text-xl font-bold font-display text-slate-900 group-hover:text-sky-600 transition-colors uppercase">
-                  Broadway, Gulch &amp; More
-                </h4>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-24 flex justify-center">
-            <button className="bg-orange-500 -skew-x-12 text-white hover:bg-orange-600 transition-colors duration-300 px-12 py-5 group shadow-lg hover:shadow-xl cursor-pointer">
-              <span className="block skew-x-12 font-display font-bold uppercase tracking-widest text-lg flex items-center gap-3">
-                Book Your Party Bus <iconify-icon icon="solar:alt-arrow-right-linear" className="w-5 h-5 text-xl" style={{ strokeWidth: 2 }}></iconify-icon>
-              </span>
+          <div className="relative z-10 flex justify-center mt-14">
+            <button onClick={() => openBooking('custom')} className="bg-sky-500 text-white font-bold text-xl px-12 py-5 rounded-full uppercase tracking-widest hover:bg-white hover:text-sky-600 hover:scale-105 transition-all duration-300 shadow-[0_0_30px_rgba(14,165,233,0.5)] animate-glow" data-testid="button-sites-book">
+              Book Your Route
             </button>
           </div>
         </section>
+
+        {/* PRICING & SHUTTLE */}
+        <section className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-10">
+          <div id="pricing" className="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-slate-200 flex flex-col items-center justify-center text-center hover:shadow-2xl transition-shadow relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/10 rounded-bl-full"></div>
+            <div className="absolute bottom-0 left-0 w-32 h-32 bg-sky-500/10 rounded-tr-full"></div>
+
+            <h2 className="text-4xl md:text-5xl font-display font-black text-slate-900 tracking-tighter uppercase mb-8 relative z-10">
+              Pricing
+            </h2>
+            <div className="bg-slate-50 w-full rounded-2xl p-8 mb-8 border border-slate-100 relative z-10">
+              <h3 className="text-2xl font-black text-sky-600 uppercase tracking-widest mb-2" data-testid="text-pricing-minimum">2 Hour Minimum Booking</h3>
+              <p className="text-slate-500 font-bold uppercase tracking-wider mb-6">Starting Rate</p>
+              <p className="text-lg text-slate-700 font-medium italic">Additional hours available tailored to fit your event</p>
+            </div>
+            <button onClick={() => openBooking('custom')} className="bg-orange-500 text-white font-bold text-lg px-10 py-4 rounded-full uppercase tracking-widest hover:bg-orange-600 transition-colors shadow-lg animate-glow relative z-10 mt-auto" data-testid="button-pricing-book">
+              Book Now
+            </button>
+          </div>
+
+          <div id="shuttle" className="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-slate-200 flex flex-col items-center justify-center text-center hover:shadow-2xl transition-shadow relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-32 h-32 bg-sky-500/10 rounded-br-full"></div>
+            <div className="absolute bottom-0 right-0 w-32 h-32 bg-orange-500/10 rounded-tl-full"></div>
+
+            <h2 className="text-4xl md:text-5xl font-display font-black text-slate-900 tracking-tighter uppercase mb-6 relative z-10">
+              Shuttle <span className="text-sky-500">Service</span>
+            </h2>
+            <p className="text-lg text-slate-600 font-medium leading-relaxed mb-8 relative z-10" data-testid="text-shuttle-description">
+              At Party N Ride NASHVILLE, we offer custom shuttle - only party bus/group transportation packages you can use for corporate, special occasion or general group shuttle needs in Nashville, TN. Whether it's one way or round trip, we can take your group from point A to B comfortably and efficiently!
+            </p>
+            <div className="bg-orange-50 rounded-2xl p-6 w-full border border-orange-100 mb-8 relative z-10">
+              <p className="text-orange-600 font-bold text-lg">Call today to inquiry about pricing for your tailored needs!</p>
+            </div>
+            <a href="tel:6153374342" className="text-3xl font-display font-black text-slate-900 relative z-10 mt-auto flex flex-col md:flex-row items-center gap-4 hover:text-sky-600 transition-colors" data-testid="link-shuttle-phone">
+              Call NOW: <span className="text-sky-500 animate-text-glow">615-337-4342</span>
+            </a>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section id="faq" className="w-full max-w-4xl bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-slate-200">
+          <h2 className="text-4xl font-display font-black text-center text-slate-900 tracking-tighter uppercase mb-12">
+            Frequently Asked <span className="text-orange-500">Questions</span>
+          </h2>
+          <div className="space-y-6">
+            {FAQ_DATA.map((faq, i) => (
+              <div key={i} className={i < FAQ_DATA.length - 1 ? "border-b border-slate-100 pb-6" : ""} data-testid={`faq-item-${i}`}>
+                <h4 className="text-lg font-bold text-sky-600 mb-2">{faq.q}</h4>
+                <p className="text-slate-600 font-medium">{faq.a}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* CONTACT */}
+        <ContactSection />
 
       </main>
 
-      {/* Footer Decoration */}
-      <div className="fixed bottom-8 left-8 z-50 hidden lg:block">
-        <div className="flex flex-col gap-1">
-          <div className="w-1 h-1 bg-sky-500"></div>
-          <div className="w-1 h-1 bg-sky-500"></div>
-          <div className="w-1 h-1 bg-sky-500"></div>
-          <div className="w-1 h-12 bg-sky-500 mt-2"></div>
+      <footer className="w-full bg-slate-900 text-white py-12 border-t-8 border-sky-500 relative z-20">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="text-center md:text-left">
+            <img src={logoImg} alt="Party N Ride Nashville" className="h-14 object-contain mb-4 filter brightness-0 invert mx-auto md:mx-0" data-testid="img-footer-logo" />
+            <h3 className="text-2xl font-display font-black text-white uppercase tracking-widest">PartyNRide Nashville</h3>
+          </div>
+          <div className="text-center md:text-right">
+            <a href="tel:6153374342" className="text-sky-400 font-bold text-2xl mb-2 animate-text-glow block hover:text-sky-300 transition-colors" data-testid="link-footer-phone">615-337-4342</a>
+            <p className="text-slate-300 font-medium" data-testid="text-footer-address">1120 Dickerson Pike</p>
+            <p className="text-slate-300 font-medium">Nashville, TN 37208</p>
+          </div>
         </div>
-      </div>
+      </footer>
     </>
   );
 }
