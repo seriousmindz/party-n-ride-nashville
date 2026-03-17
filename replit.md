@@ -7,13 +7,25 @@ Marketing and booking website for Party 'N Ride Nashville, a premier party bus a
 - **Frontend**: React + Tailwind CSS v4, Wouter routing, TanStack React Query
 - **Backend**: Express.js with in-memory storage
 - **Shared**: Drizzle ORM schemas with Zod validation in `shared/schema.ts`
+- **Navigation**: Non-scrolling full-viewport pages, CTA-driven navigation between pages
+
+## Page Structure (Non-Scrolling, CTA-Only Navigation)
+Each page fills the entire viewport with no scrolling. Users navigate via nav bar links and CTA arrow buttons.
+- `/` — Hero page (title, description, Book Now CTA, Call NOW)
+- `/packages` — Package cards (Bachelorette, Birthday, Game Day, Corporate) with Book Now CTAs
+- `/sites` — Sites & Attractions grid on dark background
+- `/pricing` — 2 Hour Minimum Booking pricing info
+- `/shuttle` — Shuttle Service description + Call NOW
+- `/faq` — FAQ accordion (only page with internal scroll for content)
+- `/contact` — Contact form + business info sidebar
 
 ## Key Features
-- Animated landing page with background video, glowing effects, and interactive package cards
-- Booking inquiry form (modal) that submits to `/api/bookings`
-- Contact form that submits to `/api/contacts`
-- Smooth scroll navigation with mobile hamburger menu
-- All content matches the PDF design: Hero, Packages, Sites, Pricing, Shuttle Service, FAQ, Contact, Footer
+- Full-viewport pages with background video and glowing animated effects
+- Animated package cards with hover reveals and Book Now CTAs
+- Booking inquiry modal (opens from any page) submits to `/api/bookings`
+- Contact form submits to `/api/contacts`
+- Mobile-responsive hamburger nav menu
+- All content matches the PDF design word-for-word
 
 ## Design System
 - **Colors**: Sky blue (#0ea5e9) + Orange (#f97316) on white background
@@ -22,19 +34,20 @@ Marketing and booking website for Party 'N Ride Nashville, a premier party bus a
 - **Icons**: Iconify CDN (Solar Linear set)
 
 ## API Routes
-- `POST /api/bookings` - Create booking inquiry
-- `GET /api/bookings` - List all bookings
-- `GET /api/bookings/:id` - Get single booking
-- `PATCH /api/bookings/:id/status` - Update booking status
-- `POST /api/contacts` - Submit contact message
-- `GET /api/contacts` - List all contacts
+- `POST /api/bookings` - Create booking inquiry (public)
+- `GET /api/bookings` - List all bookings (admin key required)
+- `GET /api/bookings/:id` - Get single booking (admin key required)
+- `PATCH /api/bookings/:id/status` - Update booking status (admin key required)
+- `POST /api/contacts` - Submit contact message (public)
+- `GET /api/contacts` - List all contacts (admin key required)
 
 ## Important Files
-- `client/src/pages/Home.tsx` - Main landing page
-- `client/src/index.css` - Global styles + keyframe animations
+- `client/src/pages/Home.tsx` - All page components (HeroPage, PackagesPage, SitesPage, PricingPage, ShuttlePage, FaqPage, ContactPage)
+- `client/src/App.tsx` - Route registration
+- `client/src/index.css` - Global styles + keyframe animations (overflow:hidden on body)
 - `client/index.html` - Meta tags, fonts, Iconify CDN
 - `shared/schema.ts` - Data models (bookings, contacts)
-- `server/routes.ts` - API endpoints
+- `server/routes.ts` - API endpoints (admin-protected read endpoints)
 - `server/storage.ts` - In-memory storage implementation
 
 ## Contact Info (Business)
