@@ -160,7 +160,11 @@ export function HeroPage() {
         <div className="w-full max-w-7xl flex flex-col lg:flex-row items-center justify-between gap-4 sm:gap-8">
           <div className="w-full lg:w-1/2 text-center lg:text-left">
             <h1 className="mb-4 sm:mb-6">
-              <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-nashville text-slate-900 leading-tight tracking-wide">Nashville's</span>
+              <span className="block font-nashville text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight tracking-wide laser-text laser-text-nashville whitespace-nowrap">
+                {["N","a","s","h","v","i","l","l","e","'","s"].map((char, i) => (
+                  <span key={`n${i}`} className="laser-letter laser-letter-nashville" style={{ '--delay': `${i * 0.12}s` } as React.CSSProperties}>{char}</span>
+                ))}
+              </span>
               <span className="block font-script text-4xl sm:text-5xl md:text-6xl lg:text-8xl leading-tight -rotate-2 laser-text whitespace-nowrap">
                 {["P","r","e","m","i","e","r"," ","P","a","r","t","y"].map((char, i) => (
                   <span key={i} className={`laser-letter${char === ' ' ? ' space-char' : ''}`} style={{ '--delay': `${i * 0.15}s` } as React.CSSProperties}>{char === ' ' ? '\u00A0' : char}</span>
