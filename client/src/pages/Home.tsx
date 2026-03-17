@@ -190,9 +190,19 @@ export function HeroPage() {
         <div className="w-full max-w-7xl flex flex-col lg:flex-row items-center justify-between gap-4 sm:gap-8">
           <div className="w-full lg:w-1/2 text-center lg:text-left">
             <h1 className="mb-4 sm:mb-6">
-              <span className="block font-nashville text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight tracking-wide laser-text laser-text-nashville whitespace-nowrap">
-                {["N","a","s","h","v","i","l","l","e","'","s"].map((char, i) => (
-                  <span key={`n${i}`} className="laser-letter laser-letter-nashville" style={{ '--delay': `${i * 0.12}s` } as React.CSSProperties}>{char}</span>
+              <span className="block font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight tracking-[0.3em] uppercase laser-text laser-text-nashville whitespace-nowrap">
+                {["M","u","s","i","c"," ","C","i","t","y"].map((char, i) => (
+                  <span key={`mc${i}`} className={`laser-letter laser-letter-nashville${char === ' ' ? ' space-char' : ''}`} style={{ '--delay': `${i * 0.1}s` } as React.CSSProperties}>{char === ' ' ? '\u00A0' : char}</span>
+                ))}
+              </span>
+              <span className="block font-nashville text-4xl sm:text-5xl md:text-6xl lg:text-8xl leading-tight tracking-wide laser-text laser-text-nashville whitespace-nowrap -mt-1">
+                {["N","a","s","h","v","i","l","l","e"].map((char, i) => (
+                  <span key={`n${i}`} className="laser-letter laser-letter-nashville" style={{ '--delay': `${(i + 10) * 0.1}s` } as React.CSSProperties}>{char}</span>
+                ))}
+              </span>
+              <span className="block font-display text-sm sm:text-base md:text-lg lg:text-xl leading-tight tracking-[0.5em] uppercase laser-text laser-text-nashville whitespace-nowrap">
+                {["T","E","N","N","E","S","S","E","E"].map((char, i) => (
+                  <span key={`tn${i}`} className="laser-letter laser-letter-nashville" style={{ '--delay': `${(i + 19) * 0.08}s` } as React.CSSProperties}>{char}</span>
                 ))}
               </span>
               <span className="block font-script text-4xl sm:text-5xl md:text-6xl lg:text-8xl leading-tight -rotate-2 laser-text whitespace-nowrap">
