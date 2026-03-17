@@ -161,7 +161,7 @@ export function HeroPage() {
         <div className="w-full max-w-7xl flex flex-col lg:flex-row items-center justify-between gap-8">
           <div className="w-full lg:w-1/2 text-center lg:text-left">
             <h1 className="mb-6">
-              <span className="block text-3xl sm:text-4xl md:text-5xl font-display text-slate-900 leading-tight tracking-wide uppercase">Nashville's</span>
+              <span className="block text-3xl sm:text-4xl md:text-5xl font-nashville text-slate-900 leading-tight tracking-wide">Nashville's</span>
               <span className="block font-script text-5xl sm:text-6xl md:text-8xl text-red-600 animate-text-glow leading-tight -rotate-2">Premier Party Bus</span>
               <span className="block text-3xl sm:text-4xl md:text-5xl font-display text-blue-600 leading-tight tracking-wide uppercase mt-1">&amp; Shuttle Service</span>
             </h1>
@@ -273,7 +273,7 @@ export function SitesPage() {
               <span className="font-script text-4xl md:text-6xl text-red-600 -rotate-1">Sites</span>
             </h2>
             <p className="text-sm md:text-base text-blue-200 font-display tracking-wide max-w-3xl mx-auto" data-testid="text-sites-description">
-              Great attractions, landmarks and fun sites that make a perfect stop or scenic route, whether you're doing a themed tour, sightseeing cruise, brewery crawl, or just wanting to sit back and Party N Ride NASHVILLE!
+              Great attractions, landmarks and fun sites that make a perfect stop or scenic route, whether you're doing a themed tour, sightseeing cruise, brewery crawl, or just wanting to sit back and Party N Ride <span className="font-nashville">NASHVILLE</span>!
             </p>
           </div>
 
@@ -359,7 +359,7 @@ export function ShuttlePage() {
           </h2>
 
           <p className="text-base md:text-lg text-slate-600 font-display leading-relaxed mb-8 relative z-10 tracking-wide" data-testid="text-shuttle-description">
-            At Party N Ride NASHVILLE, we offer custom shuttle - only party bus/group transportation packages you can use for corporate, special occasion or general group shuttle needs in Nashville, TN. Whether it's one way or round trip, we can take your group from point A to B comfortably and efficiently!
+            At Party N Ride <span className="font-nashville">NASHVILLE</span>, we offer custom shuttle - only party bus/group transportation packages you can use for corporate, special occasion or general group shuttle needs in <span className="font-nashville">Nashville</span>, TN. Whether it's one way or round trip, we can take your group from point A to B comfortably and efficiently!
           </p>
 
           <div className="bg-red-50 rounded-2xl p-6 w-full border border-red-100 mb-8 relative z-10">
@@ -482,10 +482,11 @@ export function ContactPage() {
 
           <div className="lg:w-72 bg-slate-900 rounded-3xl shadow-xl p-6 md:p-8 text-white flex flex-col justify-center items-center text-center">
             <img src={logoImg} alt="Party N Ride Nashville" className="h-14 object-contain mb-6 filter brightness-0 invert" data-testid="img-contact-logo" />
-            <h3 className="text-xl font-display font-black uppercase tracking-widest mb-4">PartyNRide Nashville</h3>
+            <h3 className="text-xl font-display font-black uppercase tracking-widest mb-1">PartyNRide</h3>
+            <h3 className="text-2xl font-nashville text-blue-400 mb-4">Nashville</h3>
             <a href="tel:6153374342" className="text-blue-400 font-bold text-2xl mb-4 animate-text-glow block hover:text-blue-300 transition-colors" data-testid="link-contact-phone">615-337-4342</a>
             <p className="text-slate-300 font-medium" data-testid="text-contact-address">1120 Dickerson Pike</p>
-            <p className="text-slate-300 font-medium mb-6">Nashville, TN 37208</p>
+            <p className="text-slate-300 font-medium mb-6"><span className="font-nashville">Nashville</span>, TN 37208</p>
             <button onClick={() => openBooking('custom')} className="bg-red-600 text-white font-bold px-8 py-3 rounded-full uppercase tracking-widest text-sm hover:bg-red-700 transition-colors shadow-lg animate-glow" data-testid="button-contact-book">Book Now</button>
           </div>
         </div>
