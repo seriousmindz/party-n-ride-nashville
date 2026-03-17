@@ -239,10 +239,10 @@ export function HeroPage() {
           </div>
           <div className="w-full lg:w-1/2 flex flex-row lg:flex-col items-center justify-center lg:justify-end gap-3 sm:gap-4 relative mt-2 lg:mt-0">
             <div className="absolute inset-0 bg-blue-600/20 rounded-full blur-3xl animate-pulse w-3/4 h-3/4 m-auto"></div>
-            <video autoPlay loop muted playsInline className="w-[140px] h-[180px] sm:w-[180px] sm:h-[230px] md:w-[220px] md:h-[280px] rounded-2xl shadow-2xl relative z-10 border-3 sm:border-4 border-white transform rotate-2 hover:rotate-0 transition-transform duration-500 object-cover" data-testid="video-hero">
+            <video autoPlay loop muted playsInline className="w-[180px] h-[160px] sm:w-[240px] sm:h-[200px] md:w-[300px] md:h-[240px] rounded-2xl shadow-2xl relative z-10 border-3 sm:border-4 border-white transform rotate-2 hover:rotate-0 transition-transform duration-500 object-cover" data-testid="video-hero">
               <source src={heroVideo} type="video/mp4" />
             </video>
-            <video autoPlay loop muted playsInline className="w-[140px] h-[180px] sm:w-[180px] sm:h-[230px] md:w-[220px] md:h-[280px] rounded-2xl shadow-2xl relative z-10 border-3 sm:border-4 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-500 object-cover" data-testid="video-hero-2">
+            <video autoPlay loop muted playsInline className="w-[180px] h-[160px] sm:w-[240px] sm:h-[200px] md:w-[300px] md:h-[240px] rounded-2xl shadow-2xl relative z-10 border-3 sm:border-4 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-500 object-cover" data-testid="video-hero-2">
               <source src={heroVideo2} type="video/mp4" />
             </video>
           </div>
