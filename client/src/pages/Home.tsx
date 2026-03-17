@@ -11,6 +11,7 @@ import corporateImg from '@assets/20220729_124917_1772857936688.jpg';
 import experienceImg from '@assets/IMG_20220522_233123_203_1772858183644.jpg';
 import nashvilleRiverfrontImg from '@assets/nashville_bg.png';
 import heroVideo from '@assets/Pink_Hat_Video_Batch_Party_1773771232653.mp4';
+import heroVideo2 from '@assets/Words_PNR_Bach_1773771761737.mp4';
 
 declare global {
   namespace JSX {
@@ -226,10 +227,13 @@ export function HeroPage() {
               View Packages <span className="text-xl">&rarr;</span>
             </button>
           </div>
-          <div className="w-full lg:w-1/2 flex justify-center lg:justify-end relative mt-2 lg:mt-0">
+          <div className="w-full lg:w-1/2 flex flex-row lg:flex-col items-center justify-center lg:justify-end gap-3 sm:gap-4 relative mt-2 lg:mt-0">
             <div className="absolute inset-0 bg-blue-600/20 rounded-full blur-3xl animate-pulse w-3/4 h-3/4 m-auto"></div>
-            <video autoPlay loop muted playsInline className="w-full max-w-[280px] sm:max-w-sm md:max-w-md rounded-2xl shadow-2xl relative z-10 border-4 border-white transform rotate-2 hover:rotate-0 transition-transform duration-500 object-cover" data-testid="video-hero">
+            <video autoPlay loop muted playsInline className="w-1/2 lg:w-full max-w-[180px] sm:max-w-[200px] md:max-w-[240px] rounded-2xl shadow-2xl relative z-10 border-3 sm:border-4 border-white transform rotate-2 hover:rotate-0 transition-transform duration-500 object-cover" data-testid="video-hero">
               <source src={heroVideo} type="video/mp4" />
+            </video>
+            <video autoPlay loop muted playsInline className="w-1/2 lg:w-full max-w-[180px] sm:max-w-[200px] md:max-w-[240px] rounded-2xl shadow-2xl relative z-10 border-3 sm:border-4 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-500 object-cover" data-testid="video-hero-2">
+              <source src={heroVideo2} type="video/mp4" />
             </video>
           </div>
         </div>
