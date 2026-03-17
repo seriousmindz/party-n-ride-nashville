@@ -41,8 +41,12 @@ function BookingModal({ isOpen, onClose, defaultPackage }: { isOpen: boolean; on
   });
 
   React.useEffect(() => {
-    setFormData(prev => ({ ...prev, packageType: defaultPackage }));
-  }, [defaultPackage]);
+    if (isOpen) {
+      setFormData({ name: '', email: '', phone: '', packageType: defaultPackage, eventDate: '', groupSize: '', message: '' });
+      setSubmitted(false);
+      mutation.reset();
+    }
+  }, [isOpen, defaultPackage]);
 
   if (!isOpen) return null;
 
@@ -147,13 +151,13 @@ const FAQ_DATA = [
   { q: "Are tours cancelled due to rain or inclement weather?", a: "We ride either rain or shine with exception to severe weather warnings being issued." },
   { q: "Should we tip the driver and attendant?", a: "We strive to please, greatly appreciated!" },
   { q: "Is smoking allowed on bus?", a: "No smoking is not allowed on bus." },
-  { q: "What is the cancellation policy?", a: "Reservations have to be cancelled more than 14 days prior to scheduled booking. Payment will be refunded minus a 25% non-refundable deposit." },
+  { q: "What is the cancellation policy?", a: "Reservations have to be cancelled more than 14 days prior to scheduled booking. Payment will be refunded minus a 25% non- refundable deposit." },
   { q: "Are ice and cups provided?", a: "Yes, plain cups, ice and custom-built wet bars for safe storage of beverages." },
   { q: "Is BYOB allowed?", a: "Yes, bring your own beverages (No glass, all beverages must meet allowed guidelines.)" },
 ];
 
 const SITES = [
-  "Titan Stadium", "Bridgestone Arena", "Nashville's Famous Broadway Street",
+  "Titan Stadium", "Bridgestone Area", "Nashville's Famous Broadway Street",
   "Captivating Skyline", "12 South", "SoBro",
   "The Gulch", "Midtown", "Music Row",
   "Country Music Hall of Fame", "National Museum of African American Music", "Iconic Murals around City",
@@ -243,7 +247,7 @@ export default function Home() {
         <section id="packages" className="w-full max-w-7xl relative">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-display font-black text-slate-900 tracking-tighter uppercase mb-4">
-              Packages <span className="text-sky-500">Tailored For Any Occasion</span>
+              Packages <span className="text-sky-500">Tailered for Any Occassion</span>
             </h2>
             <p className="text-xl text-orange-500 font-bold uppercase tracking-widest animate-text-glow" data-testid="text-packages-subtitle">
               Just For YOU!
@@ -289,10 +293,10 @@ export default function Home() {
 
           <div className="relative z-10 text-center mb-12">
             <h2 className="text-4xl md:text-6xl font-display font-black text-white tracking-tighter uppercase mb-4 drop-shadow-lg">
-              Sites &amp; <span className="text-orange-500">Attractions</span>
+              <span className="text-orange-500">Sites</span>
             </h2>
             <p className="text-lg text-sky-200 font-medium max-w-3xl mx-auto" data-testid="text-sites-description">
-              Great attractions, landmarks and fun sites that make a perfect stop or scenic route, whether you're doing a themed tour, sightseeing cruise, brewery crawl, or just wanting to sit back and Party 'N Ride NASHVILLE!
+              Great attractions, landmarks and fun sites that make a perfect stop or scenic route, whether you're doing a themed tour, sightseeing cruise, brewery crawl, or just wanting to sit back and Party N Ride NASHVILLE!
             </p>
           </div>
 
@@ -323,7 +327,7 @@ export default function Home() {
             <div className="bg-slate-50 w-full rounded-2xl p-8 mb-8 border border-slate-100 relative z-10">
               <h3 className="text-2xl font-black text-sky-600 uppercase tracking-widest mb-2" data-testid="text-pricing-minimum">2 Hour Minimum Booking</h3>
               <p className="text-slate-500 font-bold uppercase tracking-wider mb-6">Starting Rate</p>
-              <p className="text-lg text-slate-700 font-medium italic">Additional hours available tailored to fit your event</p>
+              <p className="text-lg text-slate-700 font-medium italic">ADDITIONAL HOURS AVAILABLE TAILED TO FIT YOUR EVENT</p>
             </div>
             <button onClick={() => openBooking('custom')} className="bg-orange-500 text-white font-bold text-lg px-10 py-4 rounded-full uppercase tracking-widest hover:bg-orange-600 transition-colors shadow-lg animate-glow relative z-10 mt-auto" data-testid="button-pricing-book">
               Book Now
@@ -341,7 +345,7 @@ export default function Home() {
               At Party N Ride NASHVILLE, we offer custom shuttle - only party bus/group transportation packages you can use for corporate, special occasion or general group shuttle needs in Nashville, TN. Whether it's one way or round trip, we can take your group from point A to B comfortably and efficiently!
             </p>
             <div className="bg-orange-50 rounded-2xl p-6 w-full border border-orange-100 mb-8 relative z-10">
-              <p className="text-orange-600 font-bold text-lg">Call today to inquiry about pricing for your tailored needs!</p>
+              <p className="text-orange-600 font-bold text-lg">Call today to inquiry about pricing for your tailed needs!</p>
             </div>
             <a href="tel:6153374342" className="text-3xl font-display font-black text-slate-900 relative z-10 mt-auto flex flex-col md:flex-row items-center gap-4 hover:text-sky-600 transition-colors" data-testid="link-shuttle-phone">
               Call NOW: <span className="text-sky-500 animate-text-glow">615-337-4342</span>
