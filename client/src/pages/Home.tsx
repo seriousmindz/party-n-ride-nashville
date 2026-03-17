@@ -110,11 +110,11 @@ function NavBar({ openBooking, currentPage }: { openBooking: (pkg: string) => vo
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 items-center">
           <img src={logoImg} alt="Party N Ride Nashville" className="h-14 object-contain drop-shadow-md cursor-pointer" onClick={() => navigate("/")} data-testid="img-logo" />
-          <div className="hidden lg:flex space-x-6 items-center">
+          <div className="hidden lg:flex space-x-2 items-center">
             {navItems.map(item => (
-              <button key={item.path} onClick={() => navigate(item.path)} className={`font-bold uppercase tracking-widest text-xs transition-colors ${currentPage === item.path ? 'text-orange-500' : 'text-slate-800 hover:text-orange-500'}`} data-testid={`link-${item.label.toLowerCase().replace(/[^a-z]/g, '')}`}>{item.label}</button>
+              <button key={item.path} onClick={() => navigate(item.path)} className={`font-display font-bold uppercase tracking-wider text-sm px-3 py-1.5 rounded-lg border-2 transition-all duration-300 ${currentPage === item.path ? 'text-white bg-sky-500 border-sky-500 shadow-lg shadow-sky-500/30 animate-nav-glow' : 'text-slate-700 border-transparent hover:text-orange-500 hover:border-orange-400 hover:shadow-md hover:shadow-orange-400/20'}`} data-testid={`link-${item.label.toLowerCase().replace(/[^a-z]/g, '')}`}>{item.label}</button>
             ))}
-            <button onClick={() => openBooking('custom')} className="bg-orange-500 text-white font-bold px-6 py-2 rounded-full uppercase tracking-widest text-xs hover:bg-orange-600 transition-colors shadow-lg animate-glow" data-testid="button-nav-book">Book Now</button>
+            <button onClick={() => openBooking('custom')} className="bg-gradient-to-r from-orange-500 to-orange-600 text-white font-display font-bold px-6 py-2.5 rounded-full uppercase tracking-wider text-sm hover:from-orange-600 hover:to-orange-700 hover:scale-105 transition-all duration-300 shadow-xl animate-glow ml-2" data-testid="button-nav-book">Book Now</button>
           </div>
           <button className="lg:hidden text-slate-800 text-3xl" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} data-testid="button-mobile-menu">
             {mobileMenuOpen ? '\u2715' : '\u2630'}
@@ -122,11 +122,11 @@ function NavBar({ openBooking, currentPage }: { openBooking: (pkg: string) => vo
         </div>
       </div>
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-slate-100 px-4 py-4 space-y-3">
+        <div className="lg:hidden bg-white border-t border-slate-100 px-4 py-4 space-y-2">
           {navItems.map(item => (
-            <button key={item.path} onClick={() => { navigate(item.path); setMobileMenuOpen(false); }} className={`block w-full text-left font-bold uppercase tracking-widest text-sm py-2 ${currentPage === item.path ? 'text-orange-500' : 'text-slate-800 hover:text-orange-500'}`}>{item.label}</button>
+            <button key={item.path} onClick={() => { navigate(item.path); setMobileMenuOpen(false); }} className={`block w-full text-left font-display font-bold uppercase tracking-wider text-base py-2.5 px-3 rounded-lg transition-all duration-200 ${currentPage === item.path ? 'text-white bg-sky-500 shadow-md' : 'text-slate-800 hover:text-orange-500 hover:bg-orange-50'}`}>{item.label}</button>
           ))}
-          <button onClick={() => { openBooking('custom'); setMobileMenuOpen(false); }} className="block w-full bg-orange-500 text-white font-bold py-3 rounded-full uppercase tracking-widest text-sm text-center animate-glow">Book Now</button>
+          <button onClick={() => { openBooking('custom'); setMobileMenuOpen(false); }} className="block w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-display font-bold py-3 rounded-full uppercase tracking-wider text-base text-center animate-glow mt-2">Book Now</button>
         </div>
       )}
     </nav>
@@ -160,16 +160,16 @@ export function HeroPage() {
       <div className="flex-1 flex items-center justify-center px-4 md:px-8 pt-20">
         <div className="w-full max-w-7xl flex flex-col lg:flex-row items-center justify-between gap-8">
           <div className="w-full lg:w-1/2 text-center lg:text-left">
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-display font-black text-slate-900 leading-tight tracking-tighter mb-6 uppercase">
-              Nashville's <br/>
-              <span className="text-orange-500 animate-text-glow">Premier Party Bus</span> &amp; <br/>
-              <span className="text-sky-500">Shuttle Service</span>
+            <h1 className="mb-6">
+              <span className="block text-3xl sm:text-4xl md:text-5xl font-display text-slate-900 leading-tight tracking-wide uppercase">Nashville's</span>
+              <span className="block font-script text-5xl sm:text-6xl md:text-8xl text-orange-500 animate-text-glow leading-tight -rotate-2">Premier Party Bus</span>
+              <span className="block text-3xl sm:text-4xl md:text-5xl font-display text-sky-500 leading-tight tracking-wide uppercase mt-1">&amp; Shuttle Service</span>
             </h1>
-            <p className="text-base md:text-lg text-slate-600 font-medium mb-8 max-w-xl mx-auto lg:mx-0" data-testid="text-hero-description">
+            <p className="text-base md:text-lg text-slate-600 font-display font-normal mb-8 max-w-xl mx-auto lg:mx-0 tracking-wide" data-testid="text-hero-description">
               Party 'N Ride is proud to be one of Music City's premier party bus experiences. Our fully enclosed, multifunctional buses are purpose-built to support all your touring, shuttle, and event transportation needs.
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-5 justify-center lg:justify-start">
-              <button onClick={() => openBooking('custom')} className="bg-orange-500 text-white font-bold text-lg md:text-xl px-10 py-4 rounded-full uppercase tracking-widest hover:bg-orange-600 hover:scale-105 transition-all duration-300 shadow-xl shadow-orange-500/30 animate-glow w-full sm:w-auto" data-testid="button-hero-book">
+              <button onClick={() => openBooking('custom')} className="bg-gradient-to-r from-orange-500 to-orange-600 text-white font-display text-lg md:text-xl px-10 py-4 rounded-full uppercase tracking-wider hover:from-orange-600 hover:to-orange-700 hover:scale-105 transition-all duration-300 shadow-xl shadow-orange-500/30 animate-glow w-full sm:w-auto" data-testid="button-hero-book">
                 Book Now
               </button>
               <a href="tel:6153374342" className="text-lg md:text-xl font-display font-bold text-sky-600 animate-text-glow hover:text-sky-700 transition-colors" data-testid="link-hero-phone">
@@ -209,10 +209,11 @@ export function PackagesPage() {
       <NavBar openBooking={openBooking} currentPage="/packages" />
       <div className="flex-1 flex flex-col items-center justify-center px-4 md:px-8 pt-20">
         <div className="text-center mb-8">
-          <h2 className="text-3xl md:text-5xl font-display font-black text-slate-900 tracking-tighter uppercase mb-3">
-            Packages <span className="text-sky-500">Tailered for Any Occassion</span>
+          <h2 className="text-3xl md:text-5xl font-display text-slate-900 tracking-wide uppercase mb-1">
+            Packages
           </h2>
-          <p className="text-lg md:text-xl text-orange-500 font-bold uppercase tracking-widest animate-text-glow" data-testid="text-packages-subtitle">Just For YOU!</p>
+          <p className="font-script text-2xl md:text-4xl text-sky-500 -rotate-1 mb-2">Tailered for Any Occassion</p>
+          <p className="text-lg md:text-xl text-orange-500 font-display uppercase tracking-widest animate-text-glow" data-testid="text-packages-subtitle">Just For YOU!</p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 w-full max-w-7xl">
@@ -222,8 +223,8 @@ export function PackagesPage() {
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
               <div className="absolute bottom-0 left-0 w-full p-5 flex flex-col justify-end h-full">
                 <div className="transform translate-y-3 group-hover:translate-y-0 transition-transform duration-300">
-                  <h3 className="text-2xl md:text-3xl font-display font-black text-white tracking-tight uppercase mb-1 drop-shadow-md">{card.title}</h3>
-                  <p className="text-xs md:text-sm text-slate-200 mb-3 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100 max-h-0 group-hover:max-h-40 overflow-hidden">{card.desc}</p>
+                  <h3 className="text-2xl md:text-3xl font-script text-white mb-1 drop-shadow-md">{card.title}</h3>
+                  <p className="text-xs md:text-sm text-slate-200 mb-3 font-display opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100 max-h-0 group-hover:max-h-40 overflow-hidden tracking-wide">{card.desc}</p>
                   <button onClick={() => openBooking(card.pkg)} className={`w-full ${card.btn} text-white font-bold py-2.5 rounded-xl uppercase tracking-widest transition-colors duration-300 shadow-lg text-sm`} data-testid={`button-book-${card.pkg}`}>Book Now</button>
                 </div>
               </div>
@@ -268,10 +269,10 @@ export function SitesPage() {
           <div className="absolute inset-0 bg-gradient-to-r from-sky-900/90 to-slate-900/90"></div>
 
           <div className="relative z-10 text-center mb-8">
-            <h2 className="text-3xl md:text-5xl font-display font-black text-white tracking-tighter uppercase mb-3 drop-shadow-lg">
-              <span className="text-orange-500">Sites</span>
+            <h2 className="mb-3 drop-shadow-lg">
+              <span className="font-script text-4xl md:text-6xl text-orange-500 -rotate-1">Sites</span>
             </h2>
-            <p className="text-sm md:text-base text-sky-200 font-medium max-w-3xl mx-auto" data-testid="text-sites-description">
+            <p className="text-sm md:text-base text-sky-200 font-display tracking-wide max-w-3xl mx-auto" data-testid="text-sites-description">
               Great attractions, landmarks and fun sites that make a perfect stop or scenic route, whether you're doing a themed tour, sightseeing cruise, brewery crawl, or just wanting to sit back and Party N Ride NASHVILLE!
             </p>
           </div>
@@ -279,7 +280,7 @@ export function SitesPage() {
           <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-center max-w-5xl mx-auto">
             {SITES.map((site, i) => (
               <div key={i} className="bg-white/10 backdrop-blur-md rounded-xl p-3 border border-white/20 hover:bg-orange-500/20 hover:border-orange-500/50 transition-all duration-300 cursor-default" data-testid={`text-site-${i}`}>
-                <span className="text-white font-bold text-sm md:text-base">{site}</span>
+                <span className="text-white font-display text-sm md:text-base tracking-wide">{site}</span>
               </div>
             ))}
           </div>
@@ -313,14 +314,14 @@ export function PricingPage() {
           <div className="absolute top-0 right-0 w-40 h-40 bg-orange-500/10 rounded-bl-full"></div>
           <div className="absolute bottom-0 left-0 w-40 h-40 bg-sky-500/10 rounded-tr-full"></div>
 
-          <h2 className="text-4xl md:text-6xl font-display font-black text-slate-900 tracking-tighter uppercase mb-10 relative z-10">
-            Pricing
+          <h2 className="mb-10 relative z-10">
+            <span className="font-script text-5xl md:text-7xl text-orange-500 -rotate-1">Pricing</span>
           </h2>
 
           <div className="bg-slate-50 w-full rounded-2xl p-8 md:p-10 mb-10 border border-slate-100 relative z-10">
-            <h3 className="text-2xl md:text-3xl font-black text-sky-600 uppercase tracking-widest mb-3" data-testid="text-pricing-minimum">2 Hour Minimum Booking</h3>
-            <p className="text-slate-500 font-bold uppercase tracking-wider mb-6 text-lg">Starting Rate</p>
-            <p className="text-lg md:text-xl text-slate-700 font-medium italic">ADDITIONAL HOURS AVAILABLE TAILED TO FIT YOUR EVENT</p>
+            <h3 className="text-2xl md:text-3xl font-display text-sky-600 uppercase tracking-widest mb-3" data-testid="text-pricing-minimum">2 Hour Minimum Booking</h3>
+            <p className="text-slate-500 font-display uppercase tracking-wider mb-6 text-lg">Starting Rate</p>
+            <p className="text-lg md:text-xl text-slate-700 font-display italic tracking-wide">ADDITIONAL HOURS AVAILABLE TAILED TO FIT YOUR EVENT</p>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 relative z-10">
@@ -352,16 +353,17 @@ export function ShuttlePage() {
           <div className="absolute top-0 left-0 w-40 h-40 bg-sky-500/10 rounded-br-full"></div>
           <div className="absolute bottom-0 right-0 w-40 h-40 bg-orange-500/10 rounded-tl-full"></div>
 
-          <h2 className="text-4xl md:text-6xl font-display font-black text-slate-900 tracking-tighter uppercase mb-8 relative z-10">
-            Shuttle <span className="text-sky-500">Service</span>
+          <h2 className="mb-8 relative z-10">
+            <span className="font-display text-3xl md:text-5xl text-slate-900 tracking-wide uppercase">Shuttle</span>{' '}
+            <span className="font-script text-4xl md:text-6xl text-sky-500 -rotate-1">Service</span>
           </h2>
 
-          <p className="text-base md:text-lg text-slate-600 font-medium leading-relaxed mb-8 relative z-10" data-testid="text-shuttle-description">
+          <p className="text-base md:text-lg text-slate-600 font-display leading-relaxed mb-8 relative z-10 tracking-wide" data-testid="text-shuttle-description">
             At Party N Ride NASHVILLE, we offer custom shuttle - only party bus/group transportation packages you can use for corporate, special occasion or general group shuttle needs in Nashville, TN. Whether it's one way or round trip, we can take your group from point A to B comfortably and efficiently!
           </p>
 
           <div className="bg-orange-50 rounded-2xl p-6 w-full border border-orange-100 mb-8 relative z-10">
-            <p className="text-orange-600 font-bold text-lg">Call today to inquiry about pricing for your tailed needs!</p>
+            <p className="text-orange-600 font-display text-lg tracking-wide">Call today to inquiry about pricing for your tailed needs!</p>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 relative z-10">
@@ -401,14 +403,15 @@ export function FaqPage() {
       <NavBar openBooking={openBooking} currentPage="/faq" />
       <div className="flex-1 flex items-center justify-center px-4 md:px-8 pt-20 overflow-y-auto">
         <div className="w-full max-w-3xl bg-white rounded-3xl shadow-xl p-6 md:p-10 border border-slate-200 my-4">
-          <h2 className="text-3xl md:text-4xl font-display font-black text-center text-slate-900 tracking-tighter uppercase mb-8">
-            Frequently Asked <span className="text-orange-500">Questions</span>
+          <h2 className="text-center mb-8">
+            <span className="font-display text-2xl md:text-4xl text-slate-900 tracking-wide uppercase">Frequently Asked</span>{' '}
+            <span className="font-script text-3xl md:text-5xl text-orange-500 -rotate-1">Questions</span>
           </h2>
           <div className="space-y-5">
             {FAQ_DATA.map((faq, i) => (
               <div key={i} className={i < FAQ_DATA.length - 1 ? "border-b border-slate-100 pb-4" : ""} data-testid={`faq-item-${i}`}>
-                <h4 className="text-base md:text-lg font-bold text-sky-600 mb-1">{faq.q}</h4>
-                <p className="text-slate-600 font-medium text-sm md:text-base">{faq.a}</p>
+                <h4 className="text-base md:text-lg font-display text-sky-600 mb-1 tracking-wide">{faq.q}</h4>
+                <p className="text-slate-600 font-display text-sm md:text-base tracking-wide">{faq.a}</p>
               </div>
             ))}
           </div>
@@ -454,8 +457,9 @@ export function ContactPage() {
       <div className="flex-1 flex items-center justify-center px-4 md:px-8 pt-20">
         <div className="w-full max-w-4xl flex flex-col lg:flex-row gap-8 items-stretch">
           <div className="flex-1 bg-white rounded-3xl shadow-xl p-6 md:p-10 border border-slate-200">
-            <h2 className="text-3xl md:text-4xl font-display font-black text-slate-900 tracking-tighter uppercase mb-6">
-              Contact <span className="text-sky-500">Us</span>
+            <h2 className="mb-6">
+              <span className="font-display text-2xl md:text-3xl text-slate-900 tracking-wide uppercase">Contact</span>{' '}
+              <span className="font-script text-3xl md:text-4xl text-sky-500 -rotate-1">Us</span>
             </h2>
             {submitted ? (
               <div className="text-center py-8" data-testid="contact-success">

@@ -33,7 +33,8 @@
   --color-void-800: #0A0A0A;
   --color-void-900: #050505;
 
-  --font-display: 'Orbitron', sans-serif;
+  --font-display: 'Bebas Neue', 'Orbitron', sans-serif;
+  --font-script: 'Pacifico', cursive;
   --font-body: 'Rajdhani', sans-serif;
 
   --background-image-cyber-grid: linear-gradient(to right, #e2e8f0 1px, transparent 1px), linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
@@ -133,5 +134,24 @@
 
   .animate-text-glow {
     animation: text-glow 2.5s ease-in-out infinite;
+  }
+
+  @keyframes nav-btn-glow {
+    0%, 100% {
+      box-shadow: 0 0 8px 2px rgba(14, 165, 233, 0.4), 0 0 16px 4px rgba(249, 115, 22, 0.2);
+      border-color: rgba(14, 165, 233, 0.6);
+    }
+    50% {
+      box-shadow: 0 0 14px 4px rgba(14, 165, 233, 0.7), 0 0 24px 8px rgba(249, 115, 22, 0.4);
+      border-color: rgba(249, 115, 22, 0.8);
+    }
+  }
+
+  .animate-nav-glow {
+    animation: nav-btn-glow 2.5s ease-in-out infinite;
+  }
+
+  .font-script {
+    font-family: var(--font-script);
   }
 }
