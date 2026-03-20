@@ -124,9 +124,9 @@ function PageShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="relative overflow-hidden bg-void-900" style={{ margin: 0, padding: 0, width: '100vw', height: '100vh' }}>
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <img src={skylineBg} alt="" className="w-full h-full object-cover object-center opacity-50" />
+        <img src={skylineBg} alt="" className="w-full h-full object-cover object-center opacity-80" />
       </div>
-      <div className="fixed inset-0 z-0 bg-gradient-to-b from-void-900/40 via-transparent to-void-900/60 pointer-events-none"></div>
+      <div className="fixed inset-0 z-0 bg-gradient-to-b from-void-900/20 via-transparent to-void-900/30 pointer-events-none"></div>
       <div className="fixed inset-0 z-0 opacity-10 pointer-events-none bg-cyber-grid bg-[length:40px_40px]"></div>
       <div className="fixed inset-0 z-[1] pointer-events-none scanlines opacity-20 mix-blend-overlay"></div>
       <div className="relative z-10 h-full w-full overflow-hidden flex flex-col">
