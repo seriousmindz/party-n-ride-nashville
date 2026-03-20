@@ -11,6 +11,7 @@ import corporateImg from '@assets/20220729_124917_1772857936688.jpg';
 import experienceImg from '@assets/IMG_20220522_233123_203_1772858183644.jpg';
 import heroVideo from '@assets/Pink_Hat_Video_Batch_Party_1773771232653.mp4';
 import heroVideo2 from '@assets/Words_PNR_Bach_1773771761737.mp4';
+import skylineBg from '@assets/nashville_skyline_bg.png';
 
 declare global {
   namespace JSX {
@@ -122,8 +123,11 @@ function Footer() {
 function PageShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="relative overflow-hidden bg-void-900" style={{ margin: 0, padding: 0, width: '100vw', height: '100vh' }}>
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <img src={skylineBg} alt="" className="w-full h-full object-cover object-center opacity-20" />
+      </div>
+      <div className="fixed inset-0 z-0 bg-gradient-to-b from-void-900/70 via-void-900/40 to-void-900/90 pointer-events-none"></div>
       <div className="fixed inset-0 z-0 opacity-10 pointer-events-none bg-cyber-grid bg-[length:40px_40px]"></div>
-      <div className="fixed inset-0 z-0 bg-gradient-to-b from-void-900 via-transparent to-void-900 pointer-events-none"></div>
       <div className="fixed inset-0 z-[1] pointer-events-none scanlines opacity-20 mix-blend-overlay"></div>
       <div className="relative z-10 h-full w-full overflow-hidden flex flex-col">
         {children}
