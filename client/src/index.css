@@ -38,7 +38,7 @@
   --font-nashville: 'Yellowtail', cursive;
   --font-body: 'Rajdhani', sans-serif;
 
-  --background-image-cyber-grid: linear-gradient(to right, #e2e8f0 1px, transparent 1px), linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+  --background-image-cyber-grid: linear-gradient(to right, #1a1a1a 1px, transparent 1px), linear-gradient(to bottom, #1a1a1a 1px, transparent 1px);
 }
 
 :root {
@@ -97,7 +97,7 @@
     height: 100%;
   }
   body {
-    @apply antialiased bg-white text-slate-600 font-body overflow-hidden selection:bg-blue-600 selection:text-white;
+    @apply antialiased bg-void-900 text-neutral-400 font-body overflow-hidden selection:bg-crimson-600 selection:text-white;
   }
 }
 
@@ -107,8 +107,8 @@
           to bottom,
           rgba(255,255,255,0),
           rgba(255,255,255,0) 50%,
-          rgba(0,0,0,0.05) 50%,
-          rgba(0,0,0,0.05)
+          rgba(0,0,0,0.2) 50%,
+          rgba(0,0,0,0.2)
       );
       background-size: 100% 4px;
       pointer-events: none;

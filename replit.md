@@ -38,10 +38,18 @@ Each page fills the entire viewport with no scrolling. Users navigate via nav ba
 - Keywords targeting Nashville party bus searches
 - Canonical URL set
 
-## Design System
-- **Colors**: Deep red `#DC2626` / `red-600` + Royal blue `#2563EB` / `blue-600`
+## Design System — Dark Cyberpunk Theme
+- **Background**: `void-900: #050505`, `void-800: #0A0A0A`, `void-700: #121212`
+- **Accent**: `crimson-600: #DC2626`, `crimson-900: #7F1D1D`
+- **Text**: White headings on dark, `neutral-400/500` body text
+- **Card Pattern**: `-skew-x-12` outer container with `skew-x-12` inner content, `border border-neutral-800 hover:border-crimson-600`
+- **Corner Brackets**: Absolute positioned `border-t/b border-l/r border-crimson-600` on hero videos, shuttle panel, contact form
+- **Overlays**: `bg-cyber-grid` (dark #1a1a1a grid lines), `.scanlines` CRT overlay, `mix-blend-overlay opacity-20`
+- **Images**: `grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-80 group-hover:mix-blend-hard-light`
+- **Section Headers**: `border-l-4 border-crimson-600` left accent + tag/title/subtitle pattern via SectionHeader component
+- **CTAs**: Skewed crimson border buttons via SkewedCTA component
 - **Fonts**: Pacifico (script headings `font-script`), Bebas Neue (display `font-display`), Yellowtail (Nashville text `font-nashville`), Rajdhani (body `font-body`)
-- **Animations**: `animate-glow` (pulsing box-shadow on CTAs), `animate-text-glow` (pulsing text-shadow on phone numbers), `laser-letter-glow` (red letter animation), `laser-letter-glow-blue` (blue letter animation), `animate-nav-glow` (nav button border glow)
+- **Animations**: `animate-glow`, `animate-text-glow`, `laser-letter-glow` (red/blue/nashville/note variants), `animate-nav-glow`
 - **Icons**: Iconify CDN (Solar Linear set)
 - **Mobile**: Responsive breakpoints at sm/md/lg with scaled typography, padding, and touch-friendly targets
 

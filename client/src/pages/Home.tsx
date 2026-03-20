@@ -9,7 +9,6 @@ import birthdayImg from '@assets/IMG_20220723_114303_064_1772858334450.jpg';
 import tailgateImg from '@assets/IMG_20220124_211840_009_1772858028717.jpg';
 import corporateImg from '@assets/20220729_124917_1772857936688.jpg';
 import experienceImg from '@assets/IMG_20220522_233123_203_1772858183644.jpg';
-import nashvilleRiverfrontImg from '@assets/nashville_bg.png';
 import heroVideo from '@assets/Pink_Hat_Video_Batch_Party_1773771232653.mp4';
 import heroVideo2 from '@assets/Words_PNR_Bach_1773771761737.mp4';
 
@@ -28,19 +27,21 @@ function BookingModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4" data-testid="booking-modal">
-      <div className="absolute inset-0 bg-slate-900/70 backdrop-blur-sm" onClick={onClose}></div>
-      <div className="relative bg-white rounded-2xl sm:rounded-3xl shadow-2xl w-full max-w-4xl h-[90vh] border-2 border-blue-200 flex flex-col overflow-hidden">
-        <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-200 shrink-0">
-          <h3 className="text-xl sm:text-2xl font-display font-black text-slate-900 uppercase tracking-tight">Book Your Ride</h3>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-700 text-2xl font-bold" data-testid="button-close-modal">&times;</button>
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose}></div>
+      <div className="relative bg-void-800 rounded-none sm:rounded-lg shadow-2xl w-full max-w-4xl h-[90vh] border border-neutral-700 flex flex-col overflow-hidden -skew-x-3 sm:-skew-x-6">
+        <div className="skew-x-3 sm:skew-x-6 flex flex-col h-full">
+          <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-neutral-700 shrink-0">
+            <h3 className="text-xl sm:text-2xl font-display font-bold text-white uppercase tracking-widest">Book Your Ride</h3>
+            <button onClick={onClose} className="text-neutral-400 hover:text-crimson-600 text-2xl font-bold transition-colors" data-testid="button-close-modal">&times;</button>
+          </div>
+          <iframe
+            src={FAREHARBOR_URL}
+            className="flex-1 w-full border-0"
+            title="Book Party N Ride Nashville"
+            allow="payment"
+            data-testid="iframe-fareharbor"
+          />
         </div>
-        <iframe
-          src={FAREHARBOR_URL}
-          className="flex-1 w-full border-0"
-          title="Book Party N Ride Nashville"
-          allow="payment"
-          data-testid="iframe-fareharbor"
-        />
       </div>
     </div>
   );
@@ -61,27 +62,29 @@ function NavBar({ openBooking, currentPage }: { openBooking: (pkg: string) => vo
   ];
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <nav className="fixed top-0 w-full z-50 bg-void-900/95 backdrop-blur-md border-b border-neutral-800 shadow-[0_2px_20px_rgba(220,38,38,0.1)]">
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
-        <div className="flex justify-between h-14 sm:h-20 items-center">
-          <img src={logoImg} alt="Party N Ride Nashville - Premier Party Bus and Shuttle Service" className="h-10 sm:h-14 object-contain drop-shadow-md cursor-pointer" onClick={() => navigate("/")} data-testid="img-logo" />
-          <div className="hidden lg:flex space-x-2 items-center">
+        <div className="flex justify-between h-14 sm:h-16 items-center">
+          <img src={logoImg} alt="Party N Ride Nashville - Premier Party Bus and Shuttle Service" className="h-10 sm:h-12 object-contain cursor-pointer filter brightness-0 invert" onClick={() => navigate("/")} data-testid="img-logo" />
+          <div className="hidden lg:flex space-x-1 items-center">
             {navItems.map(item => (
-              <button key={item.path} onClick={() => navigate(item.path)} className={`font-display font-bold uppercase tracking-wider text-sm px-3 py-1.5 rounded-lg border-2 transition-all duration-300 ${currentPage === item.path ? 'text-white bg-blue-600 border-blue-600 shadow-lg shadow-blue-600/30 animate-nav-glow' : 'text-slate-700 border-transparent hover:text-red-600 hover:border-red-500 hover:shadow-md hover:shadow-red-500/20'}`} data-testid={`link-${item.label.toLowerCase().replace(/[^a-z]/g, '')}`}>{item.label}</button>
+              <button key={item.path} onClick={() => navigate(item.path)} className={`font-display font-bold uppercase tracking-wider text-xs px-3 py-1.5 transition-all duration-300 ${currentPage === item.path ? 'text-crimson-600 border-b-2 border-crimson-600' : 'text-neutral-400 hover:text-white border-b-2 border-transparent hover:border-neutral-600'}`} data-testid={`link-${item.label.toLowerCase().replace(/[^a-z]/g, '')}`}>{item.label}</button>
             ))}
-            <button onClick={() => openBooking('custom')} className="bg-gradient-to-r from-red-600 to-red-700 text-white font-display font-bold px-6 py-2.5 rounded-full uppercase tracking-wider text-sm hover:from-red-700 hover:to-red-800 hover:scale-105 transition-all duration-300 shadow-xl animate-glow ml-2" data-testid="button-nav-book">Book Now</button>
+            <button onClick={() => openBooking('custom')} className="-skew-x-12 bg-crimson-600 hover:bg-crimson-700 text-white px-5 py-2 ml-3 transition-all duration-300 group" data-testid="button-nav-book">
+              <span className="block skew-x-12 font-display font-bold uppercase tracking-widest text-xs">Book Now</span>
+            </button>
           </div>
-          <button className="lg:hidden text-slate-800 text-3xl" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} data-testid="button-mobile-menu">
+          <button className="lg:hidden text-white text-3xl" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} data-testid="button-mobile-menu">
             {mobileMenuOpen ? '\u2715' : '\u2630'}
           </button>
         </div>
       </div>
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-slate-100 px-4 py-4 space-y-2">
+        <div className="lg:hidden bg-void-800 border-t border-neutral-800 px-4 py-4 space-y-2">
           {navItems.map(item => (
-            <button key={item.path} onClick={() => { navigate(item.path); setMobileMenuOpen(false); }} className={`block w-full text-left font-display font-bold uppercase tracking-wider text-base py-2.5 px-3 rounded-lg transition-all duration-200 ${currentPage === item.path ? 'text-white bg-blue-600 shadow-md' : 'text-slate-800 hover:text-red-600 hover:bg-red-50'}`}>{item.label}</button>
+            <button key={item.path} onClick={() => { navigate(item.path); setMobileMenuOpen(false); }} className={`block w-full text-left font-display font-bold uppercase tracking-wider text-base py-2.5 px-3 transition-all duration-200 ${currentPage === item.path ? 'text-crimson-600 border-l-2 border-crimson-600 bg-void-700' : 'text-neutral-300 hover:text-white hover:bg-void-700'}`}>{item.label}</button>
           ))}
-          <button onClick={() => { openBooking('custom'); setMobileMenuOpen(false); }} className="block w-full bg-gradient-to-r from-red-600 to-red-700 text-white font-display font-bold py-3 rounded-full uppercase tracking-wider text-base text-center animate-glow mt-2">Book Now</button>
+          <button onClick={() => { openBooking('custom'); setMobileMenuOpen(false); }} className="block w-full bg-crimson-600 text-white font-display font-bold py-3 uppercase tracking-wider text-base text-center hover:bg-crimson-700 transition-colors mt-2">Book Now</button>
         </div>
       )}
     </nav>
@@ -90,24 +93,24 @@ function NavBar({ openBooking, currentPage }: { openBooking: (pkg: string) => vo
 
 function Footer() {
   return (
-    <footer className="w-full bg-slate-900/90 backdrop-blur-sm py-2 px-3 sm:px-6 text-center z-20 shrink-0">
+    <footer className="w-full bg-void-900 border-t border-neutral-800 py-2 px-3 sm:px-6 text-center z-20 shrink-0">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-1 sm:gap-4">
-        <p className="text-slate-400 text-[10px] sm:text-xs font-display tracking-wide">
+        <p className="text-neutral-500 text-[10px] sm:text-xs font-display tracking-wide">
           Designed and managed by{' '}
-          <a href="https://build.seriousmindz.ai" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 transition-colors underline underline-offset-2" data-testid="link-footer-seriousmindz">
+          <a href="https://build.seriousmindz.ai" target="_blank" rel="noopener noreferrer" className="text-crimson-600 hover:text-crimson-500 transition-colors" data-testid="link-footer-seriousmindz">
             SeriousMindz AI
           </a>
         </p>
         <div className="flex items-center gap-3 sm:gap-4">
-          <a href="https://www.theparkingguys.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white text-[10px] sm:text-xs font-display tracking-wide transition-colors" data-testid="link-footer-parkingguys">
+          <a href="https://www.theparkingguys.com" target="_blank" rel="noopener noreferrer" className="text-neutral-500 hover:text-white text-[10px] sm:text-xs font-display tracking-wide transition-colors" data-testid="link-footer-parkingguys">
             The Parking Guys
           </a>
-          <span className="text-slate-600 text-[10px]">|</span>
-          <a href="https://seriousmindz.ai" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white text-[10px] sm:text-xs font-display tracking-wide transition-colors" data-testid="link-footer-seriousmindz-main">
+          <span className="text-neutral-700 text-[10px]">|</span>
+          <a href="https://seriousmindz.ai" target="_blank" rel="noopener noreferrer" className="text-neutral-500 hover:text-white text-[10px] sm:text-xs font-display tracking-wide transition-colors" data-testid="link-footer-seriousmindz-main">
             seriousmindz.ai
           </a>
-          <span className="text-slate-600 text-[10px]">|</span>
-          <a href="https://api.seriousmindz.ai" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white text-[10px] sm:text-xs font-display tracking-wide transition-colors" data-testid="link-footer-seriousmindz-api">
+          <span className="text-neutral-700 text-[10px]">|</span>
+          <a href="https://api.seriousmindz.ai" target="_blank" rel="noopener noreferrer" className="text-neutral-500 hover:text-white text-[10px] sm:text-xs font-display tracking-wide transition-colors" data-testid="link-footer-seriousmindz-api">
             api.seriousmindz.ai
           </a>
         </div>
@@ -118,14 +121,41 @@ function Footer() {
 
 function PageShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative overflow-hidden" style={{ margin: 0, padding: 0, width: '100vw', height: '100vh' }}>
-      <div className="absolute" style={{ top: '-2px', left: '-2px', right: '-2px', bottom: '-2px', backgroundImage: `url(${nashvilleRiverfrontImg})`, backgroundSize: 'cover', backgroundPosition: 'center center', backgroundRepeat: 'no-repeat', backgroundColor: '#1e293b' }}></div>
-      <div className="absolute inset-0 bg-white/40"></div>
+    <div className="relative overflow-hidden bg-void-900" style={{ margin: 0, padding: 0, width: '100vw', height: '100vh' }}>
+      <div className="fixed inset-0 z-0 opacity-10 pointer-events-none bg-cyber-grid bg-[length:40px_40px]"></div>
+      <div className="fixed inset-0 z-0 bg-gradient-to-b from-void-900 via-transparent to-void-900 pointer-events-none"></div>
+      <div className="fixed inset-0 z-[1] pointer-events-none scanlines opacity-20 mix-blend-overlay"></div>
       <div className="relative z-10 h-full w-full overflow-hidden flex flex-col">
         {children}
         <Footer />
       </div>
     </div>
+  );
+}
+
+function SectionHeader({ tag, title, titleAccent, subtitle }: { tag: string; title: string; titleAccent: string; subtitle: string }) {
+  return (
+    <div className="mb-6 sm:mb-10 border-l-4 border-crimson-600 pl-4 sm:pl-6 py-2">
+      <div className="flex items-center gap-2 mb-2 text-crimson-600 text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase">
+        <iconify-icon icon="solar:music-notes-linear" className="text-base" style={{ strokeWidth: 1.5 }}></iconify-icon>
+        <span>{tag}</span>
+      </div>
+      <h1 className="text-2xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tighter uppercase mb-2">
+        {title} <span className="text-transparent bg-clip-text bg-gradient-to-r from-crimson-600 to-crimson-900">{titleAccent}</span>
+      </h1>
+      <p className="text-sm sm:text-base md:text-lg text-neutral-500 max-w-2xl font-medium tracking-wide">{subtitle}</p>
+    </div>
+  );
+}
+
+function SkewedCTA({ onClick, label }: { onClick: () => void; label: string }) {
+  return (
+    <button onClick={onClick} className="-skew-x-12 bg-transparent border border-crimson-600 text-crimson-600 hover:bg-crimson-600 hover:text-white transition-all duration-300 px-8 sm:px-10 py-3 sm:py-4 group shadow-[0_0_20px_rgba(220,38,38,0.2)] hover:shadow-[0_0_30px_rgba(220,38,38,0.4)]">
+      <span className="block skew-x-12 font-display font-bold uppercase tracking-widest text-sm sm:text-base flex items-center gap-2 justify-center">
+        {label}
+        <iconify-icon icon="solar:arrow-right-linear" className="text-base" style={{ strokeWidth: 1.5 }}></iconify-icon>
+      </span>
+    </button>
   );
 }
 
@@ -144,13 +174,13 @@ export function HeroPage() {
           <div className="w-full lg:w-1/2 text-center lg:text-left">
             <h1 className="mb-4 sm:mb-6">
               <span className="block font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight tracking-[0.3em] uppercase laser-text laser-text-nashville whitespace-nowrap">
-                {["♪"," ","M","u","s","i","c"," ","C","i","t","y"," ","♪"].map((char, i) => (
-                  <span key={`mc${i}`} className={`laser-letter ${char === '♪' ? 'laser-letter-note' : 'laser-letter-nashville'}${char === ' ' ? ' space-char' : ''}`} style={{ '--delay': `${i * 0.1}s` } as React.CSSProperties}>{char === ' ' ? '\u00A0' : char}</span>
+                {["\u266A"," ","M","u","s","i","c"," ","C","i","t","y"," ","\u266A"].map((char, i) => (
+                  <span key={`mc${i}`} className={`laser-letter ${char === '\u266A' ? 'laser-letter-note' : 'laser-letter-nashville'}${char === ' ' ? ' space-char' : ''}`} style={{ '--delay': `${i * 0.1}s` } as React.CSSProperties}>{char === ' ' ? '\u00A0' : char}</span>
                 ))}
               </span>
               <span className="block font-nashville text-4xl sm:text-5xl md:text-6xl lg:text-8xl leading-tight tracking-wide laser-text laser-text-nashville whitespace-nowrap -mt-1">
-                {["♫"," ","N","a","s","h","v","i","l","l","e"," ","♫"].map((char, i) => (
-                  <span key={`n${i}`} className={`laser-letter ${char === '♫' ? 'laser-letter-note' : 'laser-letter-nashville'}${char === ' ' ? ' space-char' : ''}`} style={{ '--delay': `${(i + 14) * 0.1}s` } as React.CSSProperties}>{char === ' ' ? '\u00A0' : char}</span>
+                {["\u266B"," ","N","a","s","h","v","i","l","l","e"," ","\u266B"].map((char, i) => (
+                  <span key={`n${i}`} className={`laser-letter ${char === '\u266B' ? 'laser-letter-note' : 'laser-letter-nashville'}${char === ' ' ? ' space-char' : ''}`} style={{ '--delay': `${(i + 14) * 0.1}s` } as React.CSSProperties}>{char === ' ' ? '\u00A0' : char}</span>
                 ))}
               </span>
               <span className="block font-display text-sm sm:text-base md:text-lg lg:text-xl leading-tight tracking-[0.5em] uppercase laser-text laser-text-nashville whitespace-nowrap">
@@ -175,29 +205,35 @@ export function HeroPage() {
               </span>
             </h1>
             <h2 className="sr-only">Nashville's Premier Party Bus and Shuttle Service - Book Your Ride Today</h2>
-            <p className="text-sm sm:text-base md:text-lg text-slate-900 font-display font-semibold mb-4 sm:mb-8 max-w-xl mx-auto lg:mx-0 tracking-wide drop-shadow-[0_1px_2px_rgba(255,255,255,0.8)]" data-testid="text-hero-description">
+            <p className="text-sm sm:text-base md:text-lg text-neutral-400 font-body mb-4 sm:mb-8 max-w-xl mx-auto lg:mx-0 tracking-wide" data-testid="text-hero-description">
               Private, enclosed, BYOB Nashville party bus experiences engineered for bachelorettes, birthdays, game days, and VIP nights out. Cups, coolers, ice, LED lighting, and a pro driver included.
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-5 justify-center lg:justify-start">
-              <button onClick={() => openBooking('custom')} className="bg-gradient-to-r from-red-600 to-red-700 text-white font-display text-base sm:text-lg md:text-xl px-8 sm:px-10 py-3 sm:py-4 rounded-full uppercase tracking-wider hover:from-red-700 hover:to-red-800 hover:scale-105 transition-all duration-300 shadow-xl shadow-red-600/30 animate-glow w-full sm:w-auto" data-testid="button-hero-book">
-                Book Now
-              </button>
-              <a href="tel:6153374342" className="text-base sm:text-lg md:text-xl font-display font-bold text-blue-700 animate-text-glow hover:text-blue-800 transition-colors" data-testid="link-hero-phone">
+              <SkewedCTA onClick={() => openBooking('custom')} label="Book Now" />
+              <a href="tel:6153374342" className="text-base sm:text-lg md:text-xl font-display font-bold text-crimson-600 animate-text-glow hover:text-white transition-colors" data-testid="link-hero-phone">
                 Call NOW: 615-337-4342
               </a>
             </div>
-            <button onClick={() => navigate('/packages')} className="mt-4 sm:mt-6 text-blue-700 font-bold uppercase tracking-widest text-sm hover:text-red-600 transition-colors flex items-center gap-2 mx-auto lg:mx-0" data-testid="button-hero-next">
+            <button onClick={() => navigate('/packages')} className="mt-4 sm:mt-6 text-neutral-400 font-bold uppercase tracking-widest text-sm hover:text-crimson-600 transition-colors flex items-center gap-2 mx-auto lg:mx-0" data-testid="button-hero-next">
               View Packages <span className="text-xl">&rarr;</span>
             </button>
           </div>
           <div className="w-full lg:w-1/2 flex flex-row lg:flex-col items-center justify-center lg:justify-end gap-3 sm:gap-4 relative mt-2 lg:mt-0">
-            <div className="absolute inset-0 bg-blue-600/20 rounded-full blur-3xl animate-pulse w-3/4 h-3/4 m-auto"></div>
-            <video autoPlay loop muted playsInline className="w-[180px] h-[160px] sm:w-[240px] sm:h-[200px] md:w-[300px] md:h-[240px] rounded-2xl shadow-2xl relative z-10 border-3 sm:border-4 border-white transform rotate-2 hover:rotate-0 transition-transform duration-500 object-cover" data-testid="video-hero">
-              <source src={heroVideo} type="video/mp4" />
-            </video>
-            <video autoPlay loop muted playsInline className="w-[180px] h-[160px] sm:w-[240px] sm:h-[200px] md:w-[300px] md:h-[240px] rounded-2xl shadow-2xl relative z-10 border-3 sm:border-4 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-500 object-cover" data-testid="video-hero-2">
-              <source src={heroVideo2} type="video/mp4" />
-            </video>
+            <div className="absolute inset-0 bg-crimson-600/10 rounded-full blur-3xl animate-pulse w-3/4 h-3/4 m-auto"></div>
+            <div className="relative -skew-x-12 border border-crimson-900/50 bg-void-800 p-1.5 sm:p-2 shadow-[0_0_20px_rgba(220,38,38,0.1)]">
+              <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-crimson-600 -translate-x-0.5 -translate-y-0.5"></div>
+              <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-crimson-600 translate-x-0.5 translate-y-0.5"></div>
+              <video autoPlay loop muted playsInline className="w-[160px] h-[140px] sm:w-[220px] sm:h-[180px] md:w-[280px] md:h-[220px] skew-x-12 object-cover" data-testid="video-hero">
+                <source src={heroVideo} type="video/mp4" />
+              </video>
+            </div>
+            <div className="relative -skew-x-12 border border-crimson-900/50 bg-void-800 p-1.5 sm:p-2 shadow-[0_0_20px_rgba(220,38,38,0.1)]">
+              <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-crimson-600 -translate-x-0.5 -translate-y-0.5"></div>
+              <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-crimson-600 translate-x-0.5 translate-y-0.5"></div>
+              <video autoPlay loop muted playsInline className="w-[160px] h-[140px] sm:w-[220px] sm:h-[180px] md:w-[280px] md:h-[220px] skew-x-12 object-cover" data-testid="video-hero-2">
+                <source src={heroVideo2} type="video/mp4" />
+              </video>
+            </div>
           </div>
         </div>
       </div>
@@ -212,10 +248,10 @@ export function PackagesPage() {
   const openBooking = (pkg: string) => { setBookingPackage(pkg); setBookingOpen(true); };
 
   const cards = [
-    { img: bacheloretteImg, title: "Bachelorette Bash", desc: "2\u2011hour private enclosed party bus for up to 20 guests, BYOB, cups, coolers, and ice included. Cruise Broadway, The Gulch, and Midtown with bathroom and photo stops.", price: "From $495 Sun\u2013Thu \u00B7 From $595 Fri\u2013Sat", pkg: "bachelorette", border: "hover:border-blue-600", shadow: "hover:shadow-blue-600/20", btn: "bg-blue-600 hover:bg-red-600" },
-    { img: birthdayImg, title: "Broadway Birthday", desc: "Celebrate another lap around the sun with a 2\u2011hour rolling nightclub. Custom playlist, LED club lighting, and route tailored to your favorite Nashville hotspots.", price: "From $475 Sun\u2013Thu \u00B7 From $575 Fri\u2013Sat", pkg: "birthday", border: "hover:border-red-600", shadow: "hover:shadow-red-600/20", btn: "bg-red-600 hover:bg-blue-600" },
-    { img: tailgateImg, title: "Game Day Tailgate", desc: "3\u2011hour Titans or Preds pre\u2011game party bus. One pickup, one stadium\u2011area drop\u2011off, and a rolling tailgate with your crew, drinks, and music.", price: "From $695 per group", pkg: "gameday", border: "hover:border-blue-600", shadow: "hover:shadow-blue-600/20", btn: "bg-blue-600 hover:bg-red-600" },
-    { img: corporateImg, title: "Corporate & Events", desc: "Impress clients and teams with a private shuttle that can run full party mode or a toned\u2011down lounge. Perfect for conferences, offsites, and incentive trips.", price: "Custom quotes based on route & guest count", pkg: "corporate", border: "hover:border-red-600", shadow: "hover:shadow-red-600/20", btn: "bg-red-600 hover:bg-blue-600" },
+    { img: bacheloretteImg, title: "Bachelorette Bash", desc: "2\u2011hour private enclosed party bus for up to 20 guests, BYOB, cups, coolers, and ice included. Cruise Broadway, The Gulch, and Midtown with bathroom and photo stops.", price: "From $495 Sun\u2013Thu \u00B7 From $595 Fri\u2013Sat", priceA: "$495 Sun\u2013Thu", priceB: "$595 Fri\u2013Sat", pkg: "bachelorette", num: "01" },
+    { img: birthdayImg, title: "Broadway Birthday", desc: "Celebrate another lap around the sun with a 2\u2011hour rolling nightclub. Custom playlist, LED club lighting, and route tailored to your favorite Nashville hotspots.", price: "From $475 Sun\u2013Thu \u00B7 From $575 Fri\u2013Sat", priceA: "$475 Sun\u2013Thu", priceB: "$575 Fri\u2013Sat", pkg: "birthday", num: "02" },
+    { img: tailgateImg, title: "Game Day Tailgate", desc: "3\u2011hour Titans or Preds pre\u2011game party bus. One pickup, one stadium\u2011area drop\u2011off, and a rolling tailgate with your crew, drinks, and music.", price: "From $695 per group", priceA: "$695", priceB: "per group", pkg: "gameday", num: "03" },
+    { img: corporateImg, title: "Corporate & Events", desc: "Impress clients and teams with a private shuttle that can run full party mode or a toned\u2011down lounge. Perfect for conferences, offsites, and incentive trips.", price: "Custom quotes based on route & guest count", priceA: "Custom Quote", priceB: "", pkg: "corporate", num: "04" },
   ];
 
   return (
@@ -223,36 +259,36 @@ export function PackagesPage() {
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} defaultPackage={bookingPackage} />
       <NavBar openBooking={openBooking} currentPage="/packages" />
       <div className="flex-1 flex flex-col items-center justify-center px-3 sm:px-4 md:px-8 pt-16 sm:pt-20">
-        <div className="text-center mb-4 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl md:text-5xl font-display text-slate-900 tracking-wide uppercase mb-1">
-            Party <span className="text-red-600">Packages</span>
-          </h1>
-          <h2 className="font-script text-xl sm:text-2xl md:text-4xl text-blue-600 -rotate-1 mb-2">Tailered for Any Occassion</h2>
-          <p className="text-xs sm:text-sm md:text-base text-slate-700 font-display tracking-wide max-w-2xl mx-auto" data-testid="text-packages-subtitle">Private, enclosed, BYOB Nashville party bus experiences engineered for bachelorettes, birthdays, game days, and VIP nights out.</p>
-        </div>
+        <SectionHeader tag="Nashville Party Bus Matrix v.1.0" title="Party" titleAccent="Protocols" subtitle="Private, enclosed, BYOB Nashville party bus experiences engineered for bachelorettes, birthdays, game days, and VIP nights out." />
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 w-full max-w-7xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 gap-y-8 sm:gap-y-12 w-full max-w-7xl">
           {cards.map((card, i) => (
-            <div key={i} className={`group relative w-full h-[200px] sm:h-[260px] md:h-[300px] bg-white rounded-2xl border-2 border-slate-200 ${card.border} transition-all duration-500 overflow-hidden shadow-xl ${card.shadow} hover:-translate-y-3`} data-testid={`card-package-${card.pkg}`}>
-              <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style={{ backgroundImage: `url(${card.img})` }}></div>
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
-              <div className="absolute bottom-0 left-0 w-full p-3 sm:p-5 flex flex-col justify-end h-full">
-                <div className="transform translate-y-3 group-hover:translate-y-0 transition-transform duration-300">
-                  <h3 className="text-lg sm:text-2xl md:text-3xl font-script text-white mb-1 drop-shadow-md">{card.title}</h3>
-                  <p className="text-xs md:text-sm text-slate-200 mb-1 font-display opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100 max-h-0 group-hover:max-h-40 overflow-hidden tracking-wide hidden sm:block">{card.desc}</p>
-                  <p className="text-[10px] sm:text-xs text-red-400 font-display mb-2 tracking-wide">{card.price}</p>
-                  <button onClick={() => openBooking(card.pkg)} className={`w-full ${card.btn} text-white font-bold py-2 sm:py-2.5 rounded-xl uppercase tracking-widest transition-colors duration-300 shadow-lg text-xs sm:text-sm`} data-testid={`button-book-${card.pkg}`}>Book Now</button>
+            <div key={i} className={`group relative w-full h-[260px] sm:h-[300px] md:h-[320px] bg-void-800 -skew-x-12 border border-neutral-800 hover:border-crimson-600 transition-all duration-300 overflow-hidden shadow-2xl cursor-pointer ${i % 2 === 1 ? 'sm:mt-8' : ''}`} onClick={() => openBooking(card.pkg)} data-testid={`card-package-${card.pkg}`}>
+              <div className="absolute inset-0 skew-x-12 scale-125 bg-cover bg-center grayscale opacity-40 group-hover:opacity-80 group-hover:grayscale-0 group-hover:mix-blend-hard-light transition-all duration-500 ease-out" style={{ backgroundImage: `url(${card.img})` }}></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent skew-x-12 scale-125"></div>
+
+              <div className="absolute bottom-0 left-0 w-full p-4 sm:p-6 skew-x-12 flex flex-col justify-end h-full group-hover:-translate-y-2 transition-transform duration-300">
+                <div className="flex justify-between items-end border-b border-neutral-800 pb-2 mb-3 group-hover:border-crimson-600 transition-colors">
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-display font-bold text-white tracking-tight uppercase">{card.title}</h3>
+                  <span className="text-2xl sm:text-3xl font-display font-bold text-neutral-800 group-hover:text-crimson-600 transition-colors">{card.num}</span>
+                </div>
+                <p className="text-xs sm:text-sm text-neutral-400 mb-3 leading-tight">{card.desc}</p>
+                <p className="text-xs text-neutral-500 mb-3">
+                  From <span className="text-crimson-600 font-semibold">{card.priceA}</span>{card.priceB && <> &middot; <span className="text-crimson-600 font-semibold">{card.priceB}</span></>}
+                </p>
+                <div className="flex items-center gap-2 text-crimson-600 text-sm font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300" data-testid={`button-book-${card.pkg}`}>
+                  Book {card.title.split(' ')[0]} <iconify-icon icon="solar:arrow-right-linear" className="text-base" style={{ strokeWidth: 1.5 }}></iconify-icon>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-6 mt-4 sm:mt-6">
-          <a href="tel:6153374342" className="text-base sm:text-lg md:text-xl font-display font-black text-slate-900 flex items-center gap-3" data-testid="link-packages-phone">
-            Call NOW: <span className="text-red-600 animate-text-glow">615-337-4342</span>
+        <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mt-6 sm:mt-10">
+          <a href="tel:6153374342" className="text-base sm:text-lg font-display font-bold text-neutral-400 flex items-center gap-2" data-testid="link-packages-phone">
+            Call NOW: <span className="text-crimson-600 animate-text-glow">615-337-4342</span>
           </a>
-          <button onClick={() => navigate('/sites')} className="text-blue-700 font-bold uppercase tracking-widest text-sm hover:text-red-600 transition-colors flex items-center gap-2" data-testid="button-packages-next">
+          <button onClick={() => navigate('/sites')} className="text-neutral-500 font-bold uppercase tracking-widest text-sm hover:text-crimson-600 transition-colors flex items-center gap-2" data-testid="button-packages-next">
             Sites <span className="text-xl">&rarr;</span>
           </button>
         </div>
@@ -279,67 +315,67 @@ export function SitesPage() {
     <PageShell>
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} defaultPackage={bookingPackage} />
       <NavBar openBooking={openBooking} currentPage="/sites" />
-      <div className="flex-1 flex items-center justify-center px-3 sm:px-4 md:px-8 pt-16 sm:pt-20">
-        <div className="w-full max-w-6xl bg-slate-900 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-12 shadow-2xl overflow-hidden relative">
-          <div className="absolute inset-0 opacity-20 bg-cover bg-center" style={{ backgroundImage: `url(${experienceImg})` }}></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-slate-900/90"></div>
+      <div className="flex-1 flex flex-col items-center px-3 sm:px-4 md:px-8 pt-16 sm:pt-20 overflow-y-auto">
+        <div className="w-full max-w-7xl py-4 sm:py-8">
+          <SectionHeader tag="Nashville Destinations" title="Nashville" titleAccent="Sites" subtitle="Great attractions, landmarks and fun sites that make a perfect stop or scenic route." />
 
-          <div className="relative z-10 text-center mb-4 sm:mb-8">
-            <h1 className="mb-3 drop-shadow-lg">
-              <span className="font-script text-3xl sm:text-4xl md:text-6xl text-red-600 -rotate-1">Nashville Sites</span>
-            </h1>
-            <h2 className="text-xs sm:text-sm md:text-base text-blue-200 font-display tracking-wide max-w-3xl mx-auto" data-testid="text-sites-description">
-              Great attractions, landmarks and fun sites that make a perfect stop or scenic route, whether you're doing a themed tour, sightseeing cruise, brewery crawl, or just wanting to sit back and Party N Ride <span className="font-nashville">NASHVILLE</span>!
-            </h2>
-          </div>
-
-          <div className="relative z-10 grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 text-center max-w-5xl mx-auto">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-8 sm:mb-12">
             {SITES.map((site, i) => (
-              <div key={i} className="bg-white/10 backdrop-blur-md rounded-xl p-2 sm:p-3 border border-white/20 hover:bg-red-600/20 hover:border-red-600/50 transition-all duration-300 cursor-default" data-testid={`text-site-${i}`}>
-                <span className="text-white font-display text-xs sm:text-sm md:text-base tracking-wide">{site}</span>
+              <div key={i} className="group -skew-x-12 bg-void-800 border border-neutral-800 hover:border-crimson-600 transition-all duration-300 p-3 sm:p-4 cursor-default" data-testid={`text-site-${i}`}>
+                <span className="block skew-x-12 text-white font-display text-xs sm:text-sm tracking-wide uppercase group-hover:text-crimson-500 transition-colors">{site}</span>
               </div>
             ))}
           </div>
 
-          <div className="relative z-10 mt-4 sm:mt-8 mb-4 sm:mb-6">
-            <h2 className="text-center text-lg sm:text-xl md:text-2xl font-display text-white uppercase tracking-widest mb-1">Ride <span className="text-red-500">Protocol</span></h2>
-            <p className="text-center text-xs sm:text-sm text-blue-200/70 font-display tracking-wide mb-3 sm:mb-4">How your Nashville party bus goes from idea to &ldquo;best night of the trip&rdquo;.</p>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
-              {[
-                { step: "01", title: "Lock Your Date", desc: "Choose your date, time, and package. Weekends often sell out 2\u20134 weeks in advance." },
-                { step: "02", title: "Plan The Route", desc: "We help you dial in pickup, photo stops, bathroom breaks, and drop\u2011off so the night flows." },
-                { step: "03", title: "Stock & Show Up", desc: "Bring your drinks (no glass), we handle cups, coolers, ice, and a pro driver to keep it smooth." },
-                { step: "04", title: "Ride & Repeat", desc: "We roll, you dance, and your crew walks away saying \u201Cthat was the best part of the trip\u201D." },
-              ].map((s) => (
-                <div key={s.step} className="bg-white/5 backdrop-blur-sm rounded-xl p-3 sm:p-4 border border-white/10 hover:border-red-500/50 transition-all group" data-testid={`text-step-${s.step}`}>
-                  <span className="text-[10px] font-display text-red-500 tracking-widest">STEP_{s.step}</span>
-                  <h3 className="text-sm sm:text-base font-display font-bold text-white uppercase mt-1 mb-1 group-hover:text-red-400 transition-colors">{s.title}</h3>
-                  <p className="text-[10px] sm:text-xs text-slate-400 leading-snug">{s.desc}</p>
+          <div className="flex flex-col md:flex-row justify-between items-end mb-8 sm:mb-12 border-b border-neutral-800 pb-4 sm:pb-6">
+            <div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white tracking-tighter uppercase mb-2">
+                Ride <span className="text-crimson-600">Protocol</span>
+              </h2>
+              <p className="text-neutral-500 font-medium tracking-wide text-sm sm:text-base">How your Nashville party bus goes from idea to &ldquo;best night of the trip&rdquo;.</p>
+            </div>
+            <SkewedCTA onClick={() => openBooking('custom')} label="Check Availability" />
+          </div>
+
+          <div className="relative w-full flex flex-col md:flex-row justify-between items-center gap-4 mb-8 sm:mb-12">
+            <div className="hidden md:block absolute top-1/2 left-0 w-full h-[1px] bg-neutral-800 -z-10"></div>
+            {[
+              { step: "01", title: "Lock Your Date", desc: "Choose your date, time, and package. Weekends often sell out 2\u20134 weeks in advance.", icon: "solar:cursor-square-linear" },
+              { step: "02", title: "Plan The Route", desc: "We help you dial in pickup, photo stops, bathroom breaks, and drop\u2011off so the night flows.", icon: "solar:map-linear" },
+              { step: "03", title: "Stock & Show Up", desc: "Bring your drinks (no glass), we handle cups, coolers, ice, and a pro driver to keep it smooth.", icon: "solar:cup-linear" },
+              { step: "04", title: "Ride & Repeat", desc: "We roll, you dance, and your crew walks away saying \u201Cthat was the best part of the trip\u201D.", icon: "solar:emoji-funny-circle-linear" },
+            ].map((s, i) => (
+              <div key={s.step} className={`group relative w-full md:w-1/4 h-40 sm:h-48 -skew-x-12 bg-void-800 border-t border-b border-neutral-800 hover:border-crimson-600 hover:bg-void-700 transition-all duration-300 p-4 sm:p-6 flex flex-col justify-between ${i % 2 === 1 ? 'md:translate-y-8' : ''}`} data-testid={`text-step-${s.step}`}>
+                <div className="skew-x-12 flex justify-between items-start">
+                  <span className="text-[10px] sm:text-xs font-mono text-crimson-600 tracking-widest">STEP_{s.step}</span>
+                  <iconify-icon icon={s.icon} className="text-xl sm:text-2xl text-neutral-600 group-hover:text-white transition-colors" style={{ strokeWidth: 1.5 }}></iconify-icon>
                 </div>
-              ))}
-            </div>
+                <div className="skew-x-12">
+                  <h3 className="text-base sm:text-xl font-display font-bold text-white uppercase mb-1">{s.title}</h3>
+                  <p className="text-[10px] sm:text-xs text-neutral-500 leading-relaxed">{s.desc}</p>
+                </div>
+                <div className="absolute bottom-0 right-0 w-6 sm:w-8 h-6 sm:h-8 border-b border-r border-crimson-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              </div>
+            ))}
           </div>
 
-          <div className="relative z-10 grid grid-cols-3 gap-2 sm:gap-3 mb-4 sm:mb-6">
-            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-2 sm:p-3 border border-white/10 text-center" data-testid="text-feature-enclosed">
-              <p className="text-[9px] sm:text-[10px] text-slate-500 font-display uppercase tracking-widest mb-1">All-Weather</p>
-              <p className="text-xs sm:text-sm font-display font-bold text-white uppercase">Enclosed & Climate-Controlled</p>
-            </div>
-            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-2 sm:p-3 border border-white/10 text-center" data-testid="text-feature-vip">
-              <p className="text-[9px] sm:text-[10px] text-slate-500 font-display uppercase tracking-widest mb-1">Private VIP</p>
-              <p className="text-xs sm:text-sm font-display font-bold text-white uppercase">Your Crew, Your Music</p>
-            </div>
-            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-2 sm:p-3 border border-white/10 text-center" data-testid="text-feature-route">
-              <p className="text-[9px] sm:text-[10px] text-slate-500 font-display uppercase tracking-widest mb-1">Nashville Route</p>
-              <p className="text-xs sm:text-sm font-display font-bold text-white uppercase">Broadway, Gulch & More</p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-10">
+            {[
+              { tag: "ALL\u2011WEATHER_COMFORT", label: "Enclosed & Climate\u2011Controlled" },
+              { tag: "PRIVATE_VIP_MODE", label: "Your Crew, Your Music" },
+              { tag: "NASHVILLE_ROUTE", label: "Broadway, Gulch & More" },
+            ].map((f, i) => (
+              <div key={i} className="group h-24 sm:h-32 -skew-x-12 bg-gradient-to-r from-void-800 to-void-900 border-l-2 border-neutral-700 hover:border-crimson-600 pl-4 sm:pl-6 flex items-center transition-all cursor-pointer" data-testid={`text-feature-${['enclosed','vip','route'][i]}`}>
+                <div className="skew-x-12">
+                  <span className="text-[9px] sm:text-[10px] font-mono text-neutral-500 block mb-1">{f.tag}</span>
+                  <h3 className="text-base sm:text-xl font-bold font-display text-white group-hover:text-crimson-500 transition-colors uppercase">{f.label}</h3>
+                </div>
+              </div>
+            ))}
           </div>
 
-          <div className="relative z-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-            <button onClick={() => openBooking('custom')} className="bg-blue-600 text-white font-bold text-base sm:text-lg px-8 sm:px-10 py-3 sm:py-4 rounded-full uppercase tracking-widest hover:bg-white hover:text-blue-700 hover:scale-105 transition-all duration-300 shadow-[0_0_30px_rgba(37,99,235,0.5)] animate-glow w-full sm:w-auto" data-testid="button-sites-book">
-              Book Now
-            </button>
-            <button onClick={() => navigate('/pricing')} className="text-blue-300 font-bold uppercase tracking-widest text-sm hover:text-red-500 transition-colors flex items-center gap-2" data-testid="button-sites-next">
+          <div className="flex items-center justify-center gap-4 sm:gap-6">
+            <button onClick={() => navigate('/pricing')} className="text-neutral-500 font-bold uppercase tracking-widest text-sm hover:text-crimson-600 transition-colors flex items-center gap-2" data-testid="button-sites-next">
               Pricing <span className="text-xl">&rarr;</span>
             </button>
           </div>
@@ -360,45 +396,41 @@ export function PricingPage() {
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} defaultPackage={bookingPackage} />
       <NavBar openBooking={openBooking} currentPage="/pricing" />
       <div className="flex-1 flex items-center justify-center px-3 sm:px-4 md:px-8 pt-16 sm:pt-20">
-        <div className="w-full max-w-3xl bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-14 shadow-xl border border-slate-200 text-center relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-24 sm:w-40 h-24 sm:h-40 bg-red-600/10 rounded-bl-full"></div>
-          <div className="absolute bottom-0 left-0 w-24 sm:w-40 h-24 sm:h-40 bg-blue-600/10 rounded-tr-full"></div>
+        <div className="w-full max-w-4xl">
+          <SectionHeader tag="Pricing Matrix" title="Party Bus" titleAccent="Pricing" subtitle="2 hour minimum booking. Additional hours available tailored to fit your event." />
 
-          <h1 className="mb-6 sm:mb-10 relative z-10">
-            <span className="font-script text-4xl sm:text-5xl md:text-7xl text-red-600 -rotate-1">Party Bus Pricing</span>
-          </h1>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-6 sm:mb-8 relative z-10">
-            <div className="bg-slate-50 rounded-2xl p-4 sm:p-5 border border-slate-100 text-left">
-              <h2 className="font-display text-sm sm:text-base text-blue-700 uppercase tracking-widest mb-2" data-testid="text-pricing-bach">Bachelorette Bash</h2>
-              <p className="text-xl sm:text-2xl font-display font-black text-slate-900">$495 <span className="text-sm font-normal text-slate-500">Sun\u2013Thu</span></p>
-              <p className="text-xl sm:text-2xl font-display font-black text-slate-900">$595 <span className="text-sm font-normal text-slate-500">Fri\u2013Sat</span></p>
-              <p className="text-xs text-slate-400 mt-1">2\u2011hour private party bus, up to 20 guests</p>
-            </div>
-            <div className="bg-slate-50 rounded-2xl p-4 sm:p-5 border border-slate-100 text-left">
-              <h2 className="font-display text-sm sm:text-base text-red-600 uppercase tracking-widest mb-2" data-testid="text-pricing-bday">Broadway Birthday</h2>
-              <p className="text-xl sm:text-2xl font-display font-black text-slate-900">$475 <span className="text-sm font-normal text-slate-500">Sun\u2013Thu</span></p>
-              <p className="text-xl sm:text-2xl font-display font-black text-slate-900">$575 <span className="text-sm font-normal text-slate-500">Fri\u2013Sat</span></p>
-              <p className="text-xs text-slate-400 mt-1">2\u2011hour rolling nightclub, custom playlist</p>
-            </div>
-            <div className="bg-slate-50 rounded-2xl p-4 sm:p-5 border border-slate-100 text-left">
-              <h2 className="font-display text-sm sm:text-base text-blue-700 uppercase tracking-widest mb-2" data-testid="text-pricing-game">Game Day Tailgate</h2>
-              <p className="text-xl sm:text-2xl font-display font-black text-slate-900">$695 <span className="text-sm font-normal text-slate-500">per group</span></p>
-              <p className="text-xs text-slate-400 mt-1">3\u2011hour Titans or Preds pre\u2011game party bus</p>
-            </div>
-            <div className="bg-slate-50 rounded-2xl p-4 sm:p-5 border border-slate-100 text-left">
-              <h2 className="font-display text-sm sm:text-base text-red-600 uppercase tracking-widest mb-2" data-testid="text-pricing-corp">Corporate & Events</h2>
-              <p className="text-lg sm:text-xl font-display font-black text-slate-900">Custom Quote</p>
-              <p className="text-xs text-slate-400 mt-1">Based on route, timing, and guest count</p>
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-10">
+            {[
+              { title: "Bachelorette Bash", color: "crimson", p1: "$495", p1l: "Sun\u2013Thu", p2: "$595", p2l: "Fri\u2013Sat", desc: "2\u2011hour private party bus, up to 20 guests", tid: "text-pricing-bach" },
+              { title: "Broadway Birthday", color: "white", p1: "$475", p1l: "Sun\u2013Thu", p2: "$575", p2l: "Fri\u2013Sat", desc: "2\u2011hour rolling nightclub, custom playlist", tid: "text-pricing-bday" },
+              { title: "Game Day Tailgate", color: "crimson", p1: "$695", p1l: "per group", p2: "", p2l: "", desc: "3\u2011hour Titans or Preds pre\u2011game party bus", tid: "text-pricing-game" },
+              { title: "Corporate & Events", color: "white", p1: "Custom", p1l: "Quote", p2: "", p2l: "", desc: "Based on route, timing, and guest count", tid: "text-pricing-corp" },
+            ].map((p, i) => (
+              <div key={i} className="group -skew-x-12 bg-void-800 border border-neutral-800 hover:border-crimson-600 transition-all duration-300 p-4 sm:p-6 cursor-pointer" onClick={() => openBooking('custom')}>
+                <div className="skew-x-12">
+                  <h2 className={`font-display text-xs sm:text-sm ${p.color === 'crimson' ? 'text-crimson-600' : 'text-white'} uppercase tracking-widest mb-3`} data-testid={p.tid}>{p.title}</h2>
+                  <div className="flex items-baseline gap-2 mb-1">
+                    <span className="text-2xl sm:text-3xl font-display font-bold text-white">{p.p1}</span>
+                    <span className="text-sm text-neutral-500">{p.p1l}</span>
+                  </div>
+                  {p.p2 && (
+                    <div className="flex items-baseline gap-2 mb-1">
+                      <span className="text-2xl sm:text-3xl font-display font-bold text-white">{p.p2}</span>
+                      <span className="text-sm text-neutral-500">{p.p2l}</span>
+                    </div>
+                  )}
+                  <p className="text-xs text-neutral-500 mt-2">{p.desc}</p>
+                  <div className="flex items-center gap-2 text-crimson-600 text-xs font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-3">
+                    Book Now <iconify-icon icon="solar:arrow-right-linear" className="text-sm" style={{ strokeWidth: 1.5 }}></iconify-icon>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-          <p className="text-xs sm:text-sm text-slate-500 font-display italic tracking-wide mb-4 sm:mb-6 relative z-10">2 HOUR MINIMUM BOOKING \u00B7 ADDITIONAL HOURS AVAILABLE TAILED TO FIT YOUR EVENT</p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 relative z-10">
-            <button onClick={() => openBooking('custom')} className="bg-red-600 text-white font-bold text-lg sm:text-xl px-8 sm:px-12 py-4 sm:py-5 rounded-full uppercase tracking-widest hover:bg-red-700 hover:scale-105 transition-all duration-300 shadow-xl shadow-red-600/30 animate-glow w-full sm:w-auto" data-testid="button-pricing-book">
-              Book Now
-            </button>
-            <button onClick={() => navigate('/shuttle')} className="text-blue-700 font-bold uppercase tracking-widest text-sm hover:text-red-600 transition-colors flex items-center gap-2" data-testid="button-pricing-next">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+            <SkewedCTA onClick={() => openBooking('custom')} label="Book Now" />
+            <button onClick={() => navigate('/shuttle')} className="text-neutral-500 font-bold uppercase tracking-widest text-sm hover:text-crimson-600 transition-colors flex items-center gap-2" data-testid="button-pricing-next">
               Shuttle Service <span className="text-xl">&rarr;</span>
             </button>
           </div>
@@ -419,32 +451,31 @@ export function ShuttlePage() {
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} defaultPackage={bookingPackage} />
       <NavBar openBooking={openBooking} currentPage="/shuttle" />
       <div className="flex-1 flex items-center justify-center px-3 sm:px-4 md:px-8 pt-16 sm:pt-20">
-        <div className="w-full max-w-3xl bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-14 shadow-xl border border-slate-200 text-center relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-24 sm:w-40 h-24 sm:h-40 bg-blue-600/10 rounded-br-full"></div>
-          <div className="absolute bottom-0 right-0 w-24 sm:w-40 h-24 sm:h-40 bg-red-600/10 rounded-tl-full"></div>
+        <div className="w-full max-w-4xl">
+          <SectionHeader tag="Shuttle Protocol" title="Nashville Shuttle" titleAccent="Service" subtitle="Custom shuttle and group transportation packages for Nashville, TN." />
 
-          <h1 className="mb-5 sm:mb-8 relative z-10">
-            <span className="font-display text-2xl sm:text-3xl md:text-5xl text-slate-900 tracking-wide uppercase">Nashville Shuttle</span>{' '}
-            <span className="font-script text-3xl sm:text-4xl md:text-6xl text-blue-600 -rotate-1">Service</span>
-          </h1>
+          <div className="-skew-x-12 bg-void-800 border border-neutral-800 p-6 sm:p-10 mb-8 sm:mb-12 relative">
+            <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-crimson-600 -translate-x-1 -translate-y-1"></div>
+            <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-crimson-600 translate-x-1 translate-y-1"></div>
+            <div className="skew-x-12">
+              <h2 className="sr-only">Party Bus Shuttle Service in Nashville TN - Corporate & Group Transportation</h2>
+              <p className="text-sm sm:text-base md:text-lg text-neutral-400 font-body leading-relaxed mb-5 sm:mb-8 tracking-wide" data-testid="text-shuttle-description">
+                At Party N Ride <span className="font-nashville text-crimson-500">NASHVILLE</span>, we offer custom shuttle - only party bus/group transportation packages you can use for corporate, special occasion or general group shuttle needs in <span className="font-nashville text-crimson-500">Nashville</span>, TN. Whether it's one way or round trip, we can take your group from point A to B comfortably and efficiently!
+              </p>
 
-          <h2 className="sr-only">Party Bus Shuttle Service in Nashville TN - Corporate & Group Transportation</h2>
+              <div className="border-l-2 border-crimson-600 pl-4 sm:pl-6 py-2 sm:py-4 mb-6 sm:mb-8">
+                <h3 className="text-crimson-600 font-display text-sm sm:text-base tracking-widest uppercase">Call today to inquiry about pricing for your tailed needs!</h3>
+              </div>
 
-          <p className="text-sm sm:text-base md:text-lg text-slate-600 font-display leading-relaxed mb-5 sm:mb-8 relative z-10 tracking-wide" data-testid="text-shuttle-description">
-            At Party N Ride <span className="font-nashville">NASHVILLE</span>, we offer custom shuttle - only party bus/group transportation packages you can use for corporate, special occasion or general group shuttle needs in <span className="font-nashville">Nashville</span>, TN. Whether it's one way or round trip, we can take your group from point A to B comfortably and efficiently!
-          </p>
-
-          <div className="bg-red-50 rounded-2xl p-4 sm:p-6 w-full border border-red-100 mb-5 sm:mb-8 relative z-10">
-            <h3 className="text-red-700 font-display text-base sm:text-lg tracking-wide">Call today to inquiry about pricing for your tailed needs!</h3>
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 relative z-10">
-            <a href="tel:6153374342" className="text-xl sm:text-2xl md:text-3xl font-display font-black text-slate-900 flex items-center gap-3 hover:text-blue-700 transition-colors" data-testid="link-shuttle-phone">
-              Call NOW: <span className="text-blue-600 animate-text-glow">615-337-4342</span>
-            </a>
-            <button onClick={() => navigate('/faq')} className="text-blue-700 font-bold uppercase tracking-widest text-sm hover:text-red-600 transition-colors flex items-center gap-2" data-testid="button-shuttle-next">
-              FAQ's <span className="text-xl">&rarr;</span>
-            </button>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+                <a href="tel:6153374342" className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-white flex items-center gap-3 hover:text-crimson-600 transition-colors" data-testid="link-shuttle-phone">
+                  Call NOW: <span className="text-crimson-600 animate-text-glow">615-337-4342</span>
+                </a>
+                <button onClick={() => navigate('/faq')} className="text-neutral-500 font-bold uppercase tracking-widest text-sm hover:text-crimson-600 transition-colors flex items-center gap-2" data-testid="button-shuttle-next">
+                  FAQ's <span className="text-xl">&rarr;</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -473,25 +504,27 @@ export function FaqPage() {
     <PageShell>
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} defaultPackage={bookingPackage} />
       <NavBar openBooking={openBooking} currentPage="/faq" />
-      <div className="flex-1 flex items-center justify-center px-3 sm:px-4 md:px-8 pt-16 sm:pt-20 overflow-y-auto">
-        <div className="w-full max-w-3xl bg-white rounded-2xl sm:rounded-3xl shadow-xl p-4 sm:p-6 md:p-10 border border-slate-200 my-2 sm:my-4">
-          <h1 className="text-center mb-4 sm:mb-8">
-            <span className="font-display text-xl sm:text-2xl md:text-4xl text-slate-900 tracking-wide uppercase">Frequently Asked</span>{' '}
-            <span className="font-script text-2xl sm:text-3xl md:text-5xl text-red-600 -rotate-1">Questions</span>
-          </h1>
-          <div className="space-y-3 sm:space-y-5">
+      <div className="flex-1 flex flex-col items-center px-3 sm:px-4 md:px-8 pt-16 sm:pt-20 overflow-y-auto">
+        <div className="w-full max-w-4xl py-4 sm:py-8">
+          <SectionHeader tag="Support Protocol" title="Frequently Asked" titleAccent="Questions" subtitle="Everything you need to know before your ride." />
+
+          <div className="space-y-0">
             {FAQ_DATA.map((faq, i) => (
-              <div key={i} className={i < FAQ_DATA.length - 1 ? "border-b border-slate-100 pb-3 sm:pb-4" : ""} data-testid={`faq-item-${i}`}>
-                <h2 className="text-sm sm:text-base md:text-lg font-display text-blue-700 mb-1 tracking-wide">{faq.q}</h2>
-                <p className="text-slate-600 font-display text-xs sm:text-sm md:text-base tracking-wide">{faq.a}</p>
+              <div key={i} className="group -skew-x-12 bg-void-800 border-t border-b border-neutral-800 hover:border-crimson-600 hover:bg-void-700 transition-all duration-300 p-4 sm:p-6" data-testid={`faq-item-${i}`}>
+                <div className="skew-x-12">
+                  <div className="flex justify-between items-start mb-2">
+                    <h2 className="text-sm sm:text-base font-display text-white tracking-wide uppercase pr-4">{faq.q}</h2>
+                    <span className="text-[10px] font-mono text-crimson-600 tracking-widest shrink-0">FAQ_{String(i + 1).padStart(2, '0')}</span>
+                  </div>
+                  <p className="text-neutral-500 font-body text-xs sm:text-sm tracking-wide">{faq.a}</p>
+                </div>
               </div>
             ))}
           </div>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mt-5 sm:mt-8">
-            <button onClick={() => openBooking('custom')} className="bg-red-600 text-white font-bold text-base sm:text-lg px-8 sm:px-10 py-3 sm:py-4 rounded-full uppercase tracking-widest hover:bg-red-700 hover:scale-105 transition-all duration-300 shadow-xl shadow-red-600/30 animate-glow w-full sm:w-auto" data-testid="button-faq-book">
-              Book Now
-            </button>
-            <button onClick={() => navigate('/contact')} className="text-blue-700 font-bold uppercase tracking-widest text-sm hover:text-red-600 transition-colors flex items-center gap-2" data-testid="button-faq-next">
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mt-6 sm:mt-10">
+            <SkewedCTA onClick={() => openBooking('custom')} label="Book Now" />
+            <button onClick={() => navigate('/contact')} className="text-neutral-500 font-bold uppercase tracking-widest text-sm hover:text-crimson-600 transition-colors flex items-center gap-2" data-testid="button-faq-next">
               Contact Us <span className="text-xl">&rarr;</span>
             </button>
           </div>
@@ -527,39 +560,51 @@ export function ContactPage() {
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} defaultPackage={bookingPackage} />
       <NavBar openBooking={openBooking} currentPage="/contact" />
       <div className="flex-1 flex items-center justify-center px-3 sm:px-4 md:px-8 pt-16 sm:pt-20">
-        <div className="w-full max-w-4xl flex flex-col lg:flex-row gap-4 sm:gap-8 items-stretch">
-          <div className="flex-1 bg-white rounded-2xl sm:rounded-3xl shadow-xl p-4 sm:p-6 md:p-10 border border-slate-200">
-            <h1 className="mb-4 sm:mb-6">
-              <span className="font-display text-xl sm:text-2xl md:text-3xl text-slate-900 tracking-wide uppercase">Contact</span>{' '}
-              <span className="font-script text-2xl sm:text-3xl md:text-4xl text-blue-600 -rotate-1">Us</span>
-            </h1>
-            {submitted ? (
-              <div className="text-center py-8" data-testid="contact-success">
-                <div className="text-5xl mb-4">&#9993;</div>
-                <h3 className="text-2xl font-display font-black text-slate-900 mb-2">Message Sent!</h3>
-                <p className="text-slate-600 font-medium">We'll get back to you soon.</p>
+        <div className="w-full max-w-5xl flex flex-col lg:flex-row gap-4 sm:gap-6 items-stretch">
+          <div className="flex-1 -skew-x-12 bg-void-800 border border-neutral-800 p-6 sm:p-8 md:p-10 relative">
+            <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-crimson-600 -translate-x-1 -translate-y-1"></div>
+            <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-crimson-600 translate-x-1 translate-y-1"></div>
+            <div className="skew-x-12">
+              <div className="flex items-center gap-2 mb-1 text-crimson-600 text-[10px] font-bold tracking-[0.2em] uppercase">
+                <iconify-icon icon="solar:letter-linear" className="text-base" style={{ strokeWidth: 1.5 }}></iconify-icon>
+                <span>Contact Protocol</span>
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <input type="text" placeholder="Your Name" required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none font-medium text-slate-800" data-testid="input-contact-name" />
-                <input type="email" placeholder="Email Address" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none font-medium text-slate-800" data-testid="input-contact-email" />
-                <input type="tel" placeholder="Phone Number" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none font-medium text-slate-800" data-testid="input-contact-phone" />
-                <textarea placeholder="Your Message" required value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} rows={3} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none font-medium text-slate-800 resize-none" data-testid="input-contact-message" />
-                <button type="submit" disabled={mutation.isPending} className="w-full bg-blue-600 text-white font-bold text-lg py-4 rounded-full uppercase tracking-widest hover:bg-blue-700 transition-all shadow-lg animate-glow disabled:opacity-50" data-testid="button-submit-contact">
-                  {mutation.isPending ? 'Sending...' : 'Send Message'}
-                </button>
-              </form>
-            )}
+              <h1 className="text-2xl sm:text-3xl font-display font-bold text-white tracking-tighter uppercase mb-4 sm:mb-6">
+                Get In <span className="text-crimson-600">Touch</span>
+              </h1>
+              {submitted ? (
+                <div className="text-center py-8" data-testid="contact-success">
+                  <div className="text-5xl mb-4">&#9993;</div>
+                  <h3 className="text-2xl font-display font-bold text-white uppercase tracking-widest mb-2">Message Sent!</h3>
+                  <p className="text-neutral-500 font-medium">We'll get back to you soon.</p>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+                  <input type="text" placeholder="Your Name" required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full px-4 py-3 bg-void-900 border border-neutral-700 focus:border-crimson-600 outline-none font-body text-white placeholder:text-neutral-600 tracking-wide" data-testid="input-contact-name" />
+                  <input type="email" placeholder="Email Address" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full px-4 py-3 bg-void-900 border border-neutral-700 focus:border-crimson-600 outline-none font-body text-white placeholder:text-neutral-600 tracking-wide" data-testid="input-contact-email" />
+                  <input type="tel" placeholder="Phone Number" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full px-4 py-3 bg-void-900 border border-neutral-700 focus:border-crimson-600 outline-none font-body text-white placeholder:text-neutral-600 tracking-wide" data-testid="input-contact-phone" />
+                  <textarea placeholder="Your Message" required value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} rows={3} className="w-full px-4 py-3 bg-void-900 border border-neutral-700 focus:border-crimson-600 outline-none font-body text-white placeholder:text-neutral-600 tracking-wide resize-none" data-testid="input-contact-message" />
+                  <button type="submit" disabled={mutation.isPending} className="w-full bg-crimson-600 text-white font-display font-bold text-sm sm:text-base py-3 sm:py-4 uppercase tracking-widest hover:bg-crimson-700 transition-all disabled:opacity-50" data-testid="button-submit-contact">
+                    {mutation.isPending ? 'Sending...' : 'Send Message'}
+                  </button>
+                  {mutation.isError && <p className="text-crimson-500 text-sm font-medium text-center">Something went wrong. Please try again.</p>}
+                </form>
+              )}
+            </div>
           </div>
 
-          <div className="w-full lg:w-72 bg-slate-900 rounded-2xl sm:rounded-3xl shadow-xl p-4 sm:p-6 md:p-8 text-white flex flex-col justify-center items-center text-center">
-            <img src={logoImg} alt="Party N Ride Nashville" className="h-10 sm:h-14 object-contain mb-4 sm:mb-6 filter brightness-0 invert" data-testid="img-contact-logo" />
-            <h2 className="text-lg sm:text-xl font-display font-black uppercase tracking-widest mb-1">PartyNRide</h2>
-            <h3 className="text-xl sm:text-2xl font-nashville text-blue-400 mb-3 sm:mb-4">Nashville</h3>
-            <a href="tel:6153374342" className="text-blue-400 font-bold text-xl sm:text-2xl mb-3 sm:mb-4 animate-text-glow block hover:text-blue-300 transition-colors" data-testid="link-contact-phone">615-337-4342</a>
-            <p className="text-slate-300 font-medium text-sm sm:text-base" data-testid="text-contact-address">1120 Dickerson Pike</p>
-            <p className="text-slate-300 font-medium text-sm sm:text-base mb-4 sm:mb-6"><span className="font-nashville">Nashville</span>, TN 37208</p>
-            <button onClick={() => openBooking('custom')} className="bg-red-600 text-white font-bold px-6 sm:px-8 py-2.5 sm:py-3 rounded-full uppercase tracking-widest text-xs sm:text-sm hover:bg-red-700 transition-colors shadow-lg animate-glow w-full sm:w-auto" data-testid="button-contact-book">Book Now</button>
+          <div className="w-full lg:w-72 -skew-x-12 bg-void-800 border border-neutral-800 p-6 sm:p-8 flex flex-col justify-center items-center relative">
+            <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-crimson-600 -translate-x-0.5 -translate-y-0.5"></div>
+            <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-crimson-600 translate-x-0.5 translate-y-0.5"></div>
+            <div className="skew-x-12 text-center">
+              <img src={logoImg} alt="Party N Ride Nashville" className="h-10 sm:h-12 object-contain mb-4 sm:mb-6 filter brightness-0 invert mx-auto" data-testid="img-contact-logo" />
+              <h2 className="text-base sm:text-lg font-display font-bold uppercase tracking-widest text-white mb-1">PartyNRide</h2>
+              <h3 className="text-xl sm:text-2xl font-nashville text-crimson-500 mb-3 sm:mb-4">Nashville</h3>
+              <a href="tel:6153374342" className="text-crimson-600 font-bold text-xl sm:text-2xl mb-3 sm:mb-4 animate-text-glow block hover:text-white transition-colors" data-testid="link-contact-phone">615-337-4342</a>
+              <p className="text-neutral-500 font-medium text-sm" data-testid="text-contact-address">1120 Dickerson Pike</p>
+              <p className="text-neutral-500 font-medium text-sm mb-4 sm:mb-6"><span className="font-nashville text-crimson-500">Nashville</span>, TN 37208</p>
+              <button onClick={() => openBooking('custom')} className="w-full bg-crimson-600 text-white font-display font-bold py-2.5 sm:py-3 uppercase tracking-widest text-xs sm:text-sm hover:bg-crimson-700 transition-colors" data-testid="button-contact-book">Book Now</button>
+            </div>
           </div>
         </div>
       </div>
