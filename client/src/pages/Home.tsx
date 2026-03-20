@@ -63,7 +63,7 @@ function NavBar({ openBooking, currentPage }: { openBooking: (pkg: string) => vo
   ];
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-void-900/95 backdrop-blur-md border-b border-neutral-800 shadow-[0_2px_20px_rgba(220,38,38,0.1)]">
+    <nav className="fixed top-0 w-full z-50 bg-transparent backdrop-blur-sm border-b border-white/10">
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
         <div className="flex justify-between h-14 sm:h-16 items-center">
           <img src={logoImg} alt="Party N Ride Nashville - Premier Party Bus and Shuttle Service" className="h-10 sm:h-12 object-contain cursor-pointer filter brightness-0 invert" onClick={() => navigate("/")} data-testid="img-logo" />
@@ -71,7 +71,7 @@ function NavBar({ openBooking, currentPage }: { openBooking: (pkg: string) => vo
             {navItems.map(item => (
               <button key={item.path} onClick={() => navigate(item.path)} className={`font-display font-bold uppercase tracking-wider text-xs px-3 py-1.5 transition-all duration-300 ${currentPage === item.path ? 'text-crimson-600 border-b-2 border-crimson-600' : 'text-neutral-400 hover:text-white border-b-2 border-transparent hover:border-neutral-600'}`} data-testid={`link-${item.label.toLowerCase().replace(/[^a-z]/g, '')}`}>{item.label}</button>
             ))}
-            <button onClick={() => openBooking('custom')} className="-skew-x-12 bg-crimson-600 hover:bg-crimson-700 text-white px-5 py-2 ml-3 transition-all duration-300 group" data-testid="button-nav-book">
+            <button onClick={() => openBooking('custom')} className="-skew-x-12 bg-crimson-600/90 border border-crimson-500 hover:bg-crimson-500 text-white px-5 py-2 ml-3 transition-all duration-300 group" data-testid="button-nav-book">
               <span className="block skew-x-12 font-display font-bold uppercase tracking-widest text-xs">Book Now</span>
             </button>
           </div>
@@ -81,7 +81,7 @@ function NavBar({ openBooking, currentPage }: { openBooking: (pkg: string) => vo
         </div>
       </div>
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-void-800 border-t border-neutral-800 px-4 py-4 space-y-2">
+        <div className="lg:hidden bg-black/30 backdrop-blur-md border-t border-white/10 px-4 py-4 space-y-2">
           {navItems.map(item => (
             <button key={item.path} onClick={() => { navigate(item.path); setMobileMenuOpen(false); }} className={`block w-full text-left font-display font-bold uppercase tracking-wider text-base py-2.5 px-3 transition-all duration-200 ${currentPage === item.path ? 'text-crimson-600 border-l-2 border-crimson-600 bg-void-700' : 'text-neutral-300 hover:text-white hover:bg-void-700'}`}>{item.label}</button>
           ))}
@@ -154,7 +154,7 @@ function SectionHeader({ tag, title, titleAccent, subtitle }: { tag: string; tit
 
 function SkewedCTA({ onClick, label }: { onClick: () => void; label: string }) {
   return (
-    <button onClick={onClick} className="-skew-x-12 bg-transparent border border-crimson-600 text-crimson-600 hover:bg-crimson-600 hover:text-white transition-all duration-300 px-8 sm:px-10 py-3 sm:py-4 group shadow-[0_0_20px_rgba(220,38,38,0.2)] hover:shadow-[0_0_30px_rgba(220,38,38,0.4)]">
+    <button onClick={onClick} className="-skew-x-12 bg-crimson-600/90 border border-crimson-500 text-white hover:bg-crimson-500 transition-all duration-300 px-8 sm:px-10 py-3 sm:py-4 group shadow-[0_0_20px_rgba(220,38,38,0.3)] hover:shadow-[0_0_30px_rgba(220,38,38,0.5)]">
       <span className="block skew-x-12 font-display font-bold uppercase tracking-widest text-sm sm:text-base flex items-center gap-2 justify-center">
         {label}
         <iconify-icon icon="solar:arrow-right-linear" className="text-base" style={{ strokeWidth: 1.5 }}></iconify-icon>
