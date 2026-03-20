@@ -176,7 +176,7 @@ export function HeroPage() {
             </h1>
             <h2 className="sr-only">Nashville's Premier Party Bus and Shuttle Service - Book Your Ride Today</h2>
             <p className="text-sm sm:text-base md:text-lg text-slate-900 font-display font-semibold mb-4 sm:mb-8 max-w-xl mx-auto lg:mx-0 tracking-wide drop-shadow-[0_1px_2px_rgba(255,255,255,0.8)]" data-testid="text-hero-description">
-              Party 'N Ride is proud to be one of Music City's premier party bus experiences. Our fully enclosed, multifunctional buses are purpose-built to support all your touring, shuttle, and event transportation needs.
+              Private, enclosed, BYOB Nashville party bus experiences engineered for bachelorettes, birthdays, game days, and VIP nights out. Cups, coolers, ice, LED lighting, and a pro driver included.
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-5 justify-center lg:justify-start">
               <button onClick={() => openBooking('custom')} className="bg-gradient-to-r from-red-600 to-red-700 text-white font-display text-base sm:text-lg md:text-xl px-8 sm:px-10 py-3 sm:py-4 rounded-full uppercase tracking-wider hover:from-red-700 hover:to-red-800 hover:scale-105 transition-all duration-300 shadow-xl shadow-red-600/30 animate-glow w-full sm:w-auto" data-testid="button-hero-book">
@@ -212,10 +212,10 @@ export function PackagesPage() {
   const openBooking = (pkg: string) => { setBookingPackage(pkg); setBookingOpen(true); };
 
   const cards = [
-    { img: bacheloretteImg, title: "Bachelorette", desc: "2-hour private enclosed party bus for up to 20 guests, BYOB, cups, coolers, and ice included. Cruise Broadway, The Gulch, and Midtown.", pkg: "bachelorette", border: "hover:border-blue-600", shadow: "hover:shadow-blue-600/20", btn: "bg-blue-600 hover:bg-red-600" },
-    { img: birthdayImg, title: "Birthday", desc: "Celebrate another lap around the sun with a 2-hour rolling nightclub. Custom playlist, LED club lighting, and route tailored to your favorite hotspots.", pkg: "birthday", border: "hover:border-red-600", shadow: "hover:shadow-red-600/20", btn: "bg-red-600 hover:bg-blue-600" },
-    { img: tailgateImg, title: "Game Day", desc: "3-hour Titans or Preds pre-game party bus. One pickup, one stadium-area drop-off, and a rolling tailgate with your crew, drinks, and music.", pkg: "gameday", border: "hover:border-blue-600", shadow: "hover:shadow-blue-600/20", btn: "bg-blue-600 hover:bg-red-600" },
-    { img: corporateImg, title: "Corporate", desc: "Impress clients and teams with a private shuttle that can run full party mode or a toned-down lounge. Perfect for conferences and offsites.", pkg: "corporate", border: "hover:border-red-600", shadow: "hover:shadow-red-600/20", btn: "bg-red-600 hover:bg-blue-600" },
+    { img: bacheloretteImg, title: "Bachelorette Bash", desc: "2\u2011hour private enclosed party bus for up to 20 guests, BYOB, cups, coolers, and ice included. Cruise Broadway, The Gulch, and Midtown with bathroom and photo stops.", price: "From $495 Sun\u2013Thu \u00B7 From $595 Fri\u2013Sat", pkg: "bachelorette", border: "hover:border-blue-600", shadow: "hover:shadow-blue-600/20", btn: "bg-blue-600 hover:bg-red-600" },
+    { img: birthdayImg, title: "Broadway Birthday", desc: "Celebrate another lap around the sun with a 2\u2011hour rolling nightclub. Custom playlist, LED club lighting, and route tailored to your favorite Nashville hotspots.", price: "From $475 Sun\u2013Thu \u00B7 From $575 Fri\u2013Sat", pkg: "birthday", border: "hover:border-red-600", shadow: "hover:shadow-red-600/20", btn: "bg-red-600 hover:bg-blue-600" },
+    { img: tailgateImg, title: "Game Day Tailgate", desc: "3\u2011hour Titans or Preds pre\u2011game party bus. One pickup, one stadium\u2011area drop\u2011off, and a rolling tailgate with your crew, drinks, and music.", price: "From $695 per group", pkg: "gameday", border: "hover:border-blue-600", shadow: "hover:shadow-blue-600/20", btn: "bg-blue-600 hover:bg-red-600" },
+    { img: corporateImg, title: "Corporate & Events", desc: "Impress clients and teams with a private shuttle that can run full party mode or a toned\u2011down lounge. Perfect for conferences, offsites, and incentive trips.", price: "Custom quotes based on route & guest count", pkg: "corporate", border: "hover:border-red-600", shadow: "hover:shadow-red-600/20", btn: "bg-red-600 hover:bg-blue-600" },
   ];
 
   return (
@@ -225,10 +225,10 @@ export function PackagesPage() {
       <div className="flex-1 flex flex-col items-center justify-center px-3 sm:px-4 md:px-8 pt-16 sm:pt-20">
         <div className="text-center mb-4 sm:mb-8">
           <h1 className="text-2xl sm:text-3xl md:text-5xl font-display text-slate-900 tracking-wide uppercase mb-1">
-            Packages
+            Party <span className="text-red-600">Packages</span>
           </h1>
           <h2 className="font-script text-xl sm:text-2xl md:text-4xl text-blue-600 -rotate-1 mb-2">Tailered for Any Occassion</h2>
-          <p className="text-base sm:text-lg md:text-xl text-red-600 font-display uppercase tracking-widest animate-text-glow" data-testid="text-packages-subtitle">Just For YOU!</p>
+          <p className="text-xs sm:text-sm md:text-base text-slate-700 font-display tracking-wide max-w-2xl mx-auto" data-testid="text-packages-subtitle">Private, enclosed, BYOB Nashville party bus experiences engineered for bachelorettes, birthdays, game days, and VIP nights out.</p>
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 w-full max-w-7xl">
@@ -239,7 +239,8 @@ export function PackagesPage() {
               <div className="absolute bottom-0 left-0 w-full p-3 sm:p-5 flex flex-col justify-end h-full">
                 <div className="transform translate-y-3 group-hover:translate-y-0 transition-transform duration-300">
                   <h3 className="text-lg sm:text-2xl md:text-3xl font-script text-white mb-1 drop-shadow-md">{card.title}</h3>
-                  <p className="text-xs md:text-sm text-slate-200 mb-3 font-display opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100 max-h-0 group-hover:max-h-40 overflow-hidden tracking-wide hidden sm:block">{card.desc}</p>
+                  <p className="text-xs md:text-sm text-slate-200 mb-1 font-display opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100 max-h-0 group-hover:max-h-40 overflow-hidden tracking-wide hidden sm:block">{card.desc}</p>
+                  <p className="text-[10px] sm:text-xs text-red-400 font-display mb-2 tracking-wide">{card.price}</p>
                   <button onClick={() => openBooking(card.pkg)} className={`w-full ${card.btn} text-white font-bold py-2 sm:py-2.5 rounded-xl uppercase tracking-widest transition-colors duration-300 shadow-lg text-xs sm:text-sm`} data-testid={`button-book-${card.pkg}`}>Book Now</button>
                 </div>
               </div>
@@ -300,9 +301,43 @@ export function SitesPage() {
             ))}
           </div>
 
-          <div className="relative z-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-4 sm:mt-8">
+          <div className="relative z-10 mt-4 sm:mt-8 mb-4 sm:mb-6">
+            <h2 className="text-center text-lg sm:text-xl md:text-2xl font-display text-white uppercase tracking-widest mb-1">Ride <span className="text-red-500">Protocol</span></h2>
+            <p className="text-center text-xs sm:text-sm text-blue-200/70 font-display tracking-wide mb-3 sm:mb-4">How your Nashville party bus goes from idea to &ldquo;best night of the trip&rdquo;.</p>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
+              {[
+                { step: "01", title: "Lock Your Date", desc: "Choose your date, time, and package. Weekends often sell out 2\u20134 weeks in advance." },
+                { step: "02", title: "Plan The Route", desc: "We help you dial in pickup, photo stops, bathroom breaks, and drop\u2011off so the night flows." },
+                { step: "03", title: "Stock & Show Up", desc: "Bring your drinks (no glass), we handle cups, coolers, ice, and a pro driver to keep it smooth." },
+                { step: "04", title: "Ride & Repeat", desc: "We roll, you dance, and your crew walks away saying \u201Cthat was the best part of the trip\u201D." },
+              ].map((s) => (
+                <div key={s.step} className="bg-white/5 backdrop-blur-sm rounded-xl p-3 sm:p-4 border border-white/10 hover:border-red-500/50 transition-all group" data-testid={`text-step-${s.step}`}>
+                  <span className="text-[10px] font-display text-red-500 tracking-widest">STEP_{s.step}</span>
+                  <h3 className="text-sm sm:text-base font-display font-bold text-white uppercase mt-1 mb-1 group-hover:text-red-400 transition-colors">{s.title}</h3>
+                  <p className="text-[10px] sm:text-xs text-slate-400 leading-snug">{s.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="relative z-10 grid grid-cols-3 gap-2 sm:gap-3 mb-4 sm:mb-6">
+            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-2 sm:p-3 border border-white/10 text-center" data-testid="text-feature-enclosed">
+              <p className="text-[9px] sm:text-[10px] text-slate-500 font-display uppercase tracking-widest mb-1">All-Weather</p>
+              <p className="text-xs sm:text-sm font-display font-bold text-white uppercase">Enclosed & Climate-Controlled</p>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-2 sm:p-3 border border-white/10 text-center" data-testid="text-feature-vip">
+              <p className="text-[9px] sm:text-[10px] text-slate-500 font-display uppercase tracking-widest mb-1">Private VIP</p>
+              <p className="text-xs sm:text-sm font-display font-bold text-white uppercase">Your Crew, Your Music</p>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-2 sm:p-3 border border-white/10 text-center" data-testid="text-feature-route">
+              <p className="text-[9px] sm:text-[10px] text-slate-500 font-display uppercase tracking-widest mb-1">Nashville Route</p>
+              <p className="text-xs sm:text-sm font-display font-bold text-white uppercase">Broadway, Gulch & More</p>
+            </div>
+          </div>
+
+          <div className="relative z-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             <button onClick={() => openBooking('custom')} className="bg-blue-600 text-white font-bold text-base sm:text-lg px-8 sm:px-10 py-3 sm:py-4 rounded-full uppercase tracking-widest hover:bg-white hover:text-blue-700 hover:scale-105 transition-all duration-300 shadow-[0_0_30px_rgba(37,99,235,0.5)] animate-glow w-full sm:w-auto" data-testid="button-sites-book">
-              Book Your Route
+              Book Now
             </button>
             <button onClick={() => navigate('/pricing')} className="text-blue-300 font-bold uppercase tracking-widest text-sm hover:text-red-500 transition-colors flex items-center gap-2" data-testid="button-sites-next">
               Pricing <span className="text-xl">&rarr;</span>
@@ -333,11 +368,31 @@ export function PricingPage() {
             <span className="font-script text-4xl sm:text-5xl md:text-7xl text-red-600 -rotate-1">Party Bus Pricing</span>
           </h1>
 
-          <div className="bg-slate-50 w-full rounded-2xl p-5 sm:p-8 md:p-10 mb-6 sm:mb-10 border border-slate-100 relative z-10">
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-display text-blue-700 uppercase tracking-widest mb-3" data-testid="text-pricing-minimum">2 Hour Minimum Booking</h2>
-            <h3 className="text-slate-500 font-display uppercase tracking-wider mb-4 sm:mb-6 text-base sm:text-lg">Starting Rate</h3>
-            <p className="text-base sm:text-lg md:text-xl text-slate-700 font-display italic tracking-wide">ADDITIONAL HOURS AVAILABLE TAILED TO FIT YOUR EVENT</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-6 sm:mb-8 relative z-10">
+            <div className="bg-slate-50 rounded-2xl p-4 sm:p-5 border border-slate-100 text-left">
+              <h2 className="font-display text-sm sm:text-base text-blue-700 uppercase tracking-widest mb-2" data-testid="text-pricing-bach">Bachelorette Bash</h2>
+              <p className="text-xl sm:text-2xl font-display font-black text-slate-900">$495 <span className="text-sm font-normal text-slate-500">Sun\u2013Thu</span></p>
+              <p className="text-xl sm:text-2xl font-display font-black text-slate-900">$595 <span className="text-sm font-normal text-slate-500">Fri\u2013Sat</span></p>
+              <p className="text-xs text-slate-400 mt-1">2\u2011hour private party bus, up to 20 guests</p>
+            </div>
+            <div className="bg-slate-50 rounded-2xl p-4 sm:p-5 border border-slate-100 text-left">
+              <h2 className="font-display text-sm sm:text-base text-red-600 uppercase tracking-widest mb-2" data-testid="text-pricing-bday">Broadway Birthday</h2>
+              <p className="text-xl sm:text-2xl font-display font-black text-slate-900">$475 <span className="text-sm font-normal text-slate-500">Sun\u2013Thu</span></p>
+              <p className="text-xl sm:text-2xl font-display font-black text-slate-900">$575 <span className="text-sm font-normal text-slate-500">Fri\u2013Sat</span></p>
+              <p className="text-xs text-slate-400 mt-1">2\u2011hour rolling nightclub, custom playlist</p>
+            </div>
+            <div className="bg-slate-50 rounded-2xl p-4 sm:p-5 border border-slate-100 text-left">
+              <h2 className="font-display text-sm sm:text-base text-blue-700 uppercase tracking-widest mb-2" data-testid="text-pricing-game">Game Day Tailgate</h2>
+              <p className="text-xl sm:text-2xl font-display font-black text-slate-900">$695 <span className="text-sm font-normal text-slate-500">per group</span></p>
+              <p className="text-xs text-slate-400 mt-1">3\u2011hour Titans or Preds pre\u2011game party bus</p>
+            </div>
+            <div className="bg-slate-50 rounded-2xl p-4 sm:p-5 border border-slate-100 text-left">
+              <h2 className="font-display text-sm sm:text-base text-red-600 uppercase tracking-widest mb-2" data-testid="text-pricing-corp">Corporate & Events</h2>
+              <p className="text-lg sm:text-xl font-display font-black text-slate-900">Custom Quote</p>
+              <p className="text-xs text-slate-400 mt-1">Based on route, timing, and guest count</p>
+            </div>
           </div>
+          <p className="text-xs sm:text-sm text-slate-500 font-display italic tracking-wide mb-4 sm:mb-6 relative z-10">2 HOUR MINIMUM BOOKING \u00B7 ADDITIONAL HOURS AVAILABLE TAILED TO FIT YOUR EVENT</p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 relative z-10">
             <button onClick={() => openBooking('custom')} className="bg-red-600 text-white font-bold text-lg sm:text-xl px-8 sm:px-12 py-4 sm:py-5 rounded-full uppercase tracking-widest hover:bg-red-700 hover:scale-105 transition-all duration-300 shadow-xl shadow-red-600/30 animate-glow w-full sm:w-auto" data-testid="button-pricing-book">
