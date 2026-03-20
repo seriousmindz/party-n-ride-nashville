@@ -7,51 +7,56 @@ Marketing and booking website for Party 'N Ride Nashville, a premier party bus a
 - **Frontend**: React + Tailwind CSS v4, Wouter routing, TanStack React Query
 - **Backend**: Express.js with in-memory storage
 - **Shared**: Drizzle ORM schemas with Zod validation in `shared/schema.ts`
-- **Navigation**: Non-scrolling full-viewport pages, CTA-driven navigation between pages
+- **Navigation**: Scrollable full-viewport pages, CTA-driven navigation between pages
 
-## Page Structure (Non-Scrolling, CTA-Only Navigation)
-Each page fills the entire viewport with no scrolling. Users navigate via nav bar links and CTA arrow buttons.
-- `/` — Hero page (H1 title with laser glow, video, Book Now CTA, Call NOW)
+## Page Structure
+Each page fills the viewport with scrollable overflow for longer content. Users navigate via nav bar links and CTA arrow buttons.
+- `/` — Hero page (large blue logo, dual videos, Book Now CTA, Call NOW)
 - `/packages` — Package cards (Bachelorette, Birthday, Game Day, Corporate) with Book Now CTAs
-- `/sites` — Sites & Attractions grid on dark background
+- `/sites` — Sites & Attractions grid + Ride Protocol steps
 - `/pricing` — 2 Hour Minimum Booking pricing info
 - `/shuttle` — Shuttle Service description + Call NOW
-- `/faq` — FAQ accordion (only page with internal scroll for content)
+- `/faq` — FAQ list
 - `/contact` — Contact form + business info sidebar
 
 ## Key Features
-- Full-viewport pages with Nashville skyline background and glowing animated effects
-- Hero page video (`Pink_Hat_Video_Batch_Party_1773771232653.mp4`) auto-plays looping
-- Per-letter laser glow animation on "Premier Party Bus" (red) and "& Shuttle Service" (blue)
-- Animated package cards with hover reveals and Book Now CTAs
-- Booking inquiry modal (opens from any page) submits to `/api/bookings`
+- Full-viewport pages with Nashville skyline background (`nashville_skyline_bg.png`) at 80% opacity
+- Hero page with large blue logo + dual auto-playing videos
+- FareHarbor booking integration via iframe modal (`fareharbor.com/embeds/book/partynridenashville`)
+- Booking modal: full-screen on mobile (no skew), skewed at sm+
 - Contact form submits to `/api/contacts`
-- Mobile-responsive hamburger nav menu with smaller navbar on mobile
-- All content matches the PDF design word-for-word
-- Proper H1/H2/H3 heading hierarchy across all pages for SEO
+- Mobile-responsive hamburger nav menu
 
 ## SEO & Meta Tags
-- Full Open Graph and Twitter Card meta tags with logo as OG image
+- Full Open Graph and Twitter Card meta tags
 - Logo used as favicon (`/favicon.png`) and apple-touch-icon
 - Structured data (JSON-LD) for LocalBusiness schema
 - Geo meta tags for Nashville location
 - Keywords targeting Nashville party bus searches
-- Canonical URL set
 
 ## Design System — Dark Cyberpunk Theme
 - **Background**: `void-900: #050505`, `void-800: #0A0A0A`, `void-700: #121212`
-- **Accent**: `crimson-600: #DC2626`, `crimson-900: #7F1D1D`
+- **Accent**: CSS var `--color-crimson-600` is mapped to `#0EA5E9` (sky blue), `--color-crimson-500: #38BDF8`
 - **Text**: White headings on dark, `neutral-400/500` body text
-- **Card Pattern**: `-skew-x-12` outer container with `skew-x-12` inner content, `border border-neutral-800 hover:border-crimson-600`
-- **Corner Brackets**: Absolute positioned `border-t/b border-l/r border-crimson-600` on hero videos, shuttle panel, contact form
-- **Overlays**: `bg-cyber-grid` (dark #1a1a1a grid lines), `.scanlines` CRT overlay, `mix-blend-overlay opacity-20`
-- **Images**: `grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-80 group-hover:mix-blend-hard-light`
-- **Section Headers**: `border-l-4 border-crimson-600` left accent + tag/title/subtitle pattern via SectionHeader component
-- **CTAs**: Skewed crimson border buttons via SkewedCTA component
-- **Fonts**: Pacifico (script headings `font-script`), Bebas Neue (display `font-display`), Yellowtail (Nashville text `font-nashville`), Rajdhani (body `font-body`)
-- **Animations**: `animate-glow`, `animate-text-glow`, `laser-letter-glow` (red/blue/nashville/note variants), `animate-nav-glow`
+- **Card Pattern**: `sm:-skew-x-12` outer with `sm:skew-x-12` inner (no skew on mobile), `rounded-md sm:rounded-none`
+- **Corner Brackets**: Only visible at sm+ (`hidden sm:block`)
+- **Overlays**: `bg-cyber-grid` grid lines, `.scanlines` CRT overlay
+- **Images**: grayscale with hover reveal
+- **Section Headers**: `border-l-4 border-crimson-600` left accent + tag/title/subtitle
+- **CTAs**: SkewedCTA — full-width on mobile, skewed at sm+
+- **Fonts**: `font-display`=Bebas Neue/Orbitron, `font-script`=Anton, `font-nashville`=Teko, `font-body`=Rajdhani
 - **Icons**: Iconify CDN (Solar Linear set)
-- **Mobile**: Responsive breakpoints at sm/md/lg with scaled typography, padding, and touch-friendly targets
+
+## Mobile Optimization
+- All skew transforms applied only at `sm:` breakpoint (flat on mobile)
+- All touch targets minimum `min-h-[44px]`
+- Cards use `rounded-md` on mobile, `rounded-none` at sm+
+- Corner bracket decorations hidden on mobile (`hidden sm:block`)
+- Booking modal full-screen on mobile (no padding, no skew, no rounded corners)
+- Mobile menu uses `bg-black/60 backdrop-blur-md` with `min-h-[44px]` buttons
+- PageShell `scrollable` prop enables overflow scrolling (used on all content-heavy pages)
+- Logo wrapper has 44px hit area for tap targets
+- Footer links have 44px tap areas
 
 ## API Routes
 - `POST /api/bookings` - Create booking inquiry (public)
@@ -64,7 +69,7 @@ Each page fills the entire viewport with no scrolling. Users navigate via nav ba
 ## Important Files
 - `client/src/pages/Home.tsx` - All page components (HeroPage, PackagesPage, SitesPage, PricingPage, ShuttlePage, FaqPage, ContactPage)
 - `client/src/App.tsx` - Route registration
-- `client/src/index.css` - Global styles + keyframe animations (laser glow, nav glow, overflow:hidden)
+- `client/src/index.css` - Global styles + keyframe animations
 - `client/index.html` - Meta tags, SEO, structured data, fonts, Iconify CDN
 - `shared/schema.ts` - Data models (bookings, contacts)
 - `server/routes.ts` - API endpoints (admin-protected read endpoints)
@@ -76,5 +81,6 @@ Each page fills the entire viewport with no scrolling. Users navigate via nav ba
 
 ## Assets
 All images stored in `attached_assets/` and imported via `@assets` Vite alias.
-Background: `nashville_bg.png`, Hero video: `Pink_Hat_Video_Batch_Party_1773771232653.mp4`
-Logo: `logo.png` (also used as favicon and OG image)
+- Background: `nashville_skyline_bg.png`
+- Logo: `PartynRide-Logo-New-Blue_1774034577921.png` (already blue, no filter needed)
+- Hero videos: `Pink_Hat_Video_Batch_Party_1773771232653.mp4`, `Words_PNR_Bach_1773771761737.mp4`
