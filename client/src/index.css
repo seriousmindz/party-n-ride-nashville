@@ -34,8 +34,8 @@
   --color-void-900: #050505;
 
   --font-display: 'Bebas Neue', 'Orbitron', sans-serif;
-  --font-script: 'Pacifico', cursive;
-  --font-nashville: 'Yellowtail', cursive;
+  --font-script: 'Anton', sans-serif;
+  --font-nashville: 'Teko', sans-serif;
   --font-body: 'Rajdhani', sans-serif;
 
   --background-image-cyber-grid: linear-gradient(to right, #1a1a1a 1px, transparent 1px), linear-gradient(to bottom, #1a1a1a 1px, transparent 1px);
