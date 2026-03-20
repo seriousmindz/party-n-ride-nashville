@@ -3,7 +3,7 @@ import { useLocation } from 'wouter';
 import { useMutation } from '@tanstack/react-query';
 import { apiRequest } from '../lib/queryClient';
 
-import logoImg from '@assets/logo.png';
+import logoImg from '@assets/PartynRide-Logo-New-Blue_1774034577921.png';
 import bacheloretteImg from '@assets/IMG_20220526_234848_507_1772858254044.jpg';
 import birthdayImg from '@assets/IMG_20220723_114303_064_1772858334450.jpg';
 import tailgateImg from '@assets/IMG_20220124_211840_009_1772858028717.jpg';
@@ -66,7 +66,7 @@ function NavBar({ openBooking, currentPage }: { openBooking: (pkg: string) => vo
     <nav className="fixed top-0 w-full z-50 bg-transparent backdrop-blur-sm border-b border-white/10">
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
         <div className="flex justify-between h-14 sm:h-16 items-center">
-          <img src={logoImg} alt="Party N Ride Nashville - Premier Party Bus and Shuttle Service" className="h-10 sm:h-12 object-contain cursor-pointer filter brightness-0 invert" onClick={() => navigate("/")} data-testid="img-logo" />
+          <img src={logoImg} alt="Party N Ride Nashville - Premier Party Bus and Shuttle Service" className="h-10 sm:h-12 object-contain cursor-pointer" onClick={() => navigate("/")} data-testid="img-logo" />
           <div className="hidden lg:flex space-x-1 items-center">
             {navItems.map(item => (
               <button key={item.path} onClick={() => navigate(item.path)} className={`font-display font-bold uppercase tracking-wider text-xs px-3 py-1.5 transition-all duration-300 ${currentPage === item.path ? 'text-crimson-600 border-b-2 border-crimson-600' : 'text-neutral-400 hover:text-white border-b-2 border-transparent hover:border-neutral-600'}`} data-testid={`link-${item.label.toLowerCase().replace(/[^a-z]/g, '')}`}>{item.label}</button>
@@ -176,26 +176,9 @@ export function HeroPage() {
       <div className="flex-1 flex items-center justify-center px-3 sm:px-4 md:px-8 pt-16 sm:pt-20">
         <div className="w-full max-w-7xl flex flex-col lg:flex-row items-center justify-between gap-4 sm:gap-8">
           <div className="w-full lg:w-1/2 text-center lg:text-left">
-            <h1 className="mb-4 sm:mb-6">
-              <span className="block font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight tracking-[0.3em] uppercase text-sky-400 whitespace-nowrap">
-                &#9834; Music City &#9834;
-              </span>
-              <span className="block font-nashville text-4xl sm:text-5xl md:text-6xl lg:text-8xl leading-tight tracking-wide text-white whitespace-nowrap -mt-1">
-                &#9835; Nashville &#9835;
-              </span>
-              <span className="block font-display text-sm sm:text-base md:text-lg lg:text-xl leading-tight tracking-[0.5em] uppercase text-sky-400 whitespace-nowrap">
-                TENNESSEE
-              </span>
-              <span className="block font-script text-4xl sm:text-5xl md:text-6xl lg:text-8xl leading-tight -rotate-2 text-white whitespace-nowrap">
-                Premier Party
-              </span>
-              <span className="block font-script text-4xl sm:text-5xl md:text-6xl lg:text-8xl leading-tight -rotate-2 text-white whitespace-nowrap ml-2 sm:ml-8 md:ml-12">
-                Bus
-              </span>
-              <span className="block font-script text-2xl sm:text-3xl md:text-4xl lg:text-6xl leading-tight -rotate-2 text-sky-400 whitespace-nowrap ml-4 sm:ml-16 md:ml-24 mt-1">
-                & Shuttle Service
-              </span>
-            </h1>
+            <div className="mb-4 sm:mb-6">
+              <img src={logoImg} alt="Party N Ride Nashville - Premier Party Bus & Shuttle Service" className="w-full max-w-[500px] h-auto object-contain mx-auto lg:mx-0" data-testid="img-hero-logo" />
+            </div>
             <h2 className="sr-only">Nashville's Premier Party Bus and Shuttle Service - Book Your Ride Today</h2>
             <p className="text-sm sm:text-base md:text-lg text-neutral-400 font-body mb-4 sm:mb-8 max-w-xl mx-auto lg:mx-0 tracking-wide" data-testid="text-hero-description">
               Private, enclosed, BYOB Nashville party bus experiences engineered for bachelorettes, birthdays, game days, and VIP nights out. Cups, coolers, ice, LED lighting, and a pro driver included.
@@ -589,7 +572,7 @@ export function ContactPage() {
             <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-crimson-600 -translate-x-0.5 -translate-y-0.5"></div>
             <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-crimson-600 translate-x-0.5 translate-y-0.5"></div>
             <div className="skew-x-12 text-center">
-              <img src={logoImg} alt="Party N Ride Nashville" className="h-10 sm:h-12 object-contain mb-4 sm:mb-6 filter brightness-0 invert mx-auto" data-testid="img-contact-logo" />
+              <img src={logoImg} alt="Party N Ride Nashville" className="h-10 sm:h-12 object-contain mb-4 sm:mb-6 mx-auto" data-testid="img-contact-logo" />
               <h2 className="text-base sm:text-lg font-display font-bold uppercase tracking-widest text-white mb-1">PartyNRide</h2>
               <h3 className="text-xl sm:text-2xl font-nashville text-crimson-500 mb-3 sm:mb-4">Nashville</h3>
               <a href="tel:6153374342" className="text-crimson-600 font-bold text-xl sm:text-2xl mb-3 sm:mb-4 animate-text-glow block hover:text-white transition-colors" data-testid="link-contact-phone">615-337-4342</a>
