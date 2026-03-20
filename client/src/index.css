@@ -24,10 +24,10 @@
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
 
-  --color-crimson-500: #EF4444;
-  --color-crimson-600: #DC2626;
-  --color-crimson-700: #B91C1C;
-  --color-crimson-900: #7F1D1D;
+  --color-crimson-500: #38BDF8;
+  --color-crimson-600: #0EA5E9;
+  --color-crimson-700: #0284C7;
+  --color-crimson-900: #0C4A6E;
   
   --color-void-700: #121212;
   --color-void-800: #0A0A0A;
@@ -97,7 +97,7 @@
     height: 100%;
   }
   body {
-    @apply antialiased bg-void-900 text-neutral-400 font-body overflow-hidden selection:bg-crimson-600 selection:text-white;
+    @apply antialiased bg-void-900 text-neutral-400 font-body overflow-hidden selection:bg-sky-500 selection:text-white;
   }
 }
 
@@ -119,19 +119,19 @@
   
   @keyframes glow-pulse {
     0%, 100% {
-      box-shadow: 0 0 15px 5px rgba(220, 38, 38, 0.5), 0 0 30px 10px rgba(37, 99, 235, 0.3);
+      box-shadow: 0 0 15px 5px rgba(14, 165, 233, 0.5), 0 0 30px 10px rgba(56, 189, 248, 0.3);
     }
     50% {
-      box-shadow: 0 0 25px 10px rgba(220, 38, 38, 0.8), 0 0 50px 15px rgba(37, 99, 235, 0.5);
+      box-shadow: 0 0 25px 10px rgba(14, 165, 233, 0.8), 0 0 50px 15px rgba(56, 189, 248, 0.5);
     }
   }
 
   @keyframes text-glow {
     0%, 100% {
-      text-shadow: 0 0 10px rgba(220, 38, 38, 0.7), 0 0 20px rgba(37, 99, 235, 0.5);
+      text-shadow: 0 0 10px rgba(14, 165, 233, 0.7), 0 0 20px rgba(56, 189, 248, 0.5);
     }
     50% {
-      text-shadow: 0 0 20px rgba(220, 38, 38, 0.9), 0 0 30px rgba(37, 99, 235, 0.8);
+      text-shadow: 0 0 20px rgba(14, 165, 233, 0.9), 0 0 30px rgba(56, 189, 248, 0.8);
     }
   }
 
@@ -145,12 +145,12 @@
 
   @keyframes nav-btn-glow {
     0%, 100% {
-      box-shadow: 0 0 8px 2px rgba(37, 99, 235, 0.4), 0 0 16px 4px rgba(220, 38, 38, 0.2);
-      border-color: rgba(37, 99, 235, 0.6);
+      box-shadow: 0 0 8px 2px rgba(14, 165, 233, 0.4), 0 0 16px 4px rgba(56, 189, 248, 0.2);
+      border-color: rgba(14, 165, 233, 0.6);
     }
     50% {
-      box-shadow: 0 0 14px 4px rgba(37, 99, 235, 0.7), 0 0 24px 8px rgba(220, 38, 38, 0.4);
-      border-color: rgba(220, 38, 38, 0.8);
+      box-shadow: 0 0 14px 4px rgba(14, 165, 233, 0.7), 0 0 24px 8px rgba(56, 189, 248, 0.4);
+      border-color: rgba(56, 189, 248, 0.8);
     }
   }
 

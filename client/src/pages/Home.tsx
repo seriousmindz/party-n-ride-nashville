@@ -98,7 +98,7 @@ function Footer() {
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-1 sm:gap-4">
         <p className="text-neutral-500 text-[10px] sm:text-xs font-display tracking-wide">
           Designed and managed by{' '}
-          <a href="https://build.seriousmindz.ai" target="_blank" rel="noopener noreferrer" className="text-crimson-600 hover:text-crimson-500 transition-colors" data-testid="link-footer-seriousmindz">
+          <a href="https://build.seriousmindz.ai" target="_blank" rel="noopener noreferrer" className="text-sky-500 hover:text-sky-400 transition-colors" data-testid="link-footer-seriousmindz">
             SeriousMindz AI
           </a>
         </p>
@@ -154,7 +154,7 @@ function SectionHeader({ tag, title, titleAccent, subtitle }: { tag: string; tit
 
 function SkewedCTA({ onClick, label }: { onClick: () => void; label: string }) {
   return (
-    <button onClick={onClick} className="-skew-x-12 bg-crimson-600/90 border border-crimson-500 text-white hover:bg-crimson-500 transition-all duration-300 px-8 sm:px-10 py-3 sm:py-4 group shadow-[0_0_20px_rgba(220,38,38,0.3)] hover:shadow-[0_0_30px_rgba(220,38,38,0.5)]">
+    <button onClick={onClick} className="-skew-x-12 bg-crimson-600/90 border border-crimson-500 text-white hover:bg-crimson-500 transition-all duration-300 px-8 sm:px-10 py-3 sm:py-4 group shadow-[0_0_20px_rgba(14,165,233,0.3)] hover:shadow-[0_0_30px_rgba(14,165,233,0.5)]">
       <span className="block skew-x-12 font-display font-bold uppercase tracking-widest text-sm sm:text-base flex items-center gap-2 justify-center">
         {label}
         <iconify-icon icon="solar:arrow-right-linear" className="text-base" style={{ strokeWidth: 1.5 }}></iconify-icon>
@@ -177,22 +177,22 @@ export function HeroPage() {
         <div className="w-full max-w-7xl flex flex-col lg:flex-row items-center justify-between gap-4 sm:gap-8">
           <div className="w-full lg:w-1/2 text-center lg:text-left">
             <h1 className="mb-4 sm:mb-6">
-              <span className="block font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight tracking-[0.3em] uppercase text-crimson-600 whitespace-nowrap">
+              <span className="block font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight tracking-[0.3em] uppercase text-sky-400 whitespace-nowrap">
                 &#9834; Music City &#9834;
               </span>
               <span className="block font-nashville text-4xl sm:text-5xl md:text-6xl lg:text-8xl leading-tight tracking-wide text-white whitespace-nowrap -mt-1">
                 &#9835; Nashville &#9835;
               </span>
-              <span className="block font-display text-sm sm:text-base md:text-lg lg:text-xl leading-tight tracking-[0.5em] uppercase text-crimson-600 whitespace-nowrap">
+              <span className="block font-display text-sm sm:text-base md:text-lg lg:text-xl leading-tight tracking-[0.5em] uppercase text-sky-400 whitespace-nowrap">
                 TENNESSEE
               </span>
-              <span className="block font-script text-4xl sm:text-5xl md:text-6xl lg:text-8xl leading-tight -rotate-2 text-crimson-600 whitespace-nowrap">
+              <span className="block font-script text-4xl sm:text-5xl md:text-6xl lg:text-8xl leading-tight -rotate-2 text-white whitespace-nowrap">
                 Premier Party
               </span>
-              <span className="block font-script text-4xl sm:text-5xl md:text-6xl lg:text-8xl leading-tight -rotate-2 text-crimson-600 whitespace-nowrap ml-2 sm:ml-8 md:ml-12">
+              <span className="block font-script text-4xl sm:text-5xl md:text-6xl lg:text-8xl leading-tight -rotate-2 text-white whitespace-nowrap ml-2 sm:ml-8 md:ml-12">
                 Bus
               </span>
-              <span className="block font-script text-2xl sm:text-3xl md:text-4xl lg:text-6xl leading-tight -rotate-2 text-white whitespace-nowrap ml-4 sm:ml-16 md:ml-24 mt-1">
+              <span className="block font-script text-2xl sm:text-3xl md:text-4xl lg:text-6xl leading-tight -rotate-2 text-sky-400 whitespace-nowrap ml-4 sm:ml-16 md:ml-24 mt-1">
                 & Shuttle Service
               </span>
             </h1>
@@ -212,14 +212,14 @@ export function HeroPage() {
           </div>
           <div className="w-full lg:w-1/2 flex flex-row lg:flex-col items-center justify-center lg:justify-end gap-3 sm:gap-4 relative mt-2 lg:mt-0">
             <div className="absolute inset-0 bg-crimson-600/10 rounded-full blur-3xl animate-pulse w-3/4 h-3/4 m-auto"></div>
-            <div className="relative -skew-x-12 border border-crimson-900/50 bg-void-800 p-1.5 sm:p-2 shadow-[0_0_20px_rgba(220,38,38,0.1)]">
+            <div className="relative -skew-x-12 border border-crimson-900/50 bg-void-800 p-1.5 sm:p-2 shadow-[0_0_20px_rgba(14,165,233,0.1)]">
               <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-crimson-600 -translate-x-0.5 -translate-y-0.5"></div>
               <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-crimson-600 translate-x-0.5 translate-y-0.5"></div>
               <video autoPlay loop muted playsInline className="w-[160px] h-[140px] sm:w-[220px] sm:h-[180px] md:w-[280px] md:h-[220px] skew-x-12 object-cover" data-testid="video-hero">
                 <source src={heroVideo} type="video/mp4" />
               </video>
             </div>
-            <div className="relative -skew-x-12 border border-crimson-900/50 bg-void-800 p-1.5 sm:p-2 shadow-[0_0_20px_rgba(220,38,38,0.1)]">
+            <div className="relative -skew-x-12 border border-crimson-900/50 bg-void-800 p-1.5 sm:p-2 shadow-[0_0_20px_rgba(14,165,233,0.1)]">
               <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-crimson-600 -translate-x-0.5 -translate-y-0.5"></div>
               <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-crimson-600 translate-x-0.5 translate-y-0.5"></div>
               <video autoPlay loop muted playsInline className="w-[160px] h-[140px] sm:w-[220px] sm:h-[180px] md:w-[280px] md:h-[220px] skew-x-12 object-cover" data-testid="video-hero-2">
