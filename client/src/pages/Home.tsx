@@ -177,35 +177,23 @@ export function HeroPage() {
         <div className="w-full max-w-7xl flex flex-col lg:flex-row items-center justify-between gap-4 sm:gap-8">
           <div className="w-full lg:w-1/2 text-center lg:text-left">
             <h1 className="mb-4 sm:mb-6">
-              <span className="block font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight tracking-[0.3em] uppercase laser-text laser-text-nashville whitespace-nowrap">
-                {["\u266A"," ","M","u","s","i","c"," ","C","i","t","y"," ","\u266A"].map((char, i) => (
-                  <span key={`mc${i}`} className={`laser-letter ${char === '\u266A' ? 'laser-letter-note' : 'laser-letter-nashville'}${char === ' ' ? ' space-char' : ''}`} style={{ '--delay': `${i * 0.1}s` } as React.CSSProperties}>{char === ' ' ? '\u00A0' : char}</span>
-                ))}
+              <span className="block font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight tracking-[0.3em] uppercase text-crimson-600 whitespace-nowrap">
+                &#9834; Music City &#9834;
               </span>
-              <span className="block font-nashville text-4xl sm:text-5xl md:text-6xl lg:text-8xl leading-tight tracking-wide laser-text laser-text-nashville whitespace-nowrap -mt-1">
-                {["\u266B"," ","N","a","s","h","v","i","l","l","e"," ","\u266B"].map((char, i) => (
-                  <span key={`n${i}`} className={`laser-letter ${char === '\u266B' ? 'laser-letter-note' : 'laser-letter-nashville'}${char === ' ' ? ' space-char' : ''}`} style={{ '--delay': `${(i + 14) * 0.1}s` } as React.CSSProperties}>{char === ' ' ? '\u00A0' : char}</span>
-                ))}
+              <span className="block font-nashville text-4xl sm:text-5xl md:text-6xl lg:text-8xl leading-tight tracking-wide text-white whitespace-nowrap -mt-1">
+                &#9835; Nashville &#9835;
               </span>
-              <span className="block font-display text-sm sm:text-base md:text-lg lg:text-xl leading-tight tracking-[0.5em] uppercase laser-text laser-text-nashville whitespace-nowrap">
-                {["T","E","N","N","E","S","S","E","E"].map((char, i) => (
-                  <span key={`tn${i}`} className="laser-letter laser-letter-nashville" style={{ '--delay': `${(i + 19) * 0.08}s` } as React.CSSProperties}>{char}</span>
-                ))}
+              <span className="block font-display text-sm sm:text-base md:text-lg lg:text-xl leading-tight tracking-[0.5em] uppercase text-crimson-600 whitespace-nowrap">
+                TENNESSEE
               </span>
-              <span className="block font-script text-4xl sm:text-5xl md:text-6xl lg:text-8xl leading-tight -rotate-2 laser-text whitespace-nowrap">
-                {["P","r","e","m","i","e","r"," ","P","a","r","t","y"].map((char, i) => (
-                  <span key={i} className={`laser-letter${char === ' ' ? ' space-char' : ''}`} style={{ '--delay': `${i * 0.15}s` } as React.CSSProperties}>{char === ' ' ? '\u00A0' : char}</span>
-                ))}
+              <span className="block font-script text-4xl sm:text-5xl md:text-6xl lg:text-8xl leading-tight -rotate-2 text-crimson-600 whitespace-nowrap">
+                Premier Party
               </span>
-              <span className="block font-script text-4xl sm:text-5xl md:text-6xl lg:text-8xl leading-tight -rotate-2 laser-text whitespace-nowrap ml-2 sm:ml-8 md:ml-12">
-                {["B","u","s"].map((char, i) => (
-                  <span key={i + 13} className="laser-letter" style={{ '--delay': `${(i + 13) * 0.15}s` } as React.CSSProperties}>{char}</span>
-                ))}
+              <span className="block font-script text-4xl sm:text-5xl md:text-6xl lg:text-8xl leading-tight -rotate-2 text-crimson-600 whitespace-nowrap ml-2 sm:ml-8 md:ml-12">
+                Bus
               </span>
-              <span className="block font-script text-2xl sm:text-3xl md:text-4xl lg:text-6xl leading-tight -rotate-2 laser-text laser-text-blue whitespace-nowrap ml-4 sm:ml-16 md:ml-24 mt-1">
-                {["&"," ","S","h","u","t","t","l","e"," ","S","e","r","v","i","c","e"].map((char, i) => (
-                  <span key={i + 16} className={`laser-letter laser-letter-blue${char === ' ' ? ' space-char' : ''}`} style={{ '--delay': `${(i + 16) * 0.1}s` } as React.CSSProperties}>{char === ' ' ? '\u00A0' : char}</span>
-                ))}
+              <span className="block font-script text-2xl sm:text-3xl md:text-4xl lg:text-6xl leading-tight -rotate-2 text-white whitespace-nowrap ml-4 sm:ml-16 md:ml-24 mt-1">
+                & Shuttle Service
               </span>
             </h1>
             <h2 className="sr-only">Nashville's Premier Party Bus and Shuttle Service - Book Your Ride Today</h2>
@@ -214,7 +202,7 @@ export function HeroPage() {
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-5 justify-center lg:justify-start">
               <SkewedCTA onClick={() => openBooking('custom')} label="Book Now" />
-              <a href="tel:6153374342" className="text-base sm:text-lg md:text-xl font-display font-bold text-crimson-600 animate-text-glow hover:text-white transition-colors" data-testid="link-hero-phone">
+              <a href="tel:6153374342" className="text-base sm:text-lg md:text-xl font-display font-bold text-crimson-600 hover:text-white transition-colors" data-testid="link-hero-phone">
                 Call NOW: 615-337-4342
               </a>
             </div>
