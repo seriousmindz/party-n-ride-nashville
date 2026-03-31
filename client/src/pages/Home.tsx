@@ -12,6 +12,13 @@ import experienceImg from '@assets/IMG_20220522_233123_203_1772858183644.jpg';
 import heroVideo from '@assets/Pink_Hat_Video_Batch_Party_1773771232653.mp4';
 import heroVideo2 from '@assets/Words_PNR_Bach_1773771761737.mp4';
 import skylineBg from '@assets/nashville_riverfront_clear_sky.png';
+import stepLockImg from '@assets/step_lock_date.png';
+import stepRouteImg from '@assets/step_plan_route.png';
+import stepStockImg from '@assets/step_stock_up.png';
+import stepRideImg from '@assets/step_ride_repeat.png';
+import featureEnclosedImg from '@assets/feature_enclosed.png';
+import featureVipImg from '@assets/feature_vip_music.png';
+import featureBroadwayImg from '@assets/feature_broadway.png';
 
 declare global {
   namespace JSX {
@@ -324,19 +331,22 @@ export function SitesPage() {
 
           <div className="relative w-full grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-12">
             {[
-              { step: "01", title: "Lock Your Date", desc: "Choose your date, time, and package. Weekends often sell out 2\u20134 weeks in advance.", icon: "solar:cursor-square-linear" },
-              { step: "02", title: "Plan The Route", desc: "We help you dial in pickup, photo stops, bathroom breaks, and drop\u2011off so the night flows.", icon: "solar:map-linear" },
-              { step: "03", title: "Stock & Show Up", desc: "Bring your drinks (no glass), we handle cups, coolers, ice, and a pro driver to keep it smooth.", icon: "solar:cup-linear" },
-              { step: "04", title: "Ride & Repeat", desc: "We roll, you dance, and your crew walks away saying \u201Cthat was the best part of the trip\u201D.", icon: "solar:emoji-funny-circle-linear" },
+              { step: "01", title: "Lock Your Date", desc: "Choose your date, time, and package. Weekends often sell out 2\u20134 weeks in advance.", img: stepLockImg },
+              { step: "02", title: "Plan The Route", desc: "We help you dial in pickup, photo stops, bathroom breaks, and drop\u2011off so the night flows.", img: stepRouteImg },
+              { step: "03", title: "Stock & Show Up", desc: "Bring your drinks (no glass), we handle cups, coolers, ice, and a pro driver to keep it smooth.", img: stepStockImg },
+              { step: "04", title: "Ride & Repeat", desc: "We roll, you dance, and your crew walks away saying \u201Cthat was the best part of the trip\u201D.", img: stepRideImg },
             ].map((s, i) => (
-              <div key={s.step} className={`group relative w-full h-36 sm:h-48 liquid-glass rounded-2xl p-3 sm:p-6 flex flex-col justify-between`} data-testid={`text-step-${s.step}`}>
-                <div className="relative z-10 flex justify-between items-start">
-                  <span className="text-[9px] sm:text-xs font-mono text-crimson-600 tracking-widest">STEP_{s.step}</span>
-                  <iconify-icon icon={s.icon} className="text-lg sm:text-2xl text-neutral-600 group-hover:text-crimson-600 transition-colors" style={{ strokeWidth: 1.5 }}></iconify-icon>
+              <div key={s.step} className={`group relative w-full h-44 sm:h-56 liquid-glass-card rounded-2xl overflow-hidden cursor-default`} data-testid={`text-step-${s.step}`}>
+                <div className="absolute inset-0">
+                  <img src={s.img} alt={s.title} className="w-full h-full object-cover opacity-50 group-hover:opacity-75 group-hover:scale-105 transition-all duration-700" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/10"></div>
                 </div>
-                <div className="relative z-10">
-                  <h3 className="text-sm sm:text-xl font-display font-bold text-neutral-900 uppercase mb-1">{s.title}</h3>
-                  <p className="text-[9px] sm:text-xs text-neutral-700 font-medium leading-relaxed">{s.desc}</p>
+                <div className="relative z-10 h-full p-3 sm:p-5 flex flex-col justify-between">
+                  <span className="text-[9px] sm:text-xs font-mono text-crimson-500 tracking-widest">STEP_{s.step}</span>
+                  <div>
+                    <h3 className="text-sm sm:text-xl font-display font-bold text-white uppercase mb-1">{s.title}</h3>
+                    <p className="text-[9px] sm:text-xs text-neutral-200 font-medium leading-relaxed">{s.desc}</p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -344,14 +354,20 @@ export function SitesPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6 mb-6 sm:mb-10">
             {[
-              { tag: "ALL\u2011WEATHER_COMFORT", label: "Enclosed & Climate\u2011Controlled" },
-              { tag: "PRIVATE_VIP_MODE", label: "Your Crew, Your Music" },
-              { tag: "NASHVILLE_ROUTE", label: "Broadway, Gulch & More" },
+              { tag: "ALL\u2011WEATHER_COMFORT", label: "Enclosed & Climate\u2011Controlled", img: featureEnclosedImg },
+              { tag: "PRIVATE_VIP_MODE", label: "Your Crew, Your Music", img: featureVipImg },
+              { tag: "NASHVILLE_ROUTE", label: "Broadway, Gulch & More", img: featureBroadwayImg },
             ].map((f, i) => (
-              <div key={i} className="group h-20 sm:h-32 liquid-glass rounded-2xl pl-4 sm:pl-6 flex items-center cursor-pointer" data-testid={`text-feature-${['enclosed','vip','route'][i]}`}>
-                <div className="relative z-10">
-                  <span className="text-[9px] sm:text-[10px] font-mono text-neutral-600 font-semibold block mb-1">{f.tag}</span>
-                  <h3 className="text-sm sm:text-xl font-bold font-display text-neutral-900 group-hover:text-crimson-500 transition-colors uppercase">{f.label}</h3>
+              <div key={i} className="group relative h-28 sm:h-40 liquid-glass-card rounded-2xl overflow-hidden cursor-pointer" data-testid={`text-feature-${['enclosed','vip','route'][i]}`}>
+                <div className="absolute inset-0">
+                  <img src={f.img} alt={f.label} className="w-full h-full object-cover opacity-40 group-hover:opacity-65 group-hover:scale-105 transition-all duration-700" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
+                </div>
+                <div className="relative z-10 h-full pl-4 sm:pl-6 flex items-center">
+                  <div>
+                    <span className="text-[9px] sm:text-[10px] font-mono text-crimson-500 font-semibold block mb-1">{f.tag}</span>
+                    <h3 className="text-sm sm:text-xl font-bold font-display text-white group-hover:text-crimson-400 transition-colors uppercase">{f.label}</h3>
+                  </div>
                 </div>
               </div>
             ))}
@@ -384,26 +400,30 @@ export function PricingPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-6 mb-6 sm:mb-10">
             {[
-              { title: "Bachelorette Bash", color: "crimson", p1: "$495", p1l: "Sun\u2013Thu", p2: "$595", p2l: "Fri\u2013Sat", desc: "2\u2011hour private party bus, up to 20 guests", tid: "text-pricing-bach" },
-              { title: "Broadway Birthday", color: "white", p1: "$475", p1l: "Sun\u2013Thu", p2: "$575", p2l: "Fri\u2013Sat", desc: "2\u2011hour rolling nightclub, custom playlist", tid: "text-pricing-bday" },
-              { title: "Game Day Tailgate", color: "crimson", p1: "$695", p1l: "per group", p2: "", p2l: "", desc: "3\u2011hour Titans or Preds pre\u2011game party bus", tid: "text-pricing-game" },
-              { title: "Corporate & Events", color: "white", p1: "Custom", p1l: "Quote", p2: "", p2l: "", desc: "Based on route, timing, and guest count", tid: "text-pricing-corp" },
+              { title: "Bachelorette Bash", p1: "$495", p1l: "Sun\u2013Thu", p2: "$595", p2l: "Fri\u2013Sat", desc: "2\u2011hour private party bus, up to 20 guests", tid: "text-pricing-bach", img: bacheloretteImg },
+              { title: "Broadway Birthday", p1: "$475", p1l: "Sun\u2013Thu", p2: "$575", p2l: "Fri\u2013Sat", desc: "2\u2011hour rolling nightclub, custom playlist", tid: "text-pricing-bday", img: birthdayImg },
+              { title: "Game Day Tailgate", p1: "$695", p1l: "per group", p2: "", p2l: "", desc: "3\u2011hour Titans or Preds pre\u2011game party bus", tid: "text-pricing-game", img: tailgateImg },
+              { title: "Corporate & Events", p1: "Custom", p1l: "Quote", p2: "", p2l: "", desc: "Based on route, timing, and guest count", tid: "text-pricing-corp", img: corporateImg },
             ].map((p, i) => (
-              <div key={i} className="group liquid-glass rounded-2xl p-4 sm:p-6 cursor-pointer" onClick={() => openBooking('custom')}>
-                <div className="relative z-10">
-                  <h2 className={`font-display text-xs sm:text-sm ${p.color === 'crimson' ? 'text-crimson-600' : 'text-neutral-900'} uppercase tracking-widest mb-3`} data-testid={p.tid}>{p.title}</h2>
+              <div key={i} className="group relative liquid-glass-card rounded-2xl overflow-hidden cursor-pointer h-48 sm:h-56" onClick={() => openBooking('custom')}>
+                <div className="absolute inset-0">
+                  <img src={p.img} alt={p.title} className="w-full h-full object-cover opacity-40 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/15"></div>
+                </div>
+                <div className="relative z-10 h-full p-4 sm:p-6 flex flex-col justify-end">
+                  <h2 className="font-display text-xs sm:text-sm text-crimson-500 uppercase tracking-widest mb-2" data-testid={p.tid}>{p.title}</h2>
                   <div className="flex items-baseline gap-2 mb-1">
-                    <span className="text-2xl sm:text-3xl font-display font-bold text-neutral-900">{p.p1}</span>
-                    <span className="text-sm text-neutral-700 font-medium">{p.p1l}</span>
+                    <span className="text-2xl sm:text-3xl font-display font-bold text-white">{p.p1}</span>
+                    <span className="text-sm text-neutral-300 font-medium">{p.p1l}</span>
                   </div>
                   {p.p2 && (
                     <div className="flex items-baseline gap-2 mb-1">
-                      <span className="text-2xl sm:text-3xl font-display font-bold text-neutral-900">{p.p2}</span>
-                      <span className="text-sm text-neutral-700 font-medium">{p.p2l}</span>
+                      <span className="text-2xl sm:text-3xl font-display font-bold text-white">{p.p2}</span>
+                      <span className="text-sm text-neutral-300 font-medium">{p.p2l}</span>
                     </div>
                   )}
-                  <p className="text-xs text-neutral-700 font-medium mt-2">{p.desc}</p>
-                  <div className="flex items-center gap-2 text-crimson-600 text-xs font-bold uppercase tracking-widest sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 mt-3">
+                  <p className="text-xs text-neutral-300 font-medium mt-1">{p.desc}</p>
+                  <div className="flex items-center gap-2 text-crimson-500 text-xs font-bold uppercase tracking-widest sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 mt-2">
                     Book Now <iconify-icon icon="solar:arrow-right-linear" className="text-sm" style={{ strokeWidth: 1.5 }}></iconify-icon>
                   </div>
                 </div>
