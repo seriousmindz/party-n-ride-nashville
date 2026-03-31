@@ -97,7 +97,7 @@
     height: 100%;
   }
   body {
-    @apply antialiased bg-void-900 text-neutral-400 font-body overflow-hidden selection:bg-sky-500 selection:text-white;
+    @apply antialiased bg-white text-neutral-400 font-body overflow-hidden selection:bg-sky-500 selection:text-white;
   }
 }
 

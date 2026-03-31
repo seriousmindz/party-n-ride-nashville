@@ -35,10 +35,10 @@ Each page fills the viewport with scrollable overflow for longer content. Users 
 - Keywords targeting Nashville party bus searches
 
 ## Design System — Dark Cyberpunk Theme
-- **Background**: `void-900: #050505`, `void-800: #0A0A0A`, `void-700: #121212`
+- **Background**: White (`bg-white`) with Nashville skyline background image
 - **Accent**: CSS var `--color-crimson-600` is mapped to `#0EA5E9` (sky blue), `--color-crimson-500: #38BDF8`
 - **Text**: White headings on dark, `neutral-400/500` body text
-- **Card Pattern**: `sm:-skew-x-12` outer with `sm:skew-x-12` inner (no skew on mobile), `rounded-md sm:rounded-none`
+- **Card Pattern**: `sm:-skew-x-12` outer with `sm:skew-x-12` inner (no skew on mobile), `bg-white/60 border-neutral-200`, `rounded-md sm:rounded-none shadow-sm`
 - **Corner Brackets**: Only visible at sm+ (`hidden sm:block`)
 - **Overlays**: `bg-cyber-grid` grid lines, `.scanlines` CRT overlay
 - **Images**: grayscale with hover reveal
