@@ -11,7 +11,7 @@ import corporateImg from '@assets/20220729_124917_1772857936688.jpg';
 import experienceImg from '@assets/IMG_20220522_233123_203_1772858183644.jpg';
 import heroVideo from '@assets/Pink_Hat_Video_Batch_Party_1773771232653.mp4';
 import heroVideo2 from '@assets/Words_PNR_Bach_1773771761737.mp4';
-import skylineBg from '@assets/nashville_skyline_bg.png';
+import skylineBg from '@assets/nashville_riverfront_clear_sky.png';
 
 declare global {
   namespace JSX {
