@@ -1,5 +1,4 @@
 uploads = []
-outputs = []
 
 [[generated]]
 id = "Sze_1Bstk-QcMMjdvADLR"
@@ -48,3 +47,87 @@ id = "8fg0kKCcCaQAcW6CvXIio"
 uri = "file://attached_assets/feature_broadway.png"
 type = "image"
 title = "generated_image"
+
+[[outputs]]
+id = "WCPBZnrxjHkfn5fvMOeLe"
+uri = "file://attached_assets/stock_images/titan_stadium.jpg"
+type = "image"
+title = "Nissan Stadium Nashville Tennessee Titans football"
+
+[[outputs]]
+id = "AGKhIidWmrPPfyORl3_Xy"
+uri = "file://attached_assets/stock_images/bridgestone_arena.jpg"
+type = "image"
+title = "Bridgestone Arena Nashville hockey Predators"
+
+[[outputs]]
+id = "Z4-tUBQmZHPL9Py72mS54"
+uri = "file://attached_assets/stock_images/broadway_nashville.jpg"
+type = "image"
+title = "Nashville Broadway street neon signs honky tonks night"
+
+[[outputs]]
+id = "Mxty9Sa26Ej-I31lEtz5H"
+uri = "file://attached_assets/stock_images/nashville_skyline.jpg"
+type = "image"
+title = "Nashville downtown skyline Cumberland River sunset"
+
+[[outputs]]
+id = "zHyi4p55AbrBKSUNxX7lM"
+uri = "file://attached_assets/stock_images/12_south_nashville.jpg"
+type = "image"
+title = "12 South Nashville neighborhood shops colorful"
+
+[[outputs]]
+id = "DXovcJRu30SlRfaffHZ70"
+uri = "file://attached_assets/stock_images/sobro_nashville.jpg"
+type = "image"
+title = "SoBro Nashville downtown modern buildings"
+
+[[outputs]]
+id = "eW5jy-D-WQ6XDWH6Vw7n_"
+uri = "file://attached_assets/stock_images/gulch_nashville.jpg"
+type = "image"
+title = "The Gulch Nashville murals street art neighborhood"
+
+[[outputs]]
+id = "dM9fz2uJ03Z5xpvcNR55T"
+uri = "file://attached_assets/stock_images/midtown_nashville.jpg"
+type = "image"
+title = "Midtown Nashville nightlife bars restaurants"
+
+[[outputs]]
+id = "7f8hRLNBZ_EvEfEzArsXo"
+uri = "file://attached_assets/stock_images/music_row_nashville.jpg"
+type = "image"
+title = "Music Row Nashville recording studios"
+
+[[outputs]]
+id = "6Sa6z4cnlDuBkp0P7aYpk"
+uri = "file://attached_assets/stock_images/country_music_hof.jpg"
+type = "image"
+title = "Country Music Hall of Fame Nashville building"
+
+[[outputs]]
+id = "PynMXFj7cr6vIJrqR_wbX"
+uri = "file://attached_assets/stock_images/nmaam_nashville.jpg"
+type = "image"
+title = "National Museum of African American Music Nashville"
+
+[[outputs]]
+id = "CkHkKcsq2aOjk3vsVHhxl"
+uri = "file://attached_assets/stock_images/nashville_murals.jpg"
+type = "image"
+title = "Nashville wall murals street art colorful wings"
+
+[[outputs]]
+id = "rQAKP7_7CDFIHlcETw8AC"
+uri = "file://attached_assets/stock_images/centennial_park.jpg"
+type = "image"
+title = "Centennial Park Nashville Parthenon Greek temple"
+
+[[outputs]]
+id = "4oECCrPNt5Hox3cfeLy9c"
+uri = "file://attached_assets/stock_images/grand_ole_opry.jpg"
+type = "image"
+title = "Grand Ole Opry Nashville historic music venue"

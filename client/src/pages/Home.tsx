@@ -19,6 +19,20 @@ import stepRideImg from '@assets/step_ride_repeat.png';
 import featureEnclosedImg from '@assets/feature_enclosed.png';
 import featureVipImg from '@assets/feature_vip_music.png';
 import featureBroadwayImg from '@assets/feature_broadway.png';
+import venueTitanImg from '@assets/stock_images/titan_stadium.jpg';
+import venueBridgestoneImg from '@assets/stock_images/bridgestone_arena.jpg';
+import venueBroadwayImg from '@assets/stock_images/broadway_nashville.jpg';
+import venueSkylineImg from '@assets/stock_images/nashville_skyline.jpg';
+import venue12SouthImg from '@assets/stock_images/12_south_nashville.jpg';
+import venueSobroImg from '@assets/stock_images/sobro_nashville.jpg';
+import venueGulchImg from '@assets/stock_images/gulch_nashville.jpg';
+import venueMidtownImg from '@assets/stock_images/midtown_nashville.jpg';
+import venueMusicRowImg from '@assets/stock_images/music_row_nashville.jpg';
+import venueCountryHofImg from '@assets/stock_images/country_music_hof.jpg';
+import venueNmaamImg from '@assets/stock_images/nmaam_nashville.jpg';
+import venueMuralsImg from '@assets/stock_images/nashville_murals.jpg';
+import venueCentennialImg from '@assets/stock_images/centennial_park.jpg';
+import venueOpryImg from '@assets/stock_images/grand_ole_opry.jpg';
 
 declare global {
   namespace JSX {
@@ -289,32 +303,89 @@ export function PackagesPage() {
   );
 }
 
-const SITES = [
-  "Titan Stadium", "Bridgestone Area", "Nashville's Famous Broadway Street",
-  "Captivating Skyline", "12 South", "SoBro",
-  "The Gulch", "Midtown", "Music Row",
-  "Country Music Hall of Fame", "National Museum of African American Music", "Iconic Murals around City",
-  "Centennial Park", "Grand Ole Opry"
+const VENUES = [
+  { name: "Nissan Stadium", img: venueTitanImg, url: "https://www.nissanstadium.com", history: "Home of the Tennessee Titans since 1999, Nissan Stadium sits on the east bank of the Cumberland River with a capacity of 69,143. The stadium also hosts major concerts, college football events, and international soccer matches. Its riverside location offers stunning views of the Nashville skyline and is a centerpiece of the city's sports culture." },
+  { name: "Bridgestone Arena", img: venueBridgestoneImg, url: "https://www.bridgestonearena.com", history: "Bridgestone Arena opened in 1996 and is home to the Nashville Predators NHL team. Located in the heart of downtown Nashville, it hosts over 150 events annually including major concerts, award shows, and sporting events. It's been named the top arena in the United States multiple times and is a key anchor of the Lower Broadway entertainment district." },
+  { name: "Nashville's Famous Broadway", img: venueBroadwayImg, url: "https://www.visitmusiccity.com/nashville/neighborhoods/the-district", history: "Lower Broadway, known as the Honky Tonk Highway, is the beating heart of Nashville's music scene. This iconic stretch runs from the Cumberland River to 5th Avenue and is lined with legendary honky-tonks, live music venues, bars, and restaurants. The neon-lit street comes alive day and night with live country, rock, and blues pouring from every doorway." },
+  { name: "Captivating Skyline", img: venueSkylineImg, url: "https://www.visitmusiccity.com", history: "Nashville's skyline along the Cumberland River is one of the most photographed in the South. Anchored by the AT&T Building (nicknamed the Batman Building), the cityscape blends modern glass towers with historic architecture. The best views come from the Korean Veterans Memorial Bridge, Cumberland Park, and the John Seigenthaler Pedestrian Bridge." },
+  { name: "12 South", img: venue12SouthImg, url: "https://www.12southnashville.com", history: "12 South is one of Nashville's most walkable and Instagram-worthy neighborhoods. Originally a working-class community, it's transformed into a trendy shopping and dining destination while keeping its neighborhood charm. The area is famous for its colorful murals, boutique shops, artisan coffee roasters, and some of Nashville's best restaurants." },
+  { name: "SoBro", img: venueSobroImg, url: "https://www.visitmusiccity.com/nashville/neighborhoods/sobro", history: "South of Broadway, or SoBro, is Nashville's fastest-growing urban neighborhood. This area stretches from Broadway south to the Gulch and features sleek high-rise hotels, rooftop bars, the Music City Center convention complex, and the Country Music Hall of Fame. It's where Nashville's modern energy meets its musical roots." },
+  { name: "The Gulch", img: venueGulchImg, url: "https://www.nashvillegulch.com", history: "The Gulch is Nashville's premier urban neighborhood, built in a former railroad yard just southwest of downtown. It was the first LEED-certified neighborhood in the South and features upscale dining, boutique hotels, and the famous Nashville 'Wings' mural. The area perfectly represents Nashville's blend of creativity and modern urban living." },
+  { name: "Midtown", img: venueMidtownImg, url: "https://www.visitmusiccity.com/nashville/neighborhoods/midtown", history: "Midtown Nashville, centered around the Vanderbilt University area, is known for its vibrant nightlife, diverse restaurants, and music venues. The stretch along Division Street and Elliston Place features everything from dive bars to upscale cocktail lounges. It's a favorite among locals and where Nashville's college scene meets its professional nightlife." },
+  { name: "Music Row", img: venueMusicRowImg, url: "https://www.visitmusiccity.com/nashville/neighborhoods/music-row", history: "Music Row is the historic heart of Nashville's music industry, home to hundreds of recording studios, record labels, and music publishing houses since the 1950s. Legendary studios like RCA Studio B and historic labels line 16th and 17th Avenues. More hit records have been made on these two streets than anywhere else in the world." },
+  { name: "Country Music Hall of Fame", img: venueCountryHofImg, url: "https://www.countrymusichalloffame.org", history: "The Country Music Hall of Fame and Museum, established in 1961, is one of the world's largest music museums. The striking modern building in SoBro houses priceless artifacts, interactive exhibits, and the stories of country music's greatest artists. It includes historic RCA Studio B tours, rotating exhibitions, and an archive of over 2.5 million items." },
+  { name: "National Museum of African American Music", img: venueNmaamImg, url: "https://www.nmaam.org", history: "NMAAM opened in 2021 as the only museum dedicated exclusively to the musical contributions of African Americans. Located in downtown Nashville's 5th + Broadway complex, its seven galleries trace over 50 musical genres from spirituals and blues to hip-hop and R&B, celebrating the central role African Americans have played in creating American music." },
+  { name: "Iconic Murals Around the City", img: venueMuralsImg, url: "https://www.visitmusiccity.com/things-to-do/murals-in-nashville", history: "Nashville's vibrant mural scene has made it one of the most Instagrammable cities in America. From the famous 'WhatLiftsYou' angel wings in The Gulch to the 'I Believe in Nashville' mural, colorful works of art cover buildings across every neighborhood. The street art scene reflects Nashville's creative spirit and has become a must-do for every visitor." },
+  { name: "Centennial Park", img: venueCentennialImg, url: "https://www.nashville.gov/departments/parks/centennial-park", history: "Centennial Park is Nashville's premier urban park, home to the world's only full-scale replica of the Parthenon, built for the 1897 Tennessee Centennial Exposition. The 132-acre park features a one-mile walking trail, a sunken garden, an art center, and a lake. The Parthenon houses a 42-foot statue of Athena, the tallest indoor sculpture in the Western world." },
+  { name: "Grand Ole Opry", img: venueOpryImg, url: "https://www.opry.com", history: "The Grand Ole Opry, founded in 1925, is the longest-running radio broadcast in US history and the home of country music. Originally broadcast from the Ryman Auditorium (the 'Mother Church of Country Music'), it moved to its current purpose-built home in 1974. The Opry has hosted every legend from Hank Williams to Dolly Parton and continues to showcase the best in country and Americana music." },
 ];
+
+function VenueModal({ venue, onClose }: { venue: typeof VENUES[0] | null; onClose: () => void }) {
+  if (!venue) return null;
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 sm:p-4" data-testid="venue-modal">
+      <div className="absolute inset-0 bg-black/85 backdrop-blur-sm" onClick={onClose}></div>
+      <div className="relative w-full h-full bg-white/95 backdrop-blur-xl overflow-hidden flex flex-col shadow-2xl">
+        <div className="relative h-56 sm:h-80 md:h-[45vh] shrink-0">
+          <img src={venue.img} alt={venue.name} className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+          <button onClick={onClose} className="absolute top-3 right-3 sm:top-6 sm:right-6 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/40 backdrop-blur-md text-white flex items-center justify-center text-xl sm:text-2xl font-bold hover:bg-black/60 transition-colors" data-testid="button-close-venue">&times;</button>
+          <div className="absolute bottom-4 left-4 sm:bottom-8 sm:left-8 right-4">
+            <h2 className="text-2xl sm:text-5xl md:text-6xl font-display font-bold text-white uppercase tracking-tight drop-shadow-lg">{venue.name}</h2>
+          </div>
+        </div>
+        <div className="flex-1 overflow-y-auto p-5 sm:p-10 md:px-16 md:py-10">
+          <p className="text-sm sm:text-lg md:text-xl text-neutral-700 font-body font-medium leading-relaxed mb-6 sm:mb-8 max-w-3xl">{venue.history}</p>
+          <a href={venue.url} target="_blank" rel="noopener noreferrer" className="cta-gradient inline-flex items-center gap-2 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl shadow-[0_6px_24px_rgba(14,165,233,0.3)] min-h-[44px] no-underline" data-testid="link-venue-website">
+            <span className="relative z-10 font-display font-bold uppercase tracking-widest text-sm sm:text-base">Visit Official Site</span>
+            <iconify-icon icon="solar:arrow-right-up-linear" className="relative z-10 text-lg" style={{ strokeWidth: 1.5 }}></iconify-icon>
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function SitesPage() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [bookingPackage, setBookingPackage] = useState('custom');
   const [, navigate] = useLocation();
+  const [selectedVenue, setSelectedVenue] = useState<typeof VENUES[0] | null>(null);
   const openBooking = (pkg: string) => { setBookingPackage(pkg); setBookingOpen(true); };
 
   return (
     <PageShell scrollable>
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} defaultPackage={bookingPackage} />
+      <VenueModal venue={selectedVenue} onClose={() => setSelectedVenue(null)} />
       <NavBar openBooking={openBooking} currentPage="/sites" />
       <div className="flex-1 flex flex-col items-center px-4 sm:px-4 md:px-8 pt-16 sm:pt-20 pb-4">
         <div className="w-full max-w-7xl py-4 sm:py-8">
-          <SectionHeader tag="Nashville Destinations" title="Nashville" titleAccent="Sites" subtitle="Great attractions, landmarks and fun sites that make a perfect stop or scenic route." />
+          <div className="mb-6 sm:mb-12 text-center">
+            <div className="flex items-center justify-center gap-2 mb-3 text-crimson-600 text-[10px] sm:text-xs font-bold tracking-[0.3em] uppercase">
+              <iconify-icon icon="solar:map-point-wave-bold" className="text-base sm:text-lg" style={{ strokeWidth: 1.5 }}></iconify-icon>
+              <span>Nashville Destinations</span>
+              <iconify-icon icon="solar:map-point-wave-bold" className="text-base sm:text-lg" style={{ strokeWidth: 1.5 }}></iconify-icon>
+            </div>
+            <h1 className="text-3xl sm:text-5xl md:text-7xl font-nashville font-bold tracking-wide uppercase mb-3">
+              <span className="text-neutral-900">Nashville </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-crimson-600 via-sky-400 to-crimson-600">Sites</span>
+            </h1>
+            <p className="text-sm sm:text-lg md:text-xl text-neutral-700 max-w-3xl mx-auto font-body font-semibold tracking-wide">Great attractions, landmarks, and fun sites that make a perfect stop or scenic route on your party bus adventure.</p>
+          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4 mb-6 sm:mb-12">
-            {SITES.map((site, i) => (
-              <div key={i} className="group liquid-glass rounded-xl p-3 sm:p-4 cursor-default" data-testid={`text-site-${i}`}>
-                <span className="relative z-10 block text-black font-display text-xs sm:text-sm font-bold tracking-wide uppercase group-hover:text-crimson-500 transition-colors">{site}</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-12">
+            {VENUES.map((venue, i) => (
+              <div key={i} className="group relative h-36 sm:h-48 liquid-glass-card rounded-2xl overflow-hidden cursor-pointer" onClick={() => setSelectedVenue(venue)} data-testid={`card-site-${i}`}>
+                <div className="absolute inset-0">
+                  <img src={venue.img} alt={venue.name} className="w-full h-full object-cover opacity-50 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                </div>
+                <div className="relative z-10 h-full p-3 sm:p-4 flex flex-col justify-end">
+                  <h3 className="text-sm sm:text-lg font-display font-bold text-white uppercase tracking-wide mb-1 drop-shadow-md">{venue.name}</h3>
+                  <div className="flex items-center gap-1.5 text-crimson-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    Explore <iconify-icon icon="solar:arrow-right-linear" className="text-xs" style={{ strokeWidth: 1.5 }}></iconify-icon>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
