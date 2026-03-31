@@ -29,9 +29,9 @@ function BookingModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 sm:p-4" data-testid="booking-modal">
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose}></div>
-      <div className="relative bg-white shadow-2xl w-full h-full sm:max-w-4xl sm:h-[90vh] sm:rounded-lg border-0 sm:border border-neutral-200 flex flex-col overflow-hidden sm:-skew-x-6">
-        <div className="sm:skew-x-6 flex flex-col h-full">
-          <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-neutral-200 shrink-0">
+      <div className="relative bg-white/95 backdrop-blur-xl shadow-2xl w-full h-full sm:max-w-4xl sm:h-[90vh] sm:rounded-2xl border-0 sm:border border-white/50 flex flex-col overflow-hidden">
+        <div className="flex flex-col h-full">
+          <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-white/30 shrink-0">
             <h3 className="text-lg sm:text-2xl font-display font-bold text-neutral-900 uppercase tracking-widest">Book Your Ride</h3>
             <button onClick={onClose} className="text-neutral-500 hover:text-crimson-600 text-3xl font-bold transition-colors p-1 min-w-[44px] min-h-[44px] flex items-center justify-center" data-testid="button-close-modal">&times;</button>
           </div>
@@ -73,8 +73,8 @@ function NavBar({ openBooking, currentPage }: { openBooking: (pkg: string) => vo
             {navItems.map(item => (
               <button key={item.path} onClick={() => navigate(item.path)} className={`font-display font-bold uppercase tracking-wider text-sm px-3 py-1.5 transition-all duration-300 ${currentPage === item.path ? 'text-crimson-600 border-b-2 border-crimson-600' : 'text-black hover:text-crimson-600 border-b-2 border-transparent hover:border-crimson-600'}`} data-testid={`link-${item.label.toLowerCase().replace(/[^a-z]/g, '')}`}>{item.label}</button>
             ))}
-            <button onClick={() => openBooking('custom')} className="-skew-x-12 bg-crimson-600/90 border border-crimson-500 hover:bg-crimson-500 text-white px-5 py-2 ml-3 transition-all duration-300 group" data-testid="button-nav-book">
-              <span className="block skew-x-12 font-display font-bold uppercase tracking-widest text-xs">Book Now</span>
+            <button onClick={() => openBooking('custom')} className="cta-gradient text-white px-6 py-2.5 ml-3 rounded-xl shadow-[0_4px_20px_rgba(14,165,233,0.3)]" data-testid="button-nav-book">
+              <span className="relative z-10 font-display font-bold uppercase tracking-widest text-xs">Book Now</span>
             </button>
           </div>
           <button className="lg:hidden text-black text-3xl min-w-[44px] min-h-[44px] flex items-center justify-center" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} data-testid="button-mobile-menu">
@@ -87,7 +87,7 @@ function NavBar({ openBooking, currentPage }: { openBooking: (pkg: string) => vo
           {navItems.map(item => (
             <button key={item.path} onClick={() => { navigate(item.path); setMobileMenuOpen(false); }} className={`block w-full text-left font-display font-bold uppercase tracking-wider text-base py-3 px-3 transition-all duration-200 min-h-[44px] ${currentPage === item.path ? 'text-crimson-600 border-l-2 border-crimson-600 bg-sky-50' : 'text-black hover:text-crimson-600 hover:bg-neutral-100'}`}>{item.label}</button>
           ))}
-          <button onClick={() => { openBooking('custom'); setMobileMenuOpen(false); }} className="block w-full bg-crimson-600 text-white font-display font-bold py-3 uppercase tracking-wider text-sm text-center hover:bg-crimson-700 transition-colors mt-2 min-h-[44px]">Book Now</button>
+          <button onClick={() => { openBooking('custom'); setMobileMenuOpen(false); }} className="block w-full cta-gradient text-white font-display font-bold py-3 uppercase tracking-wider text-sm text-center mt-2 min-h-[44px] rounded-xl shadow-[0_4px_20px_rgba(14,165,233,0.3)]"><span className="relative z-10">Book Now</span></button>
         </div>
       )}
     </nav>
@@ -165,8 +165,8 @@ function GlassPhoneBar({ testId = "link-phone" }: { testId?: string }) {
 
 function SkewedCTA({ onClick, label }: { onClick: () => void; label: string }) {
   return (
-    <button onClick={onClick} className="sm:-skew-x-12 bg-crimson-600/90 border border-crimson-500 text-white hover:bg-crimson-500 transition-all duration-300 px-8 sm:px-10 py-3 sm:py-4 group shadow-[0_0_20px_rgba(14,165,233,0.3)] hover:shadow-[0_0_30px_rgba(14,165,233,0.5)] min-h-[44px] w-full sm:w-auto">
-      <span className="block sm:skew-x-12 font-display font-bold uppercase tracking-widest text-sm sm:text-base flex items-center gap-2 justify-center">
+    <button onClick={onClick} className="cta-gradient text-white px-8 sm:px-12 py-3.5 sm:py-4.5 rounded-2xl min-h-[44px] w-full sm:w-auto shadow-[0_8px_30px_rgba(14,165,233,0.3)]">
+      <span className="relative z-10 font-display font-bold uppercase tracking-widest text-sm sm:text-base flex items-center gap-2 justify-center drop-shadow-sm">
         {label}
         <iconify-icon icon="solar:arrow-right-linear" className="text-base" style={{ strokeWidth: 1.5 }}></iconify-icon>
       </span>
@@ -204,17 +204,13 @@ export function HeroPage() {
           </div>
           <div className="w-full lg:w-1/2 flex flex-row lg:flex-col items-center justify-center lg:justify-end gap-3 sm:gap-4 relative">
             <div className="absolute inset-0 bg-crimson-600/10 rounded-full blur-3xl animate-pulse w-3/4 h-3/4 m-auto"></div>
-            <div className="relative sm:-skew-x-12 border border-neutral-200 bg-white/50 p-1 sm:p-2 shadow-md rounded-md sm:rounded-none">
-              <div className="hidden sm:block absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-crimson-600 -translate-x-0.5 -translate-y-0.5"></div>
-              <div className="hidden sm:block absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-crimson-600 translate-x-0.5 translate-y-0.5"></div>
-              <video autoPlay loop playsInline controls className="w-[140px] h-[120px] sm:w-[220px] sm:h-[180px] md:w-[280px] md:h-[220px] sm:skew-x-12 object-cover rounded-sm sm:rounded-none" data-testid="video-hero">
+            <div className="relative liquid-glass p-1.5 sm:p-2.5 rounded-2xl">
+              <video autoPlay loop playsInline controls className="w-[140px] h-[120px] sm:w-[220px] sm:h-[180px] md:w-[280px] md:h-[220px] object-cover rounded-xl" data-testid="video-hero">
                 <source src={heroVideo} type="video/mp4" />
               </video>
             </div>
-            <div className="relative sm:-skew-x-12 border border-neutral-200 bg-white/50 p-1 sm:p-2 shadow-md rounded-md sm:rounded-none">
-              <div className="hidden sm:block absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-crimson-600 -translate-x-0.5 -translate-y-0.5"></div>
-              <div className="hidden sm:block absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-crimson-600 translate-x-0.5 translate-y-0.5"></div>
-              <video autoPlay loop playsInline controls className="w-[180px] h-[160px] sm:w-[280px] sm:h-[230px] md:w-[360px] md:h-[280px] sm:skew-x-12 object-cover rounded-sm sm:rounded-none" data-testid="video-hero-2">
+            <div className="relative liquid-glass p-1.5 sm:p-2.5 rounded-2xl">
+              <video autoPlay loop playsInline controls className="w-[180px] h-[160px] sm:w-[280px] sm:h-[230px] md:w-[360px] md:h-[280px] object-cover rounded-xl" data-testid="video-hero-2">
                 <source src={heroVideo2} type="video/mp4" />
               </video>
             </div>
@@ -310,8 +306,8 @@ export function SitesPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4 mb-6 sm:mb-12">
             {SITES.map((site, i) => (
-              <div key={i} className="group sm:-skew-x-12 bg-white/80 border border-neutral-200 hover:border-crimson-600 transition-all duration-300 p-3 sm:p-4 cursor-default rounded-md sm:rounded-none shadow-sm" data-testid={`text-site-${i}`}>
-                <span className="block sm:skew-x-12 text-black font-display text-xs sm:text-sm font-bold tracking-wide uppercase group-hover:text-crimson-500 transition-colors">{site}</span>
+              <div key={i} className="group liquid-glass rounded-xl p-3 sm:p-4 cursor-default" data-testid={`text-site-${i}`}>
+                <span className="relative z-10 block text-black font-display text-xs sm:text-sm font-bold tracking-wide uppercase group-hover:text-crimson-500 transition-colors">{site}</span>
               </div>
             ))}
           </div>
@@ -333,16 +329,15 @@ export function SitesPage() {
               { step: "03", title: "Stock & Show Up", desc: "Bring your drinks (no glass), we handle cups, coolers, ice, and a pro driver to keep it smooth.", icon: "solar:cup-linear" },
               { step: "04", title: "Ride & Repeat", desc: "We roll, you dance, and your crew walks away saying \u201Cthat was the best part of the trip\u201D.", icon: "solar:emoji-funny-circle-linear" },
             ].map((s, i) => (
-              <div key={s.step} className={`group relative w-full h-36 sm:h-48 sm:-skew-x-12 bg-white/80 border border-neutral-200 hover:border-crimson-600 hover:bg-sky-50 transition-all duration-300 p-3 sm:p-6 flex flex-col justify-between rounded-md sm:rounded-none shadow-sm`} data-testid={`text-step-${s.step}`}>
-                <div className="sm:skew-x-12 flex justify-between items-start">
+              <div key={s.step} className={`group relative w-full h-36 sm:h-48 liquid-glass rounded-2xl p-3 sm:p-6 flex flex-col justify-between`} data-testid={`text-step-${s.step}`}>
+                <div className="relative z-10 flex justify-between items-start">
                   <span className="text-[9px] sm:text-xs font-mono text-crimson-600 tracking-widest">STEP_{s.step}</span>
                   <iconify-icon icon={s.icon} className="text-lg sm:text-2xl text-neutral-600 group-hover:text-crimson-600 transition-colors" style={{ strokeWidth: 1.5 }}></iconify-icon>
                 </div>
-                <div className="sm:skew-x-12">
+                <div className="relative z-10">
                   <h3 className="text-sm sm:text-xl font-display font-bold text-neutral-900 uppercase mb-1">{s.title}</h3>
                   <p className="text-[9px] sm:text-xs text-neutral-700 font-medium leading-relaxed">{s.desc}</p>
                 </div>
-                <div className="absolute bottom-0 right-0 w-5 sm:w-8 h-5 sm:h-8 border-b border-r border-crimson-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
               </div>
             ))}
           </div>
@@ -353,8 +348,8 @@ export function SitesPage() {
               { tag: "PRIVATE_VIP_MODE", label: "Your Crew, Your Music" },
               { tag: "NASHVILLE_ROUTE", label: "Broadway, Gulch & More" },
             ].map((f, i) => (
-              <div key={i} className="group h-20 sm:h-32 sm:-skew-x-12 bg-white/80 border-l-2 border-neutral-300 hover:border-crimson-600 pl-3 sm:pl-6 flex items-center transition-all cursor-pointer rounded-md sm:rounded-none shadow-sm" data-testid={`text-feature-${['enclosed','vip','route'][i]}`}>
-                <div className="sm:skew-x-12">
+              <div key={i} className="group h-20 sm:h-32 liquid-glass rounded-2xl pl-4 sm:pl-6 flex items-center cursor-pointer" data-testid={`text-feature-${['enclosed','vip','route'][i]}`}>
+                <div className="relative z-10">
                   <span className="text-[9px] sm:text-[10px] font-mono text-neutral-600 font-semibold block mb-1">{f.tag}</span>
                   <h3 className="text-sm sm:text-xl font-bold font-display text-neutral-900 group-hover:text-crimson-500 transition-colors uppercase">{f.label}</h3>
                 </div>
@@ -394,8 +389,8 @@ export function PricingPage() {
               { title: "Game Day Tailgate", color: "crimson", p1: "$695", p1l: "per group", p2: "", p2l: "", desc: "3\u2011hour Titans or Preds pre\u2011game party bus", tid: "text-pricing-game" },
               { title: "Corporate & Events", color: "white", p1: "Custom", p1l: "Quote", p2: "", p2l: "", desc: "Based on route, timing, and guest count", tid: "text-pricing-corp" },
             ].map((p, i) => (
-              <div key={i} className="group sm:-skew-x-12 bg-white/80 border border-neutral-200 hover:border-crimson-600 transition-all duration-300 p-4 sm:p-6 cursor-pointer rounded-md sm:rounded-none shadow-sm" onClick={() => openBooking('custom')}>
-                <div className="sm:skew-x-12">
+              <div key={i} className="group liquid-glass rounded-2xl p-4 sm:p-6 cursor-pointer" onClick={() => openBooking('custom')}>
+                <div className="relative z-10">
                   <h2 className={`font-display text-xs sm:text-sm ${p.color === 'crimson' ? 'text-crimson-600' : 'text-neutral-900'} uppercase tracking-widest mb-3`} data-testid={p.tid}>{p.title}</h2>
                   <div className="flex items-baseline gap-2 mb-1">
                     <span className="text-2xl sm:text-3xl font-display font-bold text-neutral-900">{p.p1}</span>
@@ -442,10 +437,8 @@ export function ShuttlePage() {
         <div className="w-full max-w-4xl">
           <SectionHeader tag="Shuttle Protocol" title="Nashville Shuttle" titleAccent="Service" subtitle="Custom shuttle and group transportation packages for Nashville, TN." />
 
-          <div className="sm:-skew-x-12 bg-white/80 border border-neutral-200 p-4 sm:p-10 mb-6 sm:mb-12 relative rounded-md sm:rounded-none shadow-sm">
-            <div className="hidden sm:block absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-crimson-600 -translate-x-1 -translate-y-1"></div>
-            <div className="hidden sm:block absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-crimson-600 translate-x-1 translate-y-1"></div>
-            <div className="sm:skew-x-12">
+          <div className="liquid-glass rounded-2xl p-4 sm:p-10 mb-6 sm:mb-12">
+            <div className="relative z-10">
               <h2 className="sr-only">Party Bus Shuttle Service in Nashville TN - Corporate & Group Transportation</h2>
               <p className="text-sm sm:text-base md:text-lg text-neutral-800 font-body font-semibold leading-relaxed mb-4 sm:mb-8 tracking-wide" data-testid="text-shuttle-description">
                 At Party N Ride <span className="font-nashville text-crimson-500">NASHVILLE</span>, we offer custom shuttle - only party bus/group transportation packages you can use for corporate, special occasion or general group shuttle needs in <span className="font-nashville text-crimson-500">Nashville</span>, TN. Whether it's one way or round trip, we can take your group from point A to B comfortably and efficiently!
@@ -494,10 +487,10 @@ export function FaqPage() {
         <div className="w-full max-w-4xl py-4 sm:py-8">
           <SectionHeader tag="Support Protocol" title="Frequently Asked" titleAccent="Questions" subtitle="Everything you need to know before your ride." />
 
-          <div className="space-y-0">
+          <div className="space-y-3">
             {FAQ_DATA.map((faq, i) => (
-              <div key={i} className="group sm:-skew-x-12 bg-white/80 border-t border-b border-neutral-200 hover:border-crimson-600 hover:bg-sky-50 transition-all duration-300 p-3 sm:p-6" data-testid={`faq-item-${i}`}>
-                <div className="sm:skew-x-12">
+              <div key={i} className="group liquid-glass rounded-2xl p-3 sm:p-6" data-testid={`faq-item-${i}`}>
+                <div className="relative z-10">
                   <div className="flex justify-between items-start mb-1 sm:mb-2">
                     <h2 className="text-xs sm:text-base font-display text-neutral-900 tracking-wide uppercase pr-3">{faq.q}</h2>
                     <span className="text-[9px] sm:text-[10px] font-mono text-crimson-600 tracking-widest shrink-0">FAQ_{String(i + 1).padStart(2, '0')}</span>
@@ -547,10 +540,8 @@ export function ContactPage() {
       <NavBar openBooking={openBooking} currentPage="/contact" />
       <div className="flex-1 flex items-center justify-center px-4 sm:px-4 md:px-8 pt-16 sm:pt-20 pb-4">
         <div className="w-full max-w-5xl flex flex-col lg:flex-row gap-4 sm:gap-6 items-stretch">
-          <div className="flex-1 sm:-skew-x-12 bg-white/80 border border-neutral-200 p-4 sm:p-8 md:p-10 relative rounded-md sm:rounded-none shadow-sm">
-            <div className="hidden sm:block absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-crimson-600 -translate-x-1 -translate-y-1"></div>
-            <div className="hidden sm:block absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-crimson-600 translate-x-1 translate-y-1"></div>
-            <div className="sm:skew-x-12">
+          <div className="flex-1 liquid-glass rounded-2xl p-4 sm:p-8 md:p-10">
+            <div className="relative z-10">
               <div className="flex items-center gap-2 mb-1 text-crimson-600 text-[10px] font-bold tracking-[0.2em] uppercase">
                 <iconify-icon icon="solar:letter-linear" className="text-base" style={{ strokeWidth: 1.5 }}></iconify-icon>
                 <span>Contact Protocol</span>
@@ -566,12 +557,12 @@ export function ContactPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-3">
-                  <input type="text" placeholder="Your Name" required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full px-3 sm:px-4 py-3 bg-white border border-neutral-300 focus:border-crimson-600 outline-none font-body text-neutral-900 placeholder:text-neutral-400 tracking-wide text-sm sm:text-base min-h-[44px] rounded-sm" data-testid="input-contact-name" />
-                  <input type="email" placeholder="Email Address" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full px-3 sm:px-4 py-3 bg-white border border-neutral-300 focus:border-crimson-600 outline-none font-body text-neutral-900 placeholder:text-neutral-400 tracking-wide text-sm sm:text-base min-h-[44px] rounded-sm" data-testid="input-contact-email" />
-                  <input type="tel" placeholder="Phone Number" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full px-3 sm:px-4 py-3 bg-white border border-neutral-300 focus:border-crimson-600 outline-none font-body text-neutral-900 placeholder:text-neutral-400 tracking-wide text-sm sm:text-base min-h-[44px] rounded-sm" data-testid="input-contact-phone" />
-                  <textarea placeholder="Your Message" required value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} rows={3} className="w-full px-3 sm:px-4 py-3 bg-white border border-neutral-300 focus:border-crimson-600 outline-none font-body text-neutral-900 placeholder:text-neutral-400 tracking-wide resize-none text-sm sm:text-base rounded-sm" data-testid="input-contact-message" />
-                  <button type="submit" disabled={mutation.isPending} className="w-full bg-crimson-600 text-white font-display font-bold text-sm sm:text-base py-3 sm:py-4 uppercase tracking-widest hover:bg-crimson-700 transition-all disabled:opacity-50 min-h-[44px]" data-testid="button-submit-contact">
-                    {mutation.isPending ? 'Sending...' : 'Send Message'}
+                  <input type="text" placeholder="Your Name" required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full px-3 sm:px-4 py-3 bg-white/80 backdrop-blur-sm border border-white/50 focus:border-crimson-600 font-body text-neutral-900 placeholder:text-neutral-400 tracking-wide text-sm sm:text-base min-h-[44px] rounded-xl" data-testid="input-contact-name" />
+                  <input type="email" placeholder="Email Address" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full px-3 sm:px-4 py-3 bg-white/80 backdrop-blur-sm border border-white/50 focus:border-crimson-600 font-body text-neutral-900 placeholder:text-neutral-400 tracking-wide text-sm sm:text-base min-h-[44px] rounded-xl" data-testid="input-contact-email" />
+                  <input type="tel" placeholder="Phone Number" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full px-3 sm:px-4 py-3 bg-white/80 backdrop-blur-sm border border-white/50 focus:border-crimson-600 font-body text-neutral-900 placeholder:text-neutral-400 tracking-wide text-sm sm:text-base min-h-[44px] rounded-xl" data-testid="input-contact-phone" />
+                  <textarea placeholder="Your Message" required value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} rows={3} className="w-full px-3 sm:px-4 py-3 bg-white/80 backdrop-blur-sm border border-white/50 focus:border-crimson-600 font-body text-neutral-900 placeholder:text-neutral-400 tracking-wide resize-none text-sm sm:text-base rounded-xl" data-testid="input-contact-message" />
+                  <button type="submit" disabled={mutation.isPending} className="w-full cta-gradient text-white font-display font-bold text-sm sm:text-base py-3 sm:py-4 uppercase tracking-widest rounded-xl disabled:opacity-50 min-h-[44px] shadow-[0_6px_24px_rgba(14,165,233,0.3)]" data-testid="button-submit-contact">
+                    <span className="relative z-10">{mutation.isPending ? 'Sending...' : 'Send Message'}</span>
                   </button>
                   {mutation.isError && <p className="text-crimson-500 text-sm font-medium text-center">Something went wrong. Please try again.</p>}
                 </form>
@@ -579,10 +570,8 @@ export function ContactPage() {
             </div>
           </div>
 
-          <div className="w-full lg:w-72 sm:-skew-x-12 bg-white/80 border border-neutral-200 p-5 sm:p-8 flex flex-col justify-center items-center relative rounded-md sm:rounded-none shadow-sm">
-            <div className="hidden sm:block absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-crimson-600 -translate-x-0.5 -translate-y-0.5"></div>
-            <div className="hidden sm:block absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-crimson-600 translate-x-0.5 translate-y-0.5"></div>
-            <div className="sm:skew-x-12 text-center">
+          <div className="w-full lg:w-72 liquid-glass rounded-2xl p-5 sm:p-8 flex flex-col justify-center items-center">
+            <div className="relative z-10 text-center">
               <img src={logoImg} alt="Party N Ride Nashville" className="h-10 sm:h-12 object-contain mb-4 sm:mb-6 mx-auto" data-testid="img-contact-logo" />
               <h2 className="text-base sm:text-lg font-display font-bold uppercase tracking-widest text-neutral-900 mb-1">PartyNRide</h2>
               <h3 className="text-xl sm:text-2xl font-nashville text-crimson-500 mb-3 sm:mb-4">Nashville</h3>
@@ -592,7 +581,9 @@ export function ContactPage() {
               </a>
               <p className="text-neutral-800 font-semibold text-sm" data-testid="text-contact-address">1120 Dickerson Pike</p>
               <p className="text-neutral-800 font-semibold text-sm mb-4 sm:mb-6"><span className="font-nashville text-crimson-500">Nashville</span>, TN 37208</p>
-              <button onClick={() => openBooking('custom')} className="w-full bg-crimson-600 text-white font-display font-bold py-3 uppercase tracking-widest text-xs sm:text-sm hover:bg-crimson-700 transition-colors min-h-[44px]" data-testid="button-contact-book">Book Now</button>
+              <button onClick={() => openBooking('custom')} className="w-full cta-gradient text-white font-display font-bold py-3 uppercase tracking-widest text-xs sm:text-sm rounded-xl min-h-[44px] shadow-[0_6px_24px_rgba(14,165,233,0.3)]" data-testid="button-contact-book">
+                <span className="relative z-10">Book Now</span>
+              </button>
             </div>
           </div>
         </div>
