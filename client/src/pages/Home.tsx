@@ -129,8 +129,7 @@ function PageShell({ children, scrollable = false }: { children: React.ReactNode
         <img src={skylineBg} alt="" className="w-full h-full object-cover object-center opacity-80" />
       </div>
       <div className="fixed inset-0 z-0 bg-gradient-to-b from-white/40 via-white/20 to-white/50 pointer-events-none"></div>
-      <div className="fixed inset-0 z-0 opacity-10 pointer-events-none bg-cyber-grid bg-[length:40px_40px]"></div>
-      <div className="fixed inset-0 z-[1] pointer-events-none scanlines opacity-20 mix-blend-overlay"></div>
+      
       <div className={`relative z-10 h-full w-full flex flex-col ${scrollable ? 'overflow-y-auto overflow-x-hidden' : 'overflow-hidden'}`}>
         {children}
         <Footer />
