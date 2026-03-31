@@ -199,14 +199,14 @@ export function HeroPage() {
             <div className="relative sm:-skew-x-12 border border-neutral-200 bg-white/50 p-1 sm:p-2 shadow-md rounded-md sm:rounded-none">
               <div className="hidden sm:block absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-crimson-600 -translate-x-0.5 -translate-y-0.5"></div>
               <div className="hidden sm:block absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-crimson-600 translate-x-0.5 translate-y-0.5"></div>
-              <video autoPlay loop muted playsInline className="w-[140px] h-[120px] sm:w-[220px] sm:h-[180px] md:w-[280px] md:h-[220px] sm:skew-x-12 object-cover rounded-sm sm:rounded-none" data-testid="video-hero">
+              <video autoPlay loop playsInline controls className="w-[140px] h-[120px] sm:w-[220px] sm:h-[180px] md:w-[280px] md:h-[220px] sm:skew-x-12 object-cover rounded-sm sm:rounded-none" data-testid="video-hero">
                 <source src={heroVideo} type="video/mp4" />
               </video>
             </div>
             <div className="relative sm:-skew-x-12 border border-neutral-200 bg-white/50 p-1 sm:p-2 shadow-md rounded-md sm:rounded-none">
               <div className="hidden sm:block absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-crimson-600 -translate-x-0.5 -translate-y-0.5"></div>
               <div className="hidden sm:block absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-crimson-600 translate-x-0.5 translate-y-0.5"></div>
-              <video autoPlay loop muted playsInline className="w-[140px] h-[120px] sm:w-[220px] sm:h-[180px] md:w-[280px] md:h-[220px] sm:skew-x-12 object-cover rounded-sm sm:rounded-none" data-testid="video-hero-2">
+              <video autoPlay loop playsInline controls className="w-[180px] h-[160px] sm:w-[280px] sm:h-[230px] md:w-[360px] md:h-[280px] sm:skew-x-12 object-cover rounded-sm sm:rounded-none" data-testid="video-hero-2">
                 <source src={heroVideo2} type="video/mp4" />
               </video>
             </div>
