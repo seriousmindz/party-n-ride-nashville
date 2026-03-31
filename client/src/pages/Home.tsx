@@ -153,6 +153,16 @@ function SectionHeader({ tag, title, titleAccent, subtitle }: { tag: string; tit
   );
 }
 
+function GlassPhoneBar({ testId = "link-phone" }: { testId?: string }) {
+  return (
+    <a href="tel:6153374342" className="liquid-glass-phone inline-flex items-center gap-3 px-5 sm:px-8 py-3 sm:py-4 rounded-2xl mt-6 sm:mt-10 min-h-[56px] no-underline" data-testid={testId}>
+      <iconify-icon icon="solar:phone-calling-bold" className="text-xl sm:text-2xl text-crimson-600" style={{ strokeWidth: 1.5 }}></iconify-icon>
+      <span className="relative z-10 font-display font-bold text-neutral-900 text-base sm:text-xl tracking-wide">Call NOW:</span>
+      <span className="relative z-10 font-display font-bold text-crimson-600 text-lg sm:text-2xl tracking-wider">615-337-4342</span>
+    </a>
+  );
+}
+
 function SkewedCTA({ onClick, label }: { onClick: () => void; label: string }) {
   return (
     <button onClick={onClick} className="sm:-skew-x-12 bg-crimson-600/90 border border-crimson-500 text-white hover:bg-crimson-500 transition-all duration-300 px-8 sm:px-10 py-3 sm:py-4 group shadow-[0_0_20px_rgba(14,165,233,0.3)] hover:shadow-[0_0_30px_rgba(14,165,233,0.5)] min-h-[44px] w-full sm:w-auto">
@@ -186,10 +196,8 @@ export function HeroPage() {
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-5 justify-center lg:justify-start">
               <SkewedCTA onClick={() => openBooking('custom')} label="Book Now" />
-              <a href="tel:6153374342" className="text-base sm:text-lg md:text-xl font-display font-bold text-crimson-600 hover:text-crimson-700 transition-colors min-h-[44px] flex items-center" data-testid="link-hero-phone">
-                Call NOW: 615-337-4342
-              </a>
             </div>
+            <GlassPhoneBar testId="link-hero-phone" />
             <button onClick={() => navigate('/packages')} className="mt-4 sm:mt-6 text-neutral-800 font-bold uppercase tracking-widest text-sm hover:text-crimson-600 transition-colors flex items-center gap-2 mx-auto lg:mx-0 min-h-[44px]" data-testid="button-hero-next">
               View Packages <span className="text-xl">&rarr;</span>
             </button>
@@ -224,10 +232,10 @@ export function PackagesPage() {
   const openBooking = (pkg: string) => { setBookingPackage(pkg); setBookingOpen(true); };
 
   const cards = [
-    { img: bacheloretteImg, title: "Bachelorette Bash", desc: "2\u2011hour private enclosed party bus for up to 20 guests, BYOB, cups, coolers, and ice included. Cruise Broadway, The Gulch, and Midtown with bathroom and photo stops.", price: "From $495 Sun\u2013Thu \u00B7 From $595 Fri\u2013Sat", priceA: "$495 Sun\u2013Thu", priceB: "$595 Fri\u2013Sat", pkg: "bachelorette", num: "01" },
-    { img: birthdayImg, title: "Broadway Birthday", desc: "Celebrate another lap around the sun with a 2\u2011hour rolling nightclub. Custom playlist, LED club lighting, and route tailored to your favorite Nashville hotspots.", price: "From $475 Sun\u2013Thu \u00B7 From $575 Fri\u2013Sat", priceA: "$475 Sun\u2013Thu", priceB: "$575 Fri\u2013Sat", pkg: "birthday", num: "02" },
-    { img: tailgateImg, title: "Game Day Tailgate", desc: "3\u2011hour Titans or Preds pre\u2011game party bus. One pickup, one stadium\u2011area drop\u2011off, and a rolling tailgate with your crew, drinks, and music.", price: "From $695 per group", priceA: "$695", priceB: "per group", pkg: "gameday", num: "03" },
-    { img: corporateImg, title: "Corporate & Events", desc: "Impress clients and teams with a private shuttle that can run full party mode or a toned\u2011down lounge. Perfect for conferences, offsites, and incentive trips.", price: "Custom quotes based on route & guest count", priceA: "Custom Quote", priceB: "", pkg: "corporate", num: "04" },
+    { img: bacheloretteImg, title: "Bachelorette Bash", tagline: "Nashville's #1 Bachelorette Party Bus", desc: "Your crew deserves the ultimate send\u2011off. 2\u2011hour private enclosed party bus for up to 20 guests with BYOB, cups, coolers, ice, LED club lighting, and a Bluetooth sound system. Cruise Broadway, The Gulch, and Midtown with bathroom and photo stops built into your route.", price: "From $495 Sun\u2013Thu \u00B7 From $595 Fri\u2013Sat", priceA: "$495 Sun\u2013Thu", priceB: "$595 Fri\u2013Sat", pkg: "bachelorette", num: "01", highlight: "Up to 20 Guests \u2022 2 Hours \u2022 BYOB" },
+    { img: birthdayImg, title: "Broadway Birthday", tagline: "Your Rolling Nashville Nightclub", desc: "Celebrate another lap around the sun with a 2\u2011hour rolling nightclub on wheels. Custom playlist, LED mood lighting, and a route tailored to your favorite Nashville hotspots. Your driver handles traffic, parking, and logistics while you party.", price: "From $475 Sun\u2013Thu \u00B7 From $575 Fri\u2013Sat", priceA: "$475 Sun\u2013Thu", priceB: "$575 Fri\u2013Sat", pkg: "birthday", num: "02", highlight: "Custom Playlist \u2022 2 Hours \u2022 LED Lights" },
+    { img: tailgateImg, title: "Game Day Tailgate", tagline: "Pre\u2011Game Like a Champion", desc: "3\u2011hour Titans or Preds pre\u2011game party bus experience. One pickup, one stadium\u2011area drop\u2011off, and a rolling tailgate with your entire crew, drinks, and music cranked. Arrive to the game like a VIP, not stuck in parking.", price: "From $695 per group", priceA: "$695", priceB: "per group", pkg: "gameday", num: "03", highlight: "3 Hours \u2022 Stadium Drop\u2011off \u2022 Full Crew" },
+    { img: corporateImg, title: "Corporate & Events", tagline: "Impress Every Client & Team", desc: "Elevate your corporate events with a private shuttle that runs full party mode or an elegant toned\u2011down lounge. Perfect for conferences, team outings, offsites, and incentive trips. Custom routes, timing, and capacity tailored to your needs.", price: "Custom quotes based on route & guest count", priceA: "Custom Quote", priceB: "", pkg: "corporate", num: "04", highlight: "Custom Route \u2022 Any Size Group \u2022 Premium" },
   ];
 
   return (
@@ -235,35 +243,40 @@ export function PackagesPage() {
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} defaultPackage={bookingPackage} />
       <NavBar openBooking={openBooking} currentPage="/packages" />
       <div className="flex-1 flex flex-col items-center px-4 sm:px-4 md:px-8 pt-16 sm:pt-20 pb-4">
-        <SectionHeader tag="Nashville Party Bus Matrix v.1.0" title="Party" titleAccent="Protocols" subtitle="Private, enclosed, BYOB Nashville party bus experiences engineered for bachelorettes, birthdays, game days, and VIP nights out." />
+        <SectionHeader tag="Nashville Party Bus Experiences" title="Party" titleAccent="Protocols" subtitle="Private, enclosed, BYOB Nashville party bus experiences engineered for bachelorettes, birthdays, game days, and VIP nights out." />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 gap-y-4 sm:gap-y-12 w-full max-w-7xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 gap-y-6 sm:gap-y-12 w-full max-w-7xl">
           {cards.map((card, i) => (
-            <div key={i} className={`group relative w-full h-[220px] sm:h-[300px] md:h-[320px] bg-void-800 sm:-skew-x-12 border border-neutral-800 hover:border-crimson-600 transition-all duration-300 overflow-hidden shadow-2xl cursor-pointer rounded-lg sm:rounded-none ${i % 2 === 1 ? 'sm:mt-8' : ''}`} onClick={() => openBooking(card.pkg)} data-testid={`card-package-${card.pkg}`}>
-              <div className="absolute inset-0 sm:skew-x-12 sm:scale-125 bg-cover bg-center grayscale opacity-40 group-hover:opacity-80 group-hover:grayscale-0 group-hover:mix-blend-hard-light transition-all duration-500 ease-out" style={{ backgroundImage: `url(${card.img})` }}></div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent sm:skew-x-12 sm:scale-125"></div>
+            <div key={i} className={`group relative w-full h-[280px] sm:h-[340px] md:h-[380px] liquid-glass-card rounded-2xl sm:rounded-xl cursor-pointer ${i % 2 === 1 ? 'sm:mt-8' : ''}`} onClick={() => openBooking(card.pkg)} data-testid={`card-package-${card.pkg}`}>
+              <div className="absolute inset-0 rounded-2xl sm:rounded-xl overflow-hidden">
+                <div className="absolute inset-0 bg-cover bg-center opacity-60 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700 ease-out" style={{ backgroundImage: `url(${card.img})` }}></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/10"></div>
+              </div>
 
-              <div className="absolute bottom-0 left-0 w-full p-4 sm:p-6 sm:skew-x-12 flex flex-col justify-end h-full group-hover:-translate-y-2 transition-transform duration-300">
-                <div className="flex justify-between items-end border-b border-neutral-800 pb-2 mb-2 sm:mb-3 group-hover:border-crimson-600 transition-colors">
-                  <h3 className="text-base sm:text-xl md:text-2xl font-display font-bold text-white tracking-tight uppercase">{card.title}</h3>
-                  <span className="text-xl sm:text-3xl font-display font-bold text-neutral-800 group-hover:text-crimson-600 transition-colors">{card.num}</span>
-                </div>
-                <p className="text-[11px] sm:text-sm text-neutral-300 font-medium mb-2 sm:mb-3 leading-tight line-clamp-3">{card.desc}</p>
-                <p className="text-[11px] sm:text-xs text-neutral-300 font-medium mb-2 sm:mb-3">
-                  From <span className="text-crimson-600 font-semibold">{card.priceA}</span>{card.priceB && <> &middot; <span className="text-crimson-600 font-semibold">{card.priceB}</span></>}
-                </p>
-                <div className="flex items-center gap-2 text-crimson-600 text-xs sm:text-sm font-bold uppercase tracking-widest sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300" data-testid={`button-book-${card.pkg}`}>
-                  Book {card.title.split(' ')[0]} <iconify-icon icon="solar:arrow-right-linear" className="text-base" style={{ strokeWidth: 1.5 }}></iconify-icon>
+              <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10">
+                <span className="text-3xl sm:text-4xl font-display font-bold text-white/20 group-hover:text-crimson-600/60 transition-colors duration-300">{card.num}</span>
+              </div>
+
+              <div className="absolute bottom-0 left-0 w-full p-4 sm:p-5 flex flex-col justify-end z-10 group-hover:-translate-y-1 transition-transform duration-300">
+                <span className="text-[9px] sm:text-[10px] font-mono text-crimson-500 tracking-widest uppercase mb-1">{card.tagline}</span>
+                <h3 className="text-lg sm:text-xl md:text-2xl font-display font-bold text-white tracking-tight uppercase mb-1.5">{card.title}</h3>
+                <p className="text-[10px] sm:text-xs text-white/70 font-semibold tracking-wider uppercase mb-2">{card.highlight}</p>
+                <p className="text-[11px] sm:text-sm text-neutral-200 font-medium mb-3 leading-relaxed line-clamp-3">{card.desc}</p>
+                <div className="flex items-center justify-between">
+                  <p className="text-xs sm:text-sm font-bold">
+                    <span className="text-crimson-500">{card.priceA}</span>{card.priceB && <span className="text-neutral-400"> &middot; {card.priceB}</span>}
+                  </p>
+                  <div className="flex items-center gap-1.5 text-white text-xs font-bold uppercase tracking-widest opacity-80 group-hover:opacity-100 group-hover:text-crimson-500 transition-all duration-300" data-testid={`button-book-${card.pkg}`}>
+                    Book Now <iconify-icon icon="solar:arrow-right-linear" className="text-sm" style={{ strokeWidth: 1.5 }}></iconify-icon>
+                  </div>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mt-6 sm:mt-10">
-          <a href="tel:6153374342" className="text-base sm:text-lg font-display font-bold text-neutral-900 flex items-center gap-2 min-h-[44px]" data-testid="link-packages-phone">
-            Call NOW: <span className="text-crimson-600 animate-text-glow">615-337-4342</span>
-          </a>
+        <GlassPhoneBar testId="link-packages-phone" />
+        <div className="flex items-center justify-center mt-3">
           <button onClick={() => navigate('/sites')} className="text-neutral-800 font-bold uppercase tracking-widest text-sm hover:text-crimson-600 transition-colors flex items-center gap-2 min-h-[44px]" data-testid="button-packages-next">
             Sites <span className="text-xl">&rarr;</span>
           </button>
@@ -442,10 +455,8 @@ export function ShuttlePage() {
                 <h3 className="text-crimson-600 font-display text-sm sm:text-base tracking-widest uppercase">Call today to inquiry about pricing for your tailed needs!</h3>
               </div>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
-                <a href="tel:6153374342" className="text-lg sm:text-2xl md:text-3xl font-display font-bold text-neutral-900 flex items-center gap-3 hover:text-crimson-600 transition-colors min-h-[44px]" data-testid="link-shuttle-phone">
-                  Call NOW: <span className="text-crimson-600 animate-text-glow">615-337-4342</span>
-                </a>
+              <div className="flex flex-col items-center gap-3">
+                <GlassPhoneBar testId="link-shuttle-phone" />
                 <button onClick={() => navigate('/faq')} className="text-neutral-800 font-bold uppercase tracking-widest text-sm hover:text-crimson-600 transition-colors flex items-center gap-2 min-h-[44px]" data-testid="button-shuttle-next">
                   FAQ's <span className="text-xl">&rarr;</span>
                 </button>
@@ -575,7 +586,10 @@ export function ContactPage() {
               <img src={logoImg} alt="Party N Ride Nashville" className="h-10 sm:h-12 object-contain mb-4 sm:mb-6 mx-auto" data-testid="img-contact-logo" />
               <h2 className="text-base sm:text-lg font-display font-bold uppercase tracking-widest text-neutral-900 mb-1">PartyNRide</h2>
               <h3 className="text-xl sm:text-2xl font-nashville text-crimson-500 mb-3 sm:mb-4">Nashville</h3>
-              <a href="tel:6153374342" className="text-crimson-600 font-bold text-xl sm:text-2xl mb-3 sm:mb-4 block hover:text-crimson-700 transition-colors min-h-[44px] flex items-center justify-center" data-testid="link-contact-phone">615-337-4342</a>
+              <a href="tel:6153374342" className="liquid-glass-phone inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl mb-3 sm:mb-4 min-h-[44px] no-underline w-full" data-testid="link-contact-phone">
+                <iconify-icon icon="solar:phone-calling-bold" className="text-lg text-crimson-600" style={{ strokeWidth: 1.5 }}></iconify-icon>
+                <span className="relative z-10 font-display font-bold text-crimson-600 text-lg sm:text-xl">615-337-4342</span>
+              </a>
               <p className="text-neutral-800 font-semibold text-sm" data-testid="text-contact-address">1120 Dickerson Pike</p>
               <p className="text-neutral-800 font-semibold text-sm mb-4 sm:mb-6"><span className="font-nashville text-crimson-500">Nashville</span>, TN 37208</p>
               <button onClick={() => openBooking('custom')} className="w-full bg-crimson-600 text-white font-display font-bold py-3 uppercase tracking-widest text-xs sm:text-sm hover:bg-crimson-700 transition-colors min-h-[44px]" data-testid="button-contact-book">Book Now</button>
