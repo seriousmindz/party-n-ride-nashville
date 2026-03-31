@@ -33,6 +33,7 @@ import venueNmaamImg from '@assets/stock_images/nmaam_nashville.jpg';
 import venueMuralsImg from '@assets/stock_images/nashville_murals.jpg';
 import venueCentennialImg from '@assets/stock_images/centennial_park.jpg';
 import venueOpryImg from '@assets/stock_images/grand_ole_opry.jpg';
+import shuttleGroupImg from '@assets/IMG_20220910_192802_809_(1)_1774995948633.jpg';
 
 declare global {
   namespace JSX {
@@ -528,20 +529,33 @@ export function ShuttlePage() {
         <div className="w-full max-w-4xl">
           <SectionHeader tag="Shuttle Protocol" title="Nashville Shuttle" titleAccent="Service" subtitle="Custom shuttle and group transportation packages for Nashville, TN." />
 
-          <div className="liquid-glass rounded-2xl p-4 sm:p-10 mb-6 sm:mb-12">
-            <div className="relative z-10">
+          <div className="relative liquid-glass-card rounded-2xl overflow-hidden mb-6 sm:mb-12">
+            <div className="absolute inset-0">
+              <img src={shuttleGroupImg} alt="Party N Ride Nashville group shuttle" className="w-full h-full object-cover opacity-30" />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
+            </div>
+            <div className="relative z-10 p-5 sm:p-10">
               <h2 className="sr-only">Party Bus Shuttle Service in Nashville TN - Corporate & Group Transportation</h2>
-              <p className="text-sm sm:text-base md:text-lg text-neutral-800 font-body font-semibold leading-relaxed mb-4 sm:mb-8 tracking-wide" data-testid="text-shuttle-description">
-                At Party N Ride <span className="font-nashville text-crimson-500">NASHVILLE</span>, we offer custom shuttle - only party bus/group transportation packages you can use for corporate, special occasion or general group shuttle needs in <span className="font-nashville text-crimson-500">Nashville</span>, TN. Whether it's one way or round trip, we can take your group from point A to B comfortably and efficiently!
+
+              <div className="relative rounded-2xl overflow-hidden mb-5 sm:mb-8 h-48 sm:h-64 md:h-80">
+                <img src={shuttleGroupImg} alt="Party N Ride Nashville group photo in front of party bus" className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                <div className="absolute bottom-3 left-3 sm:bottom-5 sm:left-5">
+                  <span className="liquid-glass-phone px-3 py-1.5 rounded-lg text-[10px] sm:text-xs font-display font-bold text-white uppercase tracking-widest">Group Transportation</span>
+                </div>
+              </div>
+
+              <p className="text-sm sm:text-base md:text-lg text-neutral-100 font-body font-semibold leading-relaxed mb-4 sm:mb-8 tracking-wide" data-testid="text-shuttle-description">
+                At Party N Ride <span className="font-nashville text-crimson-400">NASHVILLE</span>, we offer custom shuttle - only party bus/group transportation packages you can use for corporate, special occasion or general group shuttle needs in <span className="font-nashville text-crimson-400">Nashville</span>, TN. Whether it's one way or round trip, we can take your group from point A to B comfortably and efficiently!
               </p>
 
-              <div className="border-l-2 border-crimson-600 pl-3 sm:pl-6 py-2 sm:py-4 mb-4 sm:mb-8">
-                <h3 className="text-crimson-600 font-display text-sm sm:text-base tracking-widest uppercase">Call today to inquiry about pricing for your tailed needs!</h3>
+              <div className="border-l-2 border-crimson-400 pl-3 sm:pl-6 py-2 sm:py-4 mb-4 sm:mb-8">
+                <h3 className="text-crimson-400 font-display text-sm sm:text-base tracking-widest uppercase">Call today to inquiry about pricing for your tailored needs!</h3>
               </div>
 
               <div className="flex flex-col items-center gap-3">
                 <GlassPhoneBar testId="link-shuttle-phone" />
-                <button onClick={() => navigate('/faq')} className="text-neutral-800 font-bold uppercase tracking-widest text-sm hover:text-crimson-600 transition-colors flex items-center gap-2 min-h-[44px]" data-testid="button-shuttle-next">
+                <button onClick={() => navigate('/faq')} className="text-neutral-200 font-bold uppercase tracking-widest text-sm hover:text-crimson-400 transition-colors flex items-center gap-2 min-h-[44px]" data-testid="button-shuttle-next">
                   FAQ's <span className="text-xl">&rarr;</span>
                 </button>
               </div>
