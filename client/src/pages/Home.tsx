@@ -160,16 +160,16 @@ function PageShell({ children, scrollable = false }: { children: React.ReactNode
   );
 }
 
-function SectionHeader({ tag, title, titleAccent, subtitle }: { tag: string; title: string; titleAccent: string; subtitle: string }) {
+function SectionHeader({ tag, title, titleAccent, subtitle, as: Tag = 'h1' }: { tag: string; title: string; titleAccent: string; subtitle: string; as?: 'h1' | 'h2' | 'h3' | 'h4' }) {
   return (
     <div className="mb-4 sm:mb-10 border-l-4 border-crimson-600 pl-3 sm:pl-6 py-2">
       <div className="flex items-center gap-2 mb-2 text-crimson-600 text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase">
         <iconify-icon icon="solar:music-notes-linear" className="text-base" style={{ strokeWidth: 1.5 }}></iconify-icon>
         <span>{tag}</span>
       </div>
-      <h1 className="text-xl sm:text-4xl md:text-5xl font-display font-bold text-neutral-900 tracking-tighter uppercase mb-2">
+      <Tag className="text-xl sm:text-4xl md:text-5xl font-display font-bold text-neutral-900 tracking-tighter uppercase mb-2">
         {title} <span className="text-transparent bg-clip-text bg-gradient-to-r from-crimson-600 to-crimson-900">{titleAccent}</span>
-      </h1>
+      </Tag>
       <p className="text-xs sm:text-base md:text-lg text-neutral-700 max-w-2xl font-semibold tracking-wide">{subtitle}</p>
     </div>
   );
@@ -212,6 +212,7 @@ export function HeroPage() {
             <div className="mb-4 sm:mb-6">
               <img src={logoImg} alt="Party N Ride Nashville - Premier Party Bus & Shuttle Service" className="w-[280px] sm:w-[400px] md:w-full max-w-[500px] h-auto object-contain mx-auto lg:mx-0" data-testid="img-hero-logo" />
             </div>
+            <h1 className="sr-only">Party 'N Ride Nashville - Premier Party Bus & Shuttle Service</h1>
             <h2 className="sr-only">Nashville's Premier Party Bus and Shuttle Service - Book Your Ride Today</h2>
             <p className="text-sm sm:text-base md:text-lg text-neutral-800 font-body font-semibold mb-4 sm:mb-8 max-w-xl mx-auto lg:mx-0 tracking-wide" data-testid="text-hero-description">
               Private, enclosed, BYOB Nashville party bus experiences engineered for bachelorettes, birthdays, game days, and VIP nights out. Cups, coolers, ice, LED lighting, and a pro driver included.
@@ -277,7 +278,7 @@ export function PackagesPage() {
 
               <div className="absolute bottom-0 left-0 w-full p-4 sm:p-5 flex flex-col justify-end z-10 group-hover:-translate-y-1 transition-transform duration-300">
                 <span className="text-[9px] sm:text-[10px] font-mono text-crimson-500 tracking-widest uppercase mb-1">{card.tagline}</span>
-                <h3 className="text-lg sm:text-xl md:text-2xl font-display font-bold text-white tracking-tight uppercase mb-1.5">{card.title}</h3>
+                <h2 className="text-lg sm:text-xl md:text-2xl font-display font-bold text-white tracking-tight uppercase mb-1.5">{card.title}</h2>
                 <p className="text-[10px] sm:text-xs text-white/70 font-semibold tracking-wider uppercase mb-2">{card.highlight}</p>
                 <p className="text-[11px] sm:text-sm text-neutral-200 font-medium mb-3 leading-relaxed line-clamp-3">{card.desc}</p>
                 <div className="flex items-center justify-between">
@@ -382,7 +383,7 @@ export function SitesPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
                 </div>
                 <div className="relative z-10 h-full p-3 sm:p-4 flex flex-col justify-end">
-                  <h3 className="text-sm sm:text-lg font-display font-bold text-white uppercase tracking-wide mb-1 drop-shadow-md">{venue.name}</h3>
+                  <h2 className="text-sm sm:text-lg font-display font-bold text-white uppercase tracking-wide mb-1 drop-shadow-md">{venue.name}</h2>
                   <div className="flex items-center gap-1.5 text-crimson-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     Explore <iconify-icon icon="solar:arrow-right-linear" className="text-xs" style={{ strokeWidth: 1.5 }}></iconify-icon>
                   </div>
@@ -393,7 +394,7 @@ export function SitesPage() {
 
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-6 sm:mb-12 border-b border-neutral-200 pb-4 sm:pb-6">
             <div>
-              <h2 className="text-xl sm:text-3xl md:text-4xl font-display font-bold text-neutral-900 tracking-tighter uppercase mb-2">
+              <h2 className="text-xl sm:text-3xl md:text-4xl font-display font-bold text-neutral-900 tracking-tighter uppercase mb-2" data-testid="heading-ride-protocol">
                 Ride <span className="text-crimson-600">Protocol</span>
               </h2>
               <p className="text-neutral-800 font-semibold tracking-wide text-xs sm:text-base">How your Nashville party bus goes from idea to &ldquo;best night of the trip&rdquo;.</p>
@@ -416,7 +417,7 @@ export function SitesPage() {
                 <div className="relative z-10 h-full p-3 sm:p-5 flex flex-col justify-between">
                   <span className="text-[9px] sm:text-xs font-mono text-crimson-500 tracking-widest">STEP_{s.step}</span>
                   <div>
-                    <h3 className="text-sm sm:text-xl font-display font-bold text-white uppercase mb-1">{s.title}</h3>
+                    <h3 className="text-sm sm:text-xl font-display font-bold text-white uppercase mb-1" data-testid={`heading-step-${s.step}`}>{s.title}</h3>
                     <p className="text-[9px] sm:text-xs text-neutral-200 font-medium leading-relaxed">{s.desc}</p>
                   </div>
                 </div>
@@ -438,7 +439,7 @@ export function SitesPage() {
                 <div className="relative z-10 h-full pl-4 sm:pl-6 flex items-center">
                   <div>
                     <span className="text-[9px] sm:text-[10px] font-mono text-crimson-500 font-semibold block mb-1">{f.tag}</span>
-                    <h3 className="text-sm sm:text-xl font-bold font-display text-white group-hover:text-crimson-400 transition-colors uppercase">{f.label}</h3>
+                    <h4 className="text-sm sm:text-xl font-bold font-display text-white group-hover:text-crimson-400 transition-colors uppercase">{f.label}</h4>
                   </div>
                 </div>
               </div>
@@ -483,7 +484,7 @@ export function PricingPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/15"></div>
                 </div>
                 <div className="relative z-10 h-full p-4 sm:p-6 flex flex-col justify-end">
-                  <h2 className="font-display text-xs sm:text-sm text-crimson-500 uppercase tracking-widest mb-2" data-testid={p.tid}>{p.title}</h2>
+                  <h3 className="font-display text-xs sm:text-sm text-crimson-500 uppercase tracking-widest mb-2" data-testid={p.tid}>{p.title}</h3>
                   <div className="flex items-baseline gap-2 mb-1">
                     <span className="text-2xl sm:text-3xl font-display font-bold text-white">{p.p1}</span>
                     <span className="text-sm text-neutral-300 font-medium">{p.p1l}</span>
@@ -535,7 +536,7 @@ export function ShuttlePage() {
               <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
             </div>
             <div className="relative z-10 p-5 sm:p-10">
-              <h2 className="sr-only">Party Bus Shuttle Service in Nashville TN - Corporate & Group Transportation</h2>
+              <h2 className="sr-only" data-testid="heading-shuttle-seo">Party Bus Shuttle Service in Nashville TN - Corporate & Group Transportation</h2>
 
               <div className="relative rounded-2xl overflow-hidden mb-5 sm:mb-8 h-48 sm:h-64 md:h-80">
                 <img src={shuttleGroupImg} alt="Party N Ride Nashville group photo in front of party bus" className="w-full h-full object-cover" />
@@ -597,7 +598,7 @@ export function FaqPage() {
               <div key={i} className="group liquid-glass rounded-2xl p-3 sm:p-6" data-testid={`faq-item-${i}`}>
                 <div className="relative z-10">
                   <div className="flex justify-between items-start mb-1 sm:mb-2">
-                    <h2 className="text-xs sm:text-base font-display text-neutral-900 tracking-wide uppercase pr-3">{faq.q}</h2>
+                    <h3 className="text-xs sm:text-base font-display text-neutral-900 tracking-wide uppercase pr-3">{faq.q}</h3>
                     <span className="text-[9px] sm:text-[10px] font-mono text-crimson-600 tracking-widest shrink-0">FAQ_{String(i + 1).padStart(2, '0')}</span>
                   </div>
                   <p className="text-neutral-800 font-body font-medium text-[11px] sm:text-sm tracking-wide">{faq.a}</p>
@@ -657,7 +658,7 @@ export function ContactPage() {
               {submitted ? (
                 <div className="text-center py-6 sm:py-8" data-testid="contact-success">
                   <div className="text-4xl sm:text-5xl mb-4">&#9993;</div>
-                  <h3 className="text-xl sm:text-2xl font-display font-bold text-neutral-900 uppercase tracking-widest mb-2">Message Sent!</h3>
+                  <h2 className="text-xl sm:text-2xl font-display font-bold text-neutral-900 uppercase tracking-widest mb-2">Message Sent!</h2>
                   <p className="text-neutral-800 font-semibold">We'll get back to you soon.</p>
                 </div>
               ) : (
@@ -678,8 +679,8 @@ export function ContactPage() {
           <div className="w-full lg:w-72 liquid-glass rounded-2xl p-5 sm:p-8 flex flex-col justify-center items-center">
             <div className="relative z-10 text-center">
               <img src={logoImg} alt="Party N Ride Nashville" className="h-10 sm:h-12 object-contain mb-4 sm:mb-6 mx-auto" data-testid="img-contact-logo" />
-              <h2 className="text-base sm:text-lg font-display font-bold uppercase tracking-widest text-neutral-900 mb-1">PartyNRide</h2>
-              <h3 className="text-xl sm:text-2xl font-nashville text-crimson-500 mb-3 sm:mb-4">Nashville</h3>
+              <h3 className="text-base sm:text-lg font-display font-bold uppercase tracking-widest text-neutral-900 mb-1">PartyNRide</h3>
+              <h4 className="text-xl sm:text-2xl font-nashville text-crimson-500 mb-3 sm:mb-4">Nashville</h4>
               <a href="tel:6153374342" className="liquid-glass-phone inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl mb-3 sm:mb-4 min-h-[44px] no-underline w-full" data-testid="link-contact-phone">
                 <iconify-icon icon="solar:phone-calling-bold" className="text-lg text-crimson-600" style={{ strokeWidth: 1.5 }}></iconify-icon>
                 <span className="relative z-10 font-display font-bold text-crimson-600 text-lg sm:text-xl">615-337-4342</span>
