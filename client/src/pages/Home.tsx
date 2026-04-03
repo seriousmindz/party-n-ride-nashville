@@ -168,7 +168,7 @@ function SectionHeader({ tag, title, titleAccent, subtitle, as: Tag = 'h1' }: { 
         <iconify-icon icon="solar:music-notes-linear" className="text-base" style={{ strokeWidth: 1.5 }}></iconify-icon>
         <span>{tag}</span>
       </div>
-      <Tag className="text-xl sm:text-4xl md:text-5xl font-display font-bold text-neutral-900 tracking-tighter uppercase mb-2">
+      <Tag className="text-xl sm:text-4xl md:text-5xl font-display font-bold text-neutral-900 tracking-tight uppercase mb-2 overflow-visible leading-tight py-1">
         {title} <span className="text-transparent bg-clip-text bg-gradient-to-r from-crimson-600 to-crimson-900">{titleAccent}</span>
       </Tag>
       <p className="text-xs sm:text-base md:text-lg text-neutral-700 max-w-2xl font-semibold tracking-wide">{subtitle}</p>
