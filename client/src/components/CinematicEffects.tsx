@@ -105,7 +105,7 @@ export function TypewriterCycler({ phrases, className = '' }: { phrases: string[
   }, [phrases]);
 
   return (
-    <span className={className}>
+    <span className={`platinum-glass-text ${className}`}>
       {display}
       <span className="inline-block w-[3px] h-[0.85em] ml-0.5 align-text-bottom" style={{ background: 'var(--color-crimson-600, #0EA5E9)', opacity: cursorVisible ? 1 : 0 }}></span>
     </span>
@@ -164,13 +164,13 @@ export function KineticMarquee({ items, direction = 'left', speed = 1, variant =
   };
 
   return (
-    <div className={`overflow-hidden ${variant === 'dark' ? 'bg-neutral-900 py-4 sm:py-5' : 'py-3 sm:py-4'} ${className}`}>
+    <div className={`overflow-hidden ${variant === 'dark' ? 'marquee-glass-band py-4 sm:py-5' : 'py-3 sm:py-4'} ${className}`}>
       <div ref={rowRef} className="flex whitespace-nowrap will-change-transform">
         <div className="marquee-content flex items-center">
           {items.map((item, i) => (
             <React.Fragment key={i}>
               {variant === 'tags' ? (
-                <span className="inline-flex items-center px-4 sm:px-6 py-2 sm:py-2.5 rounded-full bg-crimson-600/10 text-crimson-600 font-display font-bold text-xs sm:text-sm uppercase tracking-widest mx-1.5 sm:mx-2 whitespace-nowrap border border-crimson-600/20">{item}</span>
+                <span className="marquee-glass-pill inline-flex items-center px-4 sm:px-6 py-2 sm:py-2.5 rounded-full font-display font-bold text-xs sm:text-sm uppercase tracking-widest mx-1.5 sm:mx-2 whitespace-nowrap">{item}</span>
               ) : (
                 <span className={`${variantClasses[variant]} px-4 sm:px-8 whitespace-nowrap flex items-center gap-3 sm:gap-6`} style={variant === 'outline' ? { WebkitTextStroke: '1.5px var(--color-crimson-600, #0EA5E9)' } : undefined}>
                   {item}
