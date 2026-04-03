@@ -276,6 +276,7 @@ export function PackagesPage() {
   const [bookingPackage, setBookingPackage] = useState('custom');
   const [, navigate] = useLocation();
   const openBooking = (pkg: string) => { setBookingPackage(pkg); setBookingOpen(true); };
+  const [flippedPkg, setFlippedPkg] = useState<number | null>(null);
 
   const cards = [
     { img: bacheloretteImg, title: "Bachelorette Bash", tagline: "Nashville's #1 Bachelorette Party Bus", desc: "Your crew deserves the ultimate send\u2011off. 2\u2011hour private enclosed party bus for up to 20 guests with BYOB, cups, coolers, ice, LED club lighting, and a Bluetooth sound system. Cruise Broadway, The Gulch, and Midtown with bathroom and photo stops built into your route.", price: "From $495 Sun\u2013Thu \u00B7 From $595 Fri\u2013Sat", priceA: "$495 Sun\u2013Thu", priceB: "$595 Fri\u2013Sat", pkg: "bachelorette", num: "01", highlight: "Up to 20 Guests \u2022 2 Hours \u2022 BYOB" },
@@ -293,27 +294,46 @@ export function PackagesPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 gap-y-6 sm:gap-y-12 w-full max-w-7xl">
           {cards.map((card, i) => (
-            <div key={i} className={`group relative w-full h-[280px] sm:h-[340px] md:h-[380px] liquid-glass-card rounded-2xl sm:rounded-xl cursor-pointer ${i % 2 === 1 ? 'sm:mt-8' : ''}`} onClick={() => openBooking(card.pkg)} data-testid={`card-package-${card.pkg}`}>
-              <div className="absolute inset-0 rounded-2xl sm:rounded-xl overflow-hidden">
-                <div className="absolute inset-0 bg-cover bg-center opacity-60 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700 ease-out" style={{ backgroundImage: `url(${card.img})` }}></div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/10"></div>
-              </div>
-
-              <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10">
-                <span className="text-3xl sm:text-4xl font-display font-bold text-white/20 group-hover:text-crimson-600/60 transition-colors duration-300">{card.num}</span>
-              </div>
-
-              <div className="absolute bottom-0 left-0 w-full p-4 sm:p-5 flex flex-col justify-end z-10 group-hover:-translate-y-1 transition-transform duration-300">
-                <span className="text-[9px] sm:text-[10px] font-mono text-crimson-500 tracking-widest uppercase mb-1">{card.tagline}</span>
-                <h2 className="text-lg sm:text-xl md:text-2xl font-display font-bold text-white tracking-tight uppercase mb-1.5">{card.title}</h2>
-                <p className="text-[10px] sm:text-xs text-white/70 font-semibold tracking-wider uppercase mb-2">{card.highlight}</p>
-                <p className="text-[11px] sm:text-sm text-neutral-200 font-medium mb-3 leading-relaxed line-clamp-3">{card.desc}</p>
-                <div className="flex items-center justify-between">
-                  <p className="text-xs sm:text-sm font-bold">
-                    <span className="text-crimson-500">{card.priceA}</span>{card.priceB && <span className="text-neutral-400"> &middot; {card.priceB}</span>}
-                  </p>
-                  <div className="flex items-center gap-1.5 text-white text-xs font-bold uppercase tracking-widest opacity-80 group-hover:opacity-100 group-hover:text-crimson-500 transition-all duration-300" data-testid={`button-book-${card.pkg}`}>
-                    Book Now <iconify-icon icon="solar:arrow-right-linear" className="text-sm" style={{ strokeWidth: 1.5 }}></iconify-icon>
+            <div key={i} className={`flip-card ${flippedPkg === i ? 'flipped' : ''} w-full h-[280px] sm:h-[340px] md:h-[380px] rounded-2xl sm:rounded-xl ${i % 2 === 1 ? 'sm:mt-8' : ''}`} onClick={() => setFlippedPkg(flippedPkg === i ? null : i)} data-testid={`card-package-${card.pkg}`}>
+              <div className="flip-card-inner">
+                <div className="flip-card-front liquid-glass-card rounded-2xl sm:rounded-xl">
+                  <div className="absolute inset-0 rounded-2xl sm:rounded-xl overflow-hidden">
+                    <div className="absolute inset-0 bg-cover bg-center opacity-60 transition-all duration-700 ease-out" style={{ backgroundImage: `url(${card.img})` }}></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/10"></div>
+                  </div>
+                  <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10">
+                    <span className="text-3xl sm:text-4xl font-display font-bold text-white/20">{card.num}</span>
+                  </div>
+                  <div className="absolute bottom-0 left-0 w-full p-4 sm:p-5 flex flex-col justify-end z-10">
+                    <span className="text-[9px] sm:text-[10px] font-mono text-crimson-500 tracking-widest uppercase mb-1">{card.tagline}</span>
+                    <h2 className="text-lg sm:text-xl md:text-2xl font-display font-bold text-white tracking-tight uppercase mb-1.5">{card.title}</h2>
+                    <p className="text-[10px] sm:text-xs text-white/70 font-semibold tracking-wider uppercase">{card.highlight}</p>
+                    <div className="flex items-center gap-1.5 text-crimson-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest mt-2">
+                      Tap to flip <iconify-icon icon="solar:refresh-linear" className="text-xs" style={{ strokeWidth: 1.5 }}></iconify-icon>
+                    </div>
+                  </div>
+                </div>
+                <div className="flip-card-back rounded-2xl sm:rounded-xl">
+                  <div className="absolute inset-0 rounded-2xl sm:rounded-xl overflow-hidden">
+                    <div className="absolute inset-0 bg-cover bg-center opacity-25" style={{ backgroundImage: `url(${card.img})` }}></div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/85 to-black/95"></div>
+                  </div>
+                  <div className="relative z-10 h-full p-4 sm:p-5 flex flex-col justify-between">
+                    <div>
+                      <span className="text-[9px] sm:text-[10px] font-mono text-crimson-500 tracking-widest uppercase mb-2 block">{card.tagline}</span>
+                      <h2 className="text-base sm:text-lg font-display font-bold text-white tracking-tight uppercase mb-3">{card.title}</h2>
+                      <p className="text-[11px] sm:text-sm text-neutral-200 font-medium leading-relaxed">{card.desc}</p>
+                    </div>
+                    <div>
+                      <p className="text-sm sm:text-base font-bold mb-3">
+                        <span className="text-crimson-500">{card.priceA}</span>{card.priceB && <span className="text-neutral-400"> &middot; {card.priceB}</span>}
+                      </p>
+                      <button onClick={(e) => { e.stopPropagation(); openBooking(card.pkg); }} className="cta-gradient text-white px-5 py-2.5 rounded-xl w-full min-h-[44px]" data-testid={`button-book-${card.pkg}`}>
+                        <span className="relative z-10 font-display font-bold uppercase tracking-widest text-sm flex items-center gap-2 justify-center">
+                          Book Now <iconify-icon icon="solar:arrow-right-linear" className="text-sm" style={{ strokeWidth: 1.5 }}></iconify-icon>
+                        </span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -383,6 +403,7 @@ export function SitesPage() {
   const openBooking = (pkg: string) => { setBookingPackage(pkg); setBookingOpen(true); };
   const rideProtocolRef = useRef<HTMLSpanElement>(null);
   useTextScramble(rideProtocolRef, 'Protocol', 'scroll');
+  const [flippedSite, setFlippedSite] = useState<number | null>(null);
 
   return (
     <PageShell scrollable>
@@ -406,15 +427,39 @@ export function SitesPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-12">
             {VENUES.map((venue, i) => (
-              <div key={i} className="group relative h-36 sm:h-48 liquid-glass-card rounded-2xl overflow-hidden cursor-pointer" onClick={() => setSelectedVenue(venue)} data-testid={`card-site-${i}`}>
-                <div className="absolute inset-0">
-                  <img src={venue.img} alt={venue.name} className="w-full h-full object-cover opacity-50 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-                </div>
-                <div className="relative z-10 h-full p-3 sm:p-4 flex flex-col justify-end">
-                  <h2 className="text-sm sm:text-lg font-display font-bold text-white uppercase tracking-wide mb-1 drop-shadow-md">{venue.name}</h2>
-                  <div className="flex items-center gap-1.5 text-crimson-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    Explore <iconify-icon icon="solar:arrow-right-linear" className="text-xs" style={{ strokeWidth: 1.5 }}></iconify-icon>
+              <div key={i} className={`flip-card ${flippedSite === i ? 'flipped' : ''} h-36 sm:h-48 rounded-2xl`} onClick={() => setFlippedSite(flippedSite === i ? null : i)} data-testid={`card-site-${i}`}>
+                <div className="flip-card-inner">
+                  <div className="flip-card-front liquid-glass-card rounded-2xl">
+                    <div className="absolute inset-0">
+                      <img src={venue.img} alt={venue.name} className="w-full h-full object-cover opacity-50" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                    </div>
+                    <div className="relative z-10 h-full p-3 sm:p-4 flex flex-col justify-end">
+                      <h2 className="text-sm sm:text-lg font-display font-bold text-white uppercase tracking-wide mb-1 drop-shadow-md">{venue.name}</h2>
+                      <div className="flex items-center gap-1.5 text-crimson-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest">
+                        Tap to flip <iconify-icon icon="solar:refresh-linear" className="text-xs" style={{ strokeWidth: 1.5 }}></iconify-icon>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flip-card-back rounded-2xl">
+                    <div className="absolute inset-0">
+                      <img src={venue.img} alt={venue.name} className="w-full h-full object-cover opacity-20" />
+                      <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/85 to-black/95"></div>
+                    </div>
+                    <div className="relative z-10 h-full p-3 sm:p-4 flex flex-col justify-between">
+                      <div>
+                        <h2 className="text-xs sm:text-sm font-display font-bold text-white uppercase tracking-wide mb-1">{venue.name}</h2>
+                        <p className="text-[9px] sm:text-xs text-neutral-200 font-medium leading-relaxed line-clamp-3">{venue.history}</p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <button onClick={(e) => { e.stopPropagation(); setSelectedVenue(venue); }} className="text-crimson-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest flex items-center gap-1 min-h-[44px]">
+                          Full Details <iconify-icon icon="solar:arrow-right-linear" className="text-xs" style={{ strokeWidth: 1.5 }}></iconify-icon>
+                        </button>
+                        <a href={venue.url} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="text-white/60 text-[10px] sm:text-xs font-bold uppercase tracking-widest flex items-center gap-1 ml-auto min-h-[44px]">
+                          Website <iconify-icon icon="solar:arrow-right-up-linear" className="text-xs" style={{ strokeWidth: 1.5 }}></iconify-icon>
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -491,6 +536,7 @@ export function PricingPage() {
   const [bookingPackage, setBookingPackage] = useState('custom');
   const [, navigate] = useLocation();
   const openBooking = (pkg: string) => { setBookingPackage(pkg); setBookingOpen(true); };
+  const [flippedPrice, setFlippedPrice] = useState<number | null>(null);
 
   return (
     <PageShell scrollable>
@@ -502,31 +548,52 @@ export function PricingPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-6 mb-6 sm:mb-10">
             {[
-              { title: "Bachelorette Bash", p1: "$495", p1l: "Sun\u2013Thu", p2: "$595", p2l: "Fri\u2013Sat", desc: "2\u2011hour private party bus, up to 20 guests", tid: "text-pricing-bach", img: bacheloretteImg },
-              { title: "Broadway Birthday", p1: "$475", p1l: "Sun\u2013Thu", p2: "$575", p2l: "Fri\u2013Sat", desc: "2\u2011hour rolling nightclub, custom playlist", tid: "text-pricing-bday", img: birthdayImg },
-              { title: "Game Day Tailgate", p1: "$695", p1l: "per group", p2: "", p2l: "", desc: "3\u2011hour Titans or Preds pre\u2011game party bus", tid: "text-pricing-game", img: tailgateImg },
-              { title: "Corporate & Events", p1: "Custom", p1l: "Quote", p2: "", p2l: "", desc: "Based on route, timing, and guest count", tid: "text-pricing-corp", img: corporateImg },
+              { title: "Bachelorette Bash", p1: "$495", p1l: "Sun\u2013Thu", p2: "$595", p2l: "Fri\u2013Sat", desc: "2\u2011hour private party bus, up to 20 guests. BYOB, cups, coolers, ice, LED club lighting, Bluetooth sound system. Cruise Broadway, The Gulch, and Midtown.", tid: "text-pricing-bach", img: bacheloretteImg, highlight: "Up to 20 Guests \u2022 2 Hours \u2022 BYOB" },
+              { title: "Broadway Birthday", p1: "$475", p1l: "Sun\u2013Thu", p2: "$575", p2l: "Fri\u2013Sat", desc: "2\u2011hour rolling nightclub, custom playlist, LED mood lighting, and a route tailored to your favorite Nashville hotspots.", tid: "text-pricing-bday", img: birthdayImg, highlight: "Custom Playlist \u2022 2 Hours \u2022 LED Lights" },
+              { title: "Game Day Tailgate", p1: "$695", p1l: "per group", p2: "", p2l: "", desc: "3\u2011hour Titans or Preds pre\u2011game party bus. One pickup, one stadium drop\u2011off, rolling tailgate with your entire crew.", tid: "text-pricing-game", img: tailgateImg, highlight: "3 Hours \u2022 Stadium Drop\u2011off \u2022 Full Crew" },
+              { title: "Corporate & Events", p1: "Custom", p1l: "Quote", p2: "", p2l: "", desc: "Based on route, timing, and guest count. Perfect for conferences, team outings, offsites, and incentive trips.", tid: "text-pricing-corp", img: corporateImg, highlight: "Custom Route \u2022 Any Size \u2022 Premium" },
             ].map((p, i) => (
-              <div key={i} className="group relative liquid-glass-card rounded-2xl overflow-hidden cursor-pointer h-48 sm:h-56" onClick={() => openBooking('custom')}>
-                <div className="absolute inset-0">
-                  <img src={p.img} alt={p.title} className="w-full h-full object-cover opacity-40 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/15"></div>
-                </div>
-                <div className="relative z-10 h-full p-4 sm:p-6 flex flex-col justify-end">
-                  <h3 className="font-display text-xs sm:text-sm text-crimson-500 uppercase tracking-widest mb-2" data-testid={p.tid}>{p.title}</h3>
-                  <div className="flex items-baseline gap-2 mb-1">
-                    <span className="text-2xl sm:text-3xl font-display font-bold text-white">{p.p1}</span>
-                    <span className="text-sm text-neutral-300 font-medium">{p.p1l}</span>
-                  </div>
-                  {p.p2 && (
-                    <div className="flex items-baseline gap-2 mb-1">
-                      <span className="text-2xl sm:text-3xl font-display font-bold text-white">{p.p2}</span>
-                      <span className="text-sm text-neutral-300 font-medium">{p.p2l}</span>
+              <div key={i} className={`flip-card ${flippedPrice === i ? 'flipped' : ''} h-48 sm:h-56 rounded-2xl`} onClick={() => setFlippedPrice(flippedPrice === i ? null : i)} data-testid={p.tid}>
+                <div className="flip-card-inner">
+                  <div className="flip-card-front liquid-glass-card rounded-2xl">
+                    <div className="absolute inset-0">
+                      <img src={p.img} alt={p.title} className="w-full h-full object-cover opacity-40" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/15"></div>
                     </div>
-                  )}
-                  <p className="text-xs text-neutral-300 font-medium mt-1">{p.desc}</p>
-                  <div className="flex items-center gap-2 text-crimson-500 text-xs font-bold uppercase tracking-widest sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 mt-2">
-                    Book Now <iconify-icon icon="solar:arrow-right-linear" className="text-sm" style={{ strokeWidth: 1.5 }}></iconify-icon>
+                    <div className="relative z-10 h-full p-4 sm:p-6 flex flex-col justify-end">
+                      <h3 className="font-display text-xs sm:text-sm text-crimson-500 uppercase tracking-widest mb-2">{p.title}</h3>
+                      <div className="flex items-baseline gap-2 mb-1">
+                        <span className="text-2xl sm:text-3xl font-display font-bold text-white">{p.p1}</span>
+                        <span className="text-sm text-neutral-300 font-medium">{p.p1l}</span>
+                      </div>
+                      {p.p2 && (
+                        <div className="flex items-baseline gap-2 mb-1">
+                          <span className="text-2xl sm:text-3xl font-display font-bold text-white">{p.p2}</span>
+                          <span className="text-sm text-neutral-300 font-medium">{p.p2l}</span>
+                        </div>
+                      )}
+                      <div className="flex items-center gap-1.5 text-crimson-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest mt-2">
+                        Tap for details <iconify-icon icon="solar:refresh-linear" className="text-xs" style={{ strokeWidth: 1.5 }}></iconify-icon>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flip-card-back rounded-2xl">
+                    <div className="absolute inset-0">
+                      <img src={p.img} alt={p.title} className="w-full h-full object-cover opacity-20" />
+                      <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/85 to-black/95"></div>
+                    </div>
+                    <div className="relative z-10 h-full p-4 sm:p-6 flex flex-col justify-between">
+                      <div>
+                        <h3 className="font-display text-xs sm:text-sm text-crimson-500 uppercase tracking-widest mb-1">{p.title}</h3>
+                        <p className="text-[10px] sm:text-xs text-white/70 font-semibold tracking-wider uppercase mb-2">{p.highlight}</p>
+                        <p className="text-[10px] sm:text-xs text-neutral-200 font-medium leading-relaxed">{p.desc}</p>
+                      </div>
+                      <button onClick={(e) => { e.stopPropagation(); openBooking('custom'); }} className="cta-gradient text-white px-5 py-2.5 rounded-xl w-full min-h-[44px]">
+                        <span className="relative z-10 font-display font-bold uppercase tracking-widest text-sm flex items-center gap-2 justify-center">
+                          Book Now <iconify-icon icon="solar:arrow-right-linear" className="text-sm" style={{ strokeWidth: 1.5 }}></iconify-icon>
+                        </span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
