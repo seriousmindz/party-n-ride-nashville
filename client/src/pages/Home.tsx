@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useLocation } from 'wouter';
 import { useMutation } from '@tanstack/react-query';
 import { apiRequest } from '../lib/queryClient';
+import { TypewriterCycler, KineticMarquee, OdometerStat, useParticleClick, useTextScramble } from '../components/CinematicEffects';
 
 import logoImg from '@assets/PartynRide-Logo-New-Blue_1774034577921.png';
 import bacheloretteImg from '@assets/IMG_20220526_234848_507_1772858254044.jpg';
@@ -185,7 +186,7 @@ function GlassPhoneBar({ testId = "link-phone" }: { testId?: string }) {
   );
 }
 
-function SkewedCTA({ onClick, label }: { onClick: () => void; label: string }) {
+function SkewedCTA({ onClick, label }: { onClick: (e: React.MouseEvent) => void; label: string }) {
   return (
     <button onClick={onClick} className="cta-gradient text-white px-8 sm:px-12 py-3.5 sm:py-4.5 rounded-2xl min-h-[44px] w-full sm:w-auto shadow-[0_8px_30px_rgba(14,165,233,0.3)]">
       <span className="relative z-10 font-display font-bold uppercase tracking-widest text-sm sm:text-base flex items-center gap-2 justify-center drop-shadow-sm">
@@ -201,42 +202,68 @@ export function HeroPage() {
   const [bookingPackage, setBookingPackage] = useState('custom');
   const [, navigate] = useLocation();
   const openBooking = (pkg: string) => { setBookingPackage(pkg); setBookingOpen(true); };
+  const particleClick = useParticleClick();
 
   return (
     <PageShell scrollable>
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} defaultPackage={bookingPackage} />
       <NavBar openBooking={openBooking} currentPage="/" />
-      <div className="flex-1 flex items-center justify-center px-4 sm:px-4 md:px-8 pt-16 sm:pt-20 pb-4">
-        <div className="w-full max-w-7xl flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-8">
-          <div className="w-full lg:w-1/2 text-center lg:text-left">
-            <div className="mb-4 sm:mb-6">
-              <img src={logoImg} alt="Party N Ride Nashville - Premier Party Bus & Shuttle Service" className="w-[280px] sm:w-[400px] md:w-full max-w-[500px] h-auto object-contain mx-auto lg:mx-0" data-testid="img-hero-logo" />
+      <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex items-center justify-center px-4 sm:px-4 md:px-8 pt-16 sm:pt-20 pb-4">
+          <div className="w-full max-w-7xl flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-8">
+            <div className="w-full lg:w-1/2 text-center lg:text-left">
+              <div className="mb-4 sm:mb-6">
+                <img src={logoImg} alt="Party N Ride Nashville - Premier Party Bus & Shuttle Service" className="w-[280px] sm:w-[400px] md:w-full max-w-[500px] h-auto object-contain mx-auto lg:mx-0" data-testid="img-hero-logo" />
+              </div>
+              <h1 className="sr-only">Party 'N Ride Nashville - Premier Party Bus & Shuttle Service</h1>
+              <h2 className="text-base sm:text-xl md:text-2xl font-display font-bold text-neutral-900 tracking-tight uppercase mb-2 sm:mb-4">
+                Nashville's #1 Party Bus For{' '}
+                <TypewriterCycler
+                  phrases={['Bachelorettes', 'Birthdays', 'Game Days', 'Corporate Events', 'VIP Nights Out', 'Bar Crawls', 'Broadway Tours']}
+                  className="text-crimson-600"
+                />
+              </h2>
+              <p className="text-sm sm:text-base md:text-lg text-neutral-800 font-body font-semibold mb-4 sm:mb-8 max-w-xl mx-auto lg:mx-0 tracking-wide" data-testid="text-hero-description">
+                Private, enclosed, BYOB Nashville party bus experiences. Cups, coolers, ice, LED lighting, and a pro driver included.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-5 justify-center lg:justify-start">
+                <SkewedCTA onClick={(e: React.MouseEvent) => { particleClick(e); openBooking('custom'); }} label="Book Now" />
+              </div>
+              <GlassPhoneBar testId="link-hero-phone" />
+              <button onClick={() => navigate('/packages')} className="mt-4 sm:mt-6 text-neutral-800 font-bold uppercase tracking-widest text-sm hover:text-crimson-600 transition-colors flex items-center gap-2 mx-auto lg:mx-0 min-h-[44px]" data-testid="button-hero-next">
+                View Packages <span className="text-xl">&rarr;</span>
+              </button>
             </div>
-            <h1 className="sr-only">Party 'N Ride Nashville - Premier Party Bus & Shuttle Service</h1>
-            <h2 className="sr-only">Nashville's Premier Party Bus and Shuttle Service - Book Your Ride Today</h2>
-            <p className="text-sm sm:text-base md:text-lg text-neutral-800 font-body font-semibold mb-4 sm:mb-8 max-w-xl mx-auto lg:mx-0 tracking-wide" data-testid="text-hero-description">
-              Private, enclosed, BYOB Nashville party bus experiences engineered for bachelorettes, birthdays, game days, and VIP nights out. Cups, coolers, ice, LED lighting, and a pro driver included.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-5 justify-center lg:justify-start">
-              <SkewedCTA onClick={() => openBooking('custom')} label="Book Now" />
+            <div className="w-full lg:w-1/2 flex flex-row lg:flex-col items-center justify-center lg:justify-end gap-3 sm:gap-4 relative">
+              <div className="absolute inset-0 bg-crimson-600/10 rounded-full blur-3xl animate-pulse w-3/4 h-3/4 m-auto"></div>
+              <div className="relative liquid-glass p-1.5 sm:p-2.5 rounded-2xl">
+                <video autoPlay loop playsInline controls className="w-[140px] h-[120px] sm:w-[220px] sm:h-[180px] md:w-[280px] md:h-[220px] object-cover rounded-xl" data-testid="video-hero">
+                  <source src={heroVideo} type="video/mp4" />
+                </video>
+              </div>
+              <div className="relative liquid-glass p-1.5 sm:p-2.5 rounded-2xl">
+                <video autoPlay loop playsInline controls className="w-[180px] h-[160px] sm:w-[280px] sm:h-[230px] md:w-[360px] md:h-[280px] object-cover rounded-xl" data-testid="video-hero-2">
+                  <source src={heroVideo2} type="video/mp4" />
+                </video>
+              </div>
             </div>
-            <GlassPhoneBar testId="link-hero-phone" />
-            <button onClick={() => navigate('/packages')} className="mt-4 sm:mt-6 text-neutral-800 font-bold uppercase tracking-widest text-sm hover:text-crimson-600 transition-colors flex items-center gap-2 mx-auto lg:mx-0 min-h-[44px]" data-testid="button-hero-next">
-              View Packages <span className="text-xl">&rarr;</span>
-            </button>
           </div>
-          <div className="w-full lg:w-1/2 flex flex-row lg:flex-col items-center justify-center lg:justify-end gap-3 sm:gap-4 relative">
-            <div className="absolute inset-0 bg-crimson-600/10 rounded-full blur-3xl animate-pulse w-3/4 h-3/4 m-auto"></div>
-            <div className="relative liquid-glass p-1.5 sm:p-2.5 rounded-2xl">
-              <video autoPlay loop playsInline controls className="w-[140px] h-[120px] sm:w-[220px] sm:h-[180px] md:w-[280px] md:h-[220px] object-cover rounded-xl" data-testid="video-hero">
-                <source src={heroVideo} type="video/mp4" />
-              </video>
-            </div>
-            <div className="relative liquid-glass p-1.5 sm:p-2.5 rounded-2xl">
-              <video autoPlay loop playsInline controls className="w-[180px] h-[160px] sm:w-[280px] sm:h-[230px] md:w-[360px] md:h-[280px] object-cover rounded-xl" data-testid="video-hero-2">
-                <source src={heroVideo2} type="video/mp4" />
-              </video>
-            </div>
+        </div>
+
+        <KineticMarquee
+          items={['BYOB', 'LED LIGHTS', 'BLUETOOTH', 'CUSTOM ROUTES', 'ENCLOSED BUS', 'PRO DRIVER', 'COOLERS & ICE']}
+          direction="left" speed={0.8} variant="tags"
+        />
+        <KineticMarquee
+          items={['BACHELORETTE', 'BIRTHDAY', 'GAME DAY', 'CORPORATE', 'BAR CRAWL', 'BROADWAY TOUR', 'VIP NIGHT']}
+          direction="right" speed={0.6} variant="dark"
+        />
+
+        <div className="py-8 sm:py-14 px-4">
+          <div className="max-w-4xl mx-auto grid grid-cols-3 gap-4 sm:gap-8">
+            <OdometerStat value="5000" suffix="+" label="Happy Guests" />
+            <OdometerStat value="750" suffix="+" label="Rides Completed" />
+            <OdometerStat value="49" suffix="" label="5-Star Reviews" />
           </div>
         </div>
       </div>
@@ -354,6 +381,8 @@ export function SitesPage() {
   const [, navigate] = useLocation();
   const [selectedVenue, setSelectedVenue] = useState<typeof VENUES[0] | null>(null);
   const openBooking = (pkg: string) => { setBookingPackage(pkg); setBookingOpen(true); };
+  const rideProtocolRef = useRef<HTMLSpanElement>(null);
+  useTextScramble(rideProtocolRef, 'Protocol', 'scroll');
 
   return (
     <PageShell scrollable>
@@ -395,7 +424,7 @@ export function SitesPage() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-6 sm:mb-12 border-b border-neutral-200 pb-4 sm:pb-6">
             <div>
               <h2 className="text-xl sm:text-3xl md:text-4xl font-display font-bold text-neutral-900 tracking-tighter uppercase mb-2" data-testid="heading-ride-protocol">
-                Ride <span className="text-crimson-600">Protocol</span>
+                Ride <span ref={rideProtocolRef} className="text-crimson-600">Protocol</span>
               </h2>
               <p className="text-neutral-800 font-semibold tracking-wide text-xs sm:text-base">How your Nashville party bus goes from idea to &ldquo;best night of the trip&rdquo;.</p>
             </div>

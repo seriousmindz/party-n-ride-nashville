@@ -46,6 +46,12 @@ Each page fills the viewport with scrollable overflow for longer content. Users 
 - **Fonts**: `font-display`=Bebas Neue/Orbitron, `font-script`=Anton, `font-nashville`=Teko, `font-body`=Rajdhani
 - **Icons**: Iconify CDN (Solar Linear set)
 - **Animations**: `liquid-shimmer` (light sweep across glass), `cta-gradient-shift` (background color shift on CTAs)
+- **Cinematic Effects** (GSAP CDN + custom React components in `client/src/components/CinematicEffects.tsx`):
+  - `TypewriterCycler` — Cycling headline that types/deletes phrases with blinking cursor (hero)
+  - `KineticMarquee` — Infinite scrolling text bands with variants: giant, outline, tags, dark (hero)
+  - `OdometerStat` — Mechanical rolling digit counters triggered on scroll (stats section)
+  - `useTextScramble` — Matrix-style character decode on scroll-triggered headings (Sites page)
+  - `useParticleClick` — Confetti particle burst + expanding ring on CTA button clicks (hero)
 
 ## CSS Classes
 - `.liquid-glass` — Frosted white glass panel with shimmer animation, hover lift, rounded
@@ -73,6 +79,7 @@ Each page fills the viewport with scrollable overflow for longer content. Users 
 ## Important Files
 - `client/src/pages/Home.tsx` - All page components (HeroPage, PackagesPage, SitesPage, PricingPage, ShuttlePage, FaqPage, ContactPage)
 - `client/src/App.tsx` - Route registration
+- `client/src/components/CinematicEffects.tsx` - Cinematic animation components (TypewriterCycler, KineticMarquee, OdometerStat, useTextScramble, useParticleClick)
 - `client/src/index.css` - Global styles + keyframe animations + liquid glass classes
 - `client/index.html` - Meta tags, SEO, structured data, fonts, Iconify CDN
 - `shared/schema.ts` - Data models (bookings, contacts)
