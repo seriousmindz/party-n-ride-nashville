@@ -14,9 +14,7 @@ export function useTextScramble(ref: React.RefObject<HTMLElement | null>, text: 
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&*';
     const len = text.length;
 
-    el.innerHTML = text.split('').map(c =>
-      c === ' ' ? ' ' : `<span style="display:inline-block;transition:color 0.1s;color:var(--color-crimson-500,#EF4444)">${chars[Math.floor(Math.random() * chars.length)]}</span>`
-    ).join('');
+    el.textContent = text;
 
     function scramble() {
       hasRun.current = true;
