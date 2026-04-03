@@ -608,20 +608,23 @@
   position: relative;
   background: linear-gradient(
     135deg,
-    #0EA5E9 0%,
-    #7DD3FC 25%,
-    #BAE6FD 40%,
+    #0284C7 0%,
+    #0EA5E9 20%,
+    #38BDF8 35%,
     #ffffff 50%,
-    #BAE6FD 60%,
-    #7DD3FC 75%,
-    #0EA5E9 100%
+    #38BDF8 65%,
+    #0EA5E9 80%,
+    #0284C7 100%
   );
   background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: platinum-shimmer 3s ease-in-out infinite;
-  filter: drop-shadow(0 0 8px rgba(14, 165, 233, 0.4));
+  filter:
+    drop-shadow(0 0 10px rgba(14, 165, 233, 0.6))
+    drop-shadow(0 0 24px rgba(14, 165, 233, 0.3))
+    drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
 }
 @keyframes platinum-shimmer {
   0%, 100% { background-position: 0% 50%; }
