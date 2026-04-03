@@ -15,7 +15,7 @@ export function useTextScramble(ref: React.RefObject<HTMLElement | null>, text: 
     const len = text.length;
 
     el.innerHTML = text.split('').map(c =>
-      c === ' ' ? ' ' : `<span style="display:inline-block;transition:color 0.1s;color:var(--color-crimson-500,#38BDF8)">${chars[Math.floor(Math.random() * chars.length)]}</span>`
+      c === ' ' ? ' ' : `<span style="display:inline-block;transition:color 0.1s;color:var(--color-crimson-500,#EF4444)">${chars[Math.floor(Math.random() * chars.length)]}</span>`
     ).join('');
 
     function scramble() {
@@ -33,7 +33,7 @@ export function useTextScramble(ref: React.RefObject<HTMLElement | null>, text: 
           if (progress >= threshold) {
             html += `<span style="display:inline-block;color:inherit">${text[i]}</span>`;
           } else {
-            html += `<span style="display:inline-block;color:var(--color-crimson-500,#38BDF8)">${chars[Math.floor(Math.random() * chars.length)]}</span>`;
+            html += `<span style="display:inline-block;color:var(--color-crimson-500,#EF4444)">${chars[Math.floor(Math.random() * chars.length)]}</span>`;
           }
         }
         el!.innerHTML = html;
@@ -107,7 +107,7 @@ export function TypewriterCycler({ phrases, className = '' }: { phrases: string[
   return (
     <span className={`platinum-glass-text ${className}`}>
       {display}
-      <span className="inline-block w-[3px] h-[0.85em] ml-0.5 align-text-bottom" style={{ background: 'var(--color-crimson-600, #0EA5E9)', opacity: cursorVisible ? 1 : 0 }}></span>
+      <span className="inline-block w-[3px] h-[0.85em] ml-0.5 align-text-bottom" style={{ background: 'var(--color-crimson-600, #DC2626)', opacity: cursorVisible ? 1 : 0 }}></span>
     </span>
   );
 }
@@ -172,7 +172,7 @@ export function KineticMarquee({ items, direction = 'left', speed = 1, variant =
               {variant === 'tags' ? (
                 <span className="marquee-glass-pill inline-flex items-center px-4 sm:px-6 py-2 sm:py-2.5 rounded-full font-display font-bold text-xs sm:text-sm uppercase tracking-widest mx-1.5 sm:mx-2 whitespace-nowrap">{item}</span>
               ) : (
-                <span className={`${variantClasses[variant]} px-4 sm:px-8 whitespace-nowrap flex items-center gap-3 sm:gap-6`} style={variant === 'outline' ? { WebkitTextStroke: '1.5px var(--color-crimson-600, #0EA5E9)' } : undefined}>
+                <span className={`${variantClasses[variant]} px-4 sm:px-8 whitespace-nowrap flex items-center gap-3 sm:gap-6`} style={variant === 'outline' ? { WebkitTextStroke: '1.5px var(--color-crimson-600, #DC2626)' } : undefined}>
                   {item}
                   <span className={`inline-block w-2 h-2 sm:w-3 sm:h-3 rounded-full ${variant === 'dark' ? 'bg-white/30' : 'bg-crimson-600/30'}`}></span>
                 </span>
@@ -263,7 +263,7 @@ export function useParticleClick() {
     const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
     const cx = rect.left + rect.width / 2;
     const cy = rect.top + rect.height / 2;
-    const colors = ['#0EA5E9', '#38BDF8', '#7DD3FC', '#BAE6FD', '#ffffff'];
+    const colors = ['#DC2626', '#EF4444', '#FCA5A5', '#FECACA', '#ffffff'];
 
     for (let i = 0; i < 16; i++) {
       const p = document.createElement('div');
@@ -280,7 +280,7 @@ export function useParticleClick() {
     }
 
     const ring = document.createElement('div');
-    ring.style.cssText = `position:fixed;border-radius:50%;pointer-events:none;z-index:9998;border:2px solid #0EA5E9;opacity:0;left:${cx}px;top:${cy}px;width:10px;height:10px;margin-left:-5px;margin-top:-5px;transition:all .5s cubic-bezier(.16,1,.3,1)`;
+    ring.style.cssText = `position:fixed;border-radius:50%;pointer-events:none;z-index:9998;border:2px solid #DC2626;opacity:0;left:${cx}px;top:${cy}px;width:10px;height:10px;margin-left:-5px;margin-top:-5px;transition:all .5s cubic-bezier(.16,1,.3,1)`;
     document.body.appendChild(ring);
     ring.offsetHeight;
     ring.style.width = '100px';

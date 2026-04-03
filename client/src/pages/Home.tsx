@@ -94,13 +94,13 @@ function NavBar({ openBooking, currentPage }: { openBooking: (pkg: string) => vo
           </div>
           <div className="hidden lg:flex space-x-1 items-center">
             {navItems.map(item => (
-              <button key={item.path} onClick={() => navigate(item.path)} className={`font-display font-bold uppercase tracking-wider text-sm px-3 py-1.5 transition-all duration-300 ${currentPage === item.path ? 'text-crimson-600 border-b-2 border-crimson-600' : 'text-black hover:text-crimson-600 border-b-2 border-transparent hover:border-crimson-600'}`} data-testid={`link-${item.label.toLowerCase().replace(/[^a-z]/g, '')}`}>{item.label}</button>
+              <button key={item.path} onClick={() => navigate(item.path)} className={`font-display font-bold uppercase tracking-wider text-sm px-3 py-1.5 transition-all duration-300 ${currentPage === item.path ? 'text-crimson-600 border-b-2 border-crimson-600' : 'text-crimson-700 hover:text-crimson-600 border-b-2 border-transparent hover:border-crimson-600'}`} data-testid={`link-${item.label.toLowerCase().replace(/[^a-z]/g, '')}`}>{item.label}</button>
             ))}
-            <button onClick={() => openBooking('custom')} className="cta-gradient text-white px-6 py-2.5 ml-3 rounded-xl shadow-[0_4px_20px_rgba(14,165,233,0.3)]" data-testid="button-nav-book">
+            <button onClick={() => openBooking('custom')} className="cta-gradient text-white px-6 py-2.5 ml-3 rounded-xl shadow-[0_4px_20px_rgba(220,38,38,0.3)]" data-testid="button-nav-book">
               <span className="relative z-10 font-display font-bold uppercase tracking-widest text-xs">Book Now</span>
             </button>
           </div>
-          <button className="lg:hidden text-black text-3xl min-w-[44px] min-h-[44px] flex items-center justify-center" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} data-testid="button-mobile-menu">
+          <button className="lg:hidden text-crimson-700 text-3xl min-w-[44px] min-h-[44px] flex items-center justify-center" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} data-testid="button-mobile-menu">
             {mobileMenuOpen ? '\u2715' : '\u2630'}
           </button>
         </div>
@@ -108,9 +108,9 @@ function NavBar({ openBooking, currentPage }: { openBooking: (pkg: string) => vo
       {mobileMenuOpen && (
         <div className="lg:hidden bg-white/95 backdrop-blur-md border-t border-neutral-200 px-4 py-3 space-y-1 max-h-[80vh] overflow-y-auto">
           {navItems.map(item => (
-            <button key={item.path} onClick={() => { navigate(item.path); setMobileMenuOpen(false); }} className={`block w-full text-left font-display font-bold uppercase tracking-wider text-base py-3 px-3 transition-all duration-200 min-h-[44px] ${currentPage === item.path ? 'text-crimson-600 border-l-2 border-crimson-600 bg-sky-50' : 'text-black hover:text-crimson-600 hover:bg-neutral-100'}`}>{item.label}</button>
+            <button key={item.path} onClick={() => { navigate(item.path); setMobileMenuOpen(false); }} className={`block w-full text-left font-display font-bold uppercase tracking-wider text-base py-3 px-3 transition-all duration-200 min-h-[44px] ${currentPage === item.path ? 'text-crimson-600 border-l-2 border-crimson-600 bg-red-50' : 'text-crimson-700 hover:text-crimson-600 hover:bg-red-50'}`}>{item.label}</button>
           ))}
-          <button onClick={() => { openBooking('custom'); setMobileMenuOpen(false); }} className="block w-full cta-gradient text-white font-display font-bold py-3 uppercase tracking-wider text-sm text-center mt-2 min-h-[44px] rounded-xl shadow-[0_4px_20px_rgba(14,165,233,0.3)]"><span className="relative z-10">Book Now</span></button>
+          <button onClick={() => { openBooking('custom'); setMobileMenuOpen(false); }} className="block w-full cta-gradient text-white font-display font-bold py-3 uppercase tracking-wider text-sm text-center mt-2 min-h-[44px] rounded-xl shadow-[0_4px_20px_rgba(220,38,38,0.3)]"><span className="relative z-10">Book Now</span></button>
         </div>
       )}
     </nav>
@@ -188,7 +188,7 @@ function GlassPhoneBar({ testId = "link-phone" }: { testId?: string }) {
 
 function SkewedCTA({ onClick, label }: { onClick: (e: React.MouseEvent) => void; label: string }) {
   return (
-    <button onClick={onClick} className="cta-gradient text-white px-8 sm:px-12 py-3.5 sm:py-4.5 rounded-2xl min-h-[44px] w-full sm:w-auto shadow-[0_8px_30px_rgba(14,165,233,0.3)]">
+    <button onClick={onClick} className="cta-gradient text-white px-8 sm:px-12 py-3.5 sm:py-4.5 rounded-2xl min-h-[44px] w-full sm:w-auto shadow-[0_8px_30px_rgba(220,38,38,0.3)]">
       <span className="relative z-10 font-display font-bold uppercase tracking-widest text-sm sm:text-base flex items-center gap-2 justify-center drop-shadow-sm">
         {label}
         <iconify-icon icon="solar:arrow-right-linear" className="text-base" style={{ strokeWidth: 1.5 }}></iconify-icon>
@@ -378,7 +378,7 @@ function VenueModal({ venue, onClose }: { venue: typeof VENUES[0] | null; onClos
         </div>
         <div className="flex-1 overflow-y-auto p-5 sm:p-10 md:px-16 md:py-10">
           <p className="text-sm sm:text-lg md:text-xl text-neutral-700 font-body font-medium leading-relaxed mb-6 sm:mb-8 max-w-3xl">{venue.history}</p>
-          <a href={venue.url} target="_blank" rel="noopener noreferrer" className="cta-gradient inline-flex items-center gap-2 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl shadow-[0_6px_24px_rgba(14,165,233,0.3)] min-h-[44px] no-underline" data-testid="link-venue-website">
+          <a href={venue.url} target="_blank" rel="noopener noreferrer" className="cta-gradient inline-flex items-center gap-2 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl shadow-[0_6px_24px_rgba(220,38,38,0.3)] min-h-[44px] no-underline" data-testid="link-venue-website">
             <span className="relative z-10 font-display font-bold uppercase tracking-widest text-sm sm:text-base">Visit Official Site</span>
             <iconify-icon icon="solar:arrow-right-up-linear" className="relative z-10 text-lg" style={{ strokeWidth: 1.5 }}></iconify-icon>
           </a>
@@ -756,7 +756,7 @@ export function ContactPage() {
                   <input type="email" placeholder="Email Address" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full px-3 sm:px-4 py-3 bg-white/80 backdrop-blur-sm border border-white/50 focus:border-crimson-600 font-body text-neutral-900 placeholder:text-neutral-400 tracking-wide text-sm sm:text-base min-h-[44px] rounded-xl" data-testid="input-contact-email" />
                   <input type="tel" placeholder="Phone Number" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full px-3 sm:px-4 py-3 bg-white/80 backdrop-blur-sm border border-white/50 focus:border-crimson-600 font-body text-neutral-900 placeholder:text-neutral-400 tracking-wide text-sm sm:text-base min-h-[44px] rounded-xl" data-testid="input-contact-phone" />
                   <textarea placeholder="Your Message" required value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} rows={3} className="w-full px-3 sm:px-4 py-3 bg-white/80 backdrop-blur-sm border border-white/50 focus:border-crimson-600 font-body text-neutral-900 placeholder:text-neutral-400 tracking-wide resize-none text-sm sm:text-base rounded-xl" data-testid="input-contact-message" />
-                  <button type="submit" disabled={mutation.isPending} className="w-full cta-gradient text-white font-display font-bold text-sm sm:text-base py-3 sm:py-4 uppercase tracking-widest rounded-xl disabled:opacity-50 min-h-[44px] shadow-[0_6px_24px_rgba(14,165,233,0.3)]" data-testid="button-submit-contact">
+                  <button type="submit" disabled={mutation.isPending} className="w-full cta-gradient text-white font-display font-bold text-sm sm:text-base py-3 sm:py-4 uppercase tracking-widest rounded-xl disabled:opacity-50 min-h-[44px] shadow-[0_6px_24px_rgba(220,38,38,0.3)]" data-testid="button-submit-contact">
                     <span className="relative z-10">{mutation.isPending ? 'Sending...' : 'Send Message'}</span>
                   </button>
                   {mutation.isError && <p className="text-crimson-500 text-sm font-medium text-center">Something went wrong. Please try again.</p>}
@@ -776,7 +776,7 @@ export function ContactPage() {
               </a>
               <p className="text-neutral-800 font-semibold text-sm" data-testid="text-contact-address">1120 Dickerson Pike</p>
               <p className="text-neutral-800 font-semibold text-sm mb-4 sm:mb-6"><span className="font-nashville text-crimson-500">Nashville</span>, TN 37208</p>
-              <button onClick={() => openBooking('custom')} className="w-full cta-gradient text-white font-display font-bold py-3 uppercase tracking-widest text-xs sm:text-sm rounded-xl min-h-[44px] shadow-[0_6px_24px_rgba(14,165,233,0.3)]" data-testid="button-contact-book">
+              <button onClick={() => openBooking('custom')} className="w-full cta-gradient text-white font-display font-bold py-3 uppercase tracking-widest text-xs sm:text-sm rounded-xl min-h-[44px] shadow-[0_6px_24px_rgba(220,38,38,0.3)]" data-testid="button-contact-book">
                 <span className="relative z-10">Book Now</span>
               </button>
             </div>
