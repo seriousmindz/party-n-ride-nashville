@@ -628,6 +628,53 @@
   50% { background-position: 100% 50%; }
 }
 
+.sites-heading-nashville {
+  background: linear-gradient(
+    180deg,
+    #1e293b 0%,
+    #0f172a 35%,
+    #334155 55%,
+    #0f172a 70%,
+    #1e293b 100%
+  );
+  background-size: 100% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: platinum-shimmer 4s ease-in-out infinite;
+  filter:
+    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))
+    drop-shadow(0 0 20px rgba(14, 165, 233, 0.15));
+}
+
+.sites-heading-accent {
+  background: linear-gradient(
+    135deg,
+    #0EA5E9 0%,
+    #38BDF8 15%,
+    #7DD3FC 30%,
+    #ffffff 45%,
+    #BAE6FD 55%,
+    #38BDF8 70%,
+    #0EA5E9 85%,
+    #0284C7 100%
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: sites-accent-shimmer 3s ease-in-out infinite;
+  filter:
+    drop-shadow(0 0 12px rgba(14, 165, 233, 0.5))
+    drop-shadow(0 0 30px rgba(14, 165, 233, 0.25))
+    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+@keyframes sites-accent-shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 .marquee-glass-pill {
   background: linear-gradient(
     135deg,

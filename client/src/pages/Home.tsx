@@ -413,16 +413,16 @@ export function SitesPage() {
       <div className="flex-1 flex flex-col items-center px-4 sm:px-4 md:px-8 pt-16 sm:pt-20 pb-4">
         <div className="w-full max-w-7xl py-4 sm:py-8">
           <div className="mb-6 sm:mb-12 text-center">
-            <div className="flex items-center justify-center gap-2 mb-3 text-crimson-600 text-[10px] sm:text-xs font-bold tracking-[0.3em] uppercase">
+            <div className="inline-flex items-center gap-2 mb-4 px-5 py-2 rounded-full marquee-glass-pill text-[10px] sm:text-xs font-bold tracking-[0.3em] uppercase">
               <iconify-icon icon="solar:map-point-wave-bold" className="text-base sm:text-lg" style={{ strokeWidth: 1.5 }}></iconify-icon>
               <span>Nashville Destinations</span>
               <iconify-icon icon="solar:map-point-wave-bold" className="text-base sm:text-lg" style={{ strokeWidth: 1.5 }}></iconify-icon>
             </div>
-            <h1 className="text-3xl sm:text-5xl md:text-7xl font-nashville font-bold tracking-wide uppercase mb-3">
-              <span className="text-neutral-900">Nashville </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-crimson-600 via-sky-400 to-crimson-600">Sites</span>
+            <h1 className="text-4xl sm:text-6xl md:text-8xl font-nashville font-bold tracking-wide uppercase mb-4">
+              <span className="sites-heading-nashville">Nashville </span>
+              <span className="sites-heading-accent">Sites</span>
             </h1>
-            <p className="text-sm sm:text-lg md:text-xl text-neutral-700 max-w-3xl mx-auto font-body font-semibold tracking-wide">Great attractions, landmarks, and fun sites that make a perfect stop or scenic route on your party bus adventure.</p>
+            <p className="text-sm sm:text-lg md:text-xl text-neutral-600 max-w-3xl mx-auto font-body font-semibold tracking-wide leading-relaxed">Great attractions, landmarks, and fun sites that make a perfect stop or scenic route on your party bus adventure.</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-12">
