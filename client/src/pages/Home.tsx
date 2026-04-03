@@ -259,13 +259,6 @@ export function HeroPage() {
           direction="right" speed={0.6} variant="dark"
         />
 
-        <div className="py-8 sm:py-14 px-4">
-          <div className="max-w-4xl mx-auto grid grid-cols-3 gap-4 sm:gap-8">
-            <OdometerStat value="5000" suffix="+" label="Happy Guests" />
-            <OdometerStat value="750" suffix="+" label="Rides Completed" />
-            <OdometerStat value="49" suffix="" label="5-Star Reviews" />
-          </div>
-        </div>
       </div>
     </PageShell>
   );
