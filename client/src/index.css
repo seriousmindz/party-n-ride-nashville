@@ -758,3 +758,168 @@
 .flip-card .liquid-glass-card:hover {
   transform: none !important;
 }
+
+.intro-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at center, #1a0000 0%, #000000 70%);
+  overflow: hidden;
+  transition: opacity 0.8s ease-out;
+}
+.intro-splash.enter { opacity: 1; }
+.intro-splash.hold { opacity: 1; }
+.intro-splash.exit { opacity: 0; pointer-events: none; }
+
+.intro-logo-wrapper {
+  position: relative;
+  z-index: 10;
+  opacity: 0;
+  transform: scale(0.3) rotate(-10deg);
+  animation: intro-logo-enter 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+}
+.intro-logo {
+  width: 280px;
+  max-width: 70vw;
+  height: auto;
+  filter:
+    drop-shadow(0 0 30px rgba(220, 38, 38, 0.6))
+    drop-shadow(0 0 60px rgba(220, 38, 38, 0.3))
+    drop-shadow(0 0 100px rgba(220, 38, 38, 0.15));
+}
+@keyframes intro-logo-enter {
+  0% { opacity: 0; transform: scale(0.3) rotate(-10deg); filter: blur(20px); }
+  60% { opacity: 1; transform: scale(1.08) rotate(2deg); filter: blur(0); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); filter: blur(0); }
+}
+
+.intro-glow-ring {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 2px solid rgba(220, 38, 38, 0.4);
+  opacity: 0;
+  animation: intro-ring-pulse 2s ease-out 0.5s forwards;
+  z-index: 5;
+}
+.intro-glow-ring-2 {
+  width: 450px;
+  height: 450px;
+  border-color: rgba(220, 38, 38, 0.2);
+  animation-delay: 0.8s;
+}
+@keyframes intro-ring-pulse {
+  0% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; }
+  100% { opacity: 0; transform: scale(2.5); }
+}
+
+.intro-tagline {
+  position: relative;
+  z-index: 10;
+  margin-top: 24px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: intro-tagline-enter 0.8s ease-out 1.2s forwards;
+}
+.intro-tagline span {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+  text-shadow: 0 0 20px rgba(220, 38, 38, 0.5);
+}
+@keyframes intro-tagline-enter {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.intro-particles {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 3;
+}
+.intro-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #DC2626;
+  opacity: 0;
+  animation: intro-particle-burst 1.5s ease-out var(--delay, 0s) forwards;
+  animation-delay: calc(0.6s + var(--delay, 0s));
+}
+@keyframes intro-particle-burst {
+  0% { opacity: 0; transform: rotate(var(--angle)) translateX(0); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: rotate(var(--angle)) translateX(var(--distance)); }
+}
+
+.mobile-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  display: flex;
+  gap: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(220, 38, 38, 0.15);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+  padding: 8px 12px;
+  padding-bottom: max(8px, env(safe-area-inset-bottom));
+}
+.mobile-bottom-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 13px;
+  min-height: 48px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.mobile-bottom-call {
+  background: white;
+  color: #DC2626;
+  border: 2px solid #DC2626;
+  margin-right: 6px;
+}
+.mobile-bottom-call:hover,
+.mobile-bottom-call:active {
+  background: #FEF2F2;
+}
+.mobile-bottom-book {
+  background: linear-gradient(-45deg, #DC2626, #EF4444, #B91C1C, #F87171);
+  background-size: 300% 300%;
+  animation: cta-gradient-shift 4s ease infinite;
+  color: white;
+  box-shadow: 0 4px 16px rgba(220, 38, 38, 0.3);
+  margin-left: 6px;
+}
+.mobile-bottom-book:hover,
+.mobile-bottom-book:active {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+}

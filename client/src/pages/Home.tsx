@@ -145,7 +145,22 @@ function Footer() {
   );
 }
 
-function PageShell({ children, scrollable = false }: { children: React.ReactNode; scrollable?: boolean }) {
+function MobileBottomBar({ openBooking }: { openBooking: (pkg: string) => void }) {
+  return (
+    <div className="mobile-bottom-bar lg:hidden" data-testid="mobile-bottom-bar">
+      <a href="tel:6153374342" className="mobile-bottom-btn mobile-bottom-call" data-testid="button-mobile-call">
+        <iconify-icon icon="solar:phone-calling-bold" style={{ fontSize: '20px', strokeWidth: 1.5 }}></iconify-icon>
+        <span>Call Now</span>
+      </a>
+      <button onClick={() => openBooking('custom')} className="mobile-bottom-btn mobile-bottom-book" data-testid="button-mobile-book">
+        <iconify-icon icon="solar:calendar-bold" style={{ fontSize: '20px', strokeWidth: 1.5 }}></iconify-icon>
+        <span>Book Now</span>
+      </button>
+    </div>
+  );
+}
+
+function PageShell({ children, scrollable = false, openBooking }: { children: React.ReactNode; scrollable?: boolean; openBooking?: (pkg: string) => void }) {
   return (
     <div className="relative overflow-hidden bg-white" style={{ margin: 0, padding: 0, width: '100vw', height: '100vh' }}>
       <div className="fixed inset-0 z-0 pointer-events-none">
@@ -156,7 +171,9 @@ function PageShell({ children, scrollable = false }: { children: React.ReactNode
       <div className={`relative z-10 h-full w-full flex flex-col ${scrollable ? 'overflow-y-auto overflow-x-hidden' : 'overflow-hidden'}`}>
         {children}
         <Footer />
+        <div className="lg:hidden h-16 shrink-0"></div>
       </div>
+      {openBooking && <MobileBottomBar openBooking={openBooking} />}
     </div>
   );
 }
@@ -205,7 +222,7 @@ export function HeroPage() {
   const particleClick = useParticleClick();
 
   return (
-    <PageShell scrollable>
+    <PageShell scrollable openBooking={openBooking}>
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} defaultPackage={bookingPackage} />
       <NavBar openBooking={openBooking} currentPage="/" />
       <div className="flex-1 flex flex-col">
@@ -237,12 +254,12 @@ export function HeroPage() {
             <div className="w-full lg:w-1/2 flex flex-row lg:flex-col items-center justify-center lg:justify-end gap-3 sm:gap-4 relative">
               <div className="absolute inset-0 bg-crimson-600/10 rounded-full blur-3xl animate-pulse w-3/4 h-3/4 m-auto"></div>
               <div className="relative liquid-glass p-1.5 sm:p-2.5 rounded-2xl">
-                <video autoPlay loop playsInline controls className="w-[140px] h-[120px] sm:w-[220px] sm:h-[180px] md:w-[280px] md:h-[220px] object-cover rounded-xl" data-testid="video-hero">
+                <video autoPlay muted loop playsInline className="w-[140px] h-[120px] sm:w-[220px] sm:h-[180px] md:w-[280px] md:h-[220px] object-cover rounded-xl" data-testid="video-hero">
                   <source src={heroVideo} type="video/mp4" />
                 </video>
               </div>
               <div className="relative liquid-glass p-1.5 sm:p-2.5 rounded-2xl">
-                <video autoPlay loop playsInline controls className="w-[180px] h-[160px] sm:w-[280px] sm:h-[230px] md:w-[360px] md:h-[280px] object-cover rounded-xl" data-testid="video-hero-2">
+                <video autoPlay muted loop playsInline className="w-[180px] h-[160px] sm:w-[280px] sm:h-[230px] md:w-[360px] md:h-[280px] object-cover rounded-xl" data-testid="video-hero-2">
                   <source src={heroVideo2} type="video/mp4" />
                 </video>
               </div>
@@ -279,7 +296,7 @@ export function PackagesPage() {
   ];
 
   return (
-    <PageShell scrollable>
+    <PageShell scrollable openBooking={openBooking}>
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} defaultPackage={bookingPackage} />
       <NavBar openBooking={openBooking} currentPage="/packages" />
       <div className="flex-1 flex flex-col items-center px-4 sm:px-4 md:px-8 pt-16 sm:pt-20 pb-4">
@@ -399,7 +416,7 @@ export function SitesPage() {
   const [flippedSite, setFlippedSite] = useState<number | null>(null);
 
   return (
-    <PageShell scrollable>
+    <PageShell scrollable openBooking={openBooking}>
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} defaultPackage={bookingPackage} />
       <VenueModal venue={selectedVenue} onClose={() => setSelectedVenue(null)} />
       <NavBar openBooking={openBooking} currentPage="/sites" />
@@ -532,7 +549,7 @@ export function PricingPage() {
   const [flippedPrice, setFlippedPrice] = useState<number | null>(null);
 
   return (
-    <PageShell scrollable>
+    <PageShell scrollable openBooking={openBooking}>
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} defaultPackage={bookingPackage} />
       <NavBar openBooking={openBooking} currentPage="/pricing" />
       <div className="flex-1 flex items-center justify-center px-4 sm:px-4 md:px-8 pt-16 sm:pt-20 pb-4">
@@ -612,7 +629,7 @@ export function ShuttlePage() {
   const openBooking = (pkg: string) => { setBookingPackage(pkg); setBookingOpen(true); };
 
   return (
-    <PageShell scrollable>
+    <PageShell scrollable openBooking={openBooking}>
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} defaultPackage={bookingPackage} />
       <NavBar openBooking={openBooking} currentPage="/shuttle" />
       <div className="flex-1 flex items-center justify-center px-4 sm:px-4 md:px-8 pt-16 sm:pt-20 pb-4">
@@ -675,7 +692,7 @@ export function FaqPage() {
   const openBooking = (pkg: string) => { setBookingPackage(pkg); setBookingOpen(true); };
 
   return (
-    <PageShell scrollable>
+    <PageShell scrollable openBooking={openBooking}>
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} defaultPackage={bookingPackage} />
       <NavBar openBooking={openBooking} currentPage="/faq" />
       <div className="flex-1 flex flex-col items-center px-4 sm:px-4 md:px-8 pt-16 sm:pt-20 pb-4">
@@ -730,7 +747,7 @@ export function ContactPage() {
   };
 
   return (
-    <PageShell scrollable>
+    <PageShell scrollable openBooking={openBooking}>
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} defaultPackage={bookingPackage} />
       <NavBar openBooking={openBooking} currentPage="/contact" />
       <div className="flex-1 flex items-center justify-center px-4 sm:px-4 md:px-8 pt-16 sm:pt-20 pb-4">
