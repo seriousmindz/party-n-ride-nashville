@@ -1026,3 +1026,33 @@
   .cta-gold, .lets-ride { animation: none; }
   .cta-gold:hover { transform: none; }
 }
+
+/* Dark-theme overrides for the shared light chrome (footer + mobile bar)
+   so the dark home page has no white strips. */
+.theme-dark footer {
+  background: rgba(8,8,10,0.96) !important;
+  border-top: 1px solid rgba(212,175,55,0.22) !important;
+}
+.theme-dark footer p,
+.theme-dark footer span { color: #B8B4AB !important; }
+.theme-dark footer a { color: #EBCB6B !important; }
+.theme-dark footer a:hover { color: #fff !important; }
+
+.theme-dark .mobile-bottom-bar {
+  background: rgba(8,8,10,0.97);
+  border-top: 1px solid rgba(212,175,55,0.25);
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
+}
+.theme-dark .mobile-bottom-call {
+  background: transparent;
+  color: #EBCB6B;
+  border: 2px solid #D4AF37;
+}
+.theme-dark .mobile-bottom-call:hover,
+.theme-dark .mobile-bottom-call:active { background: rgba(212,175,55,0.12); }
+.theme-dark .mobile-bottom-book {
+  background: linear-gradient(-45deg, #8C6E29, #D4AF37, #EBCB6B, #D4AF37);
+  background-size: 300% 300%;
+  color: #1B1505;
+  box-shadow: 0 4px 16px rgba(212,175,55,0.3);
+}
