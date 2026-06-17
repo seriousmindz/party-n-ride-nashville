@@ -11,7 +11,7 @@ import tailgateImg from '@assets/IMG_20220124_211840_009_1772858028717.jpg';
 import corporateImg from '@assets/20220729_124917_1772857936688.jpg';
 import heroVideo from '@assets/Pink_Hat_Video_Batch_Party_1773771232653.mp4';
 import heroVideo2 from '@assets/Words_PNR_Bach_1773771761737.mp4';
-import heroBus from '@assets/hero_broadway_bus.webp';
+import busCutout from '@assets/bus-cutout.webp';
 import skylineBg from '@assets/nashville_riverfront_clear_sky.webp';
 import stepLockImg from '@assets/step_lock_date.webp';
 import stepRouteImg from '@assets/step_plan_route.webp';
@@ -236,20 +236,20 @@ export function HeroPage() {
       <NavBar openBooking={openBooking} currentPage="/" dark />
 
       <div className="relative z-10 h-full w-full overflow-y-auto overflow-x-hidden">
-        <section className="relative min-h-[100svh] w-full flex items-center" aria-labelledby="hero-heading">
+        <section className="relative min-h-[100svh] w-full flex items-center overflow-hidden" aria-labelledby="hero-heading">
           <div className="absolute inset-0 z-0">
-            <img src={heroBus} alt="Party 'N Ride Nashville Blue Bird party bus on Lower Broadway at dusk" className="w-full h-full object-cover object-center" />
-            <div className="absolute inset-0 hero-scrim"></div>
+            <img src={skylineBg} alt="" aria-hidden="true" className="w-full h-full object-cover object-center opacity-25" />
+            <div className="absolute inset-0" style={{ background: 'radial-gradient(120% 90% at 72% 28%, rgba(212,175,55,0.12), transparent 55%), linear-gradient(0deg, #08080A 3%, rgba(8,8,10,0.62) 48%, rgba(8,8,10,0.82) 100%)' }}></div>
           </div>
 
-          <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-8 pt-24 sm:pt-28 pb-16">
-            <div className="max-w-2xl">
+          <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-8 pt-24 sm:pt-28 pb-12 flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-6">
+            <div className="lg:w-1/2">
               <div className="flex items-center gap-1.5 mb-4 text-[#EBCB6B]" aria-label="Five star rated service">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <iconify-icon key={i} icon="solar:star-bold" className="text-lg sm:text-2xl" style={{ strokeWidth: 1.5 }}></iconify-icon>
                 ))}
               </div>
-              <h1 id="hero-heading" className="font-display font-bold uppercase leading-[0.95] tracking-tight text-white" style={{ fontSize: 'clamp(2.4rem, 7vw, 5.5rem)' }}>
+              <h1 id="hero-heading" className="font-display font-bold uppercase leading-[0.95] tracking-tight text-white" style={{ fontSize: 'clamp(2.2rem, 6vw, 5rem)' }}>
                 Nashville's <span className="gold-text">Premier Party Bus</span> &amp; Shuttle Service
               </h1>
               <p className="mt-4 text-lg sm:text-2xl font-display tracking-wide text-neutral-200">
@@ -274,6 +274,10 @@ export function HeroPage() {
                   <span className="font-display font-bold text-[#EBCB6B] text-lg sm:text-xl tracking-wider">615-337-4342</span>
                 </a>
               </div>
+            </div>
+
+            <div className="lg:w-1/2 flex items-end justify-center">
+              <img src={busCutout} alt="Party 'N Ride Nashville party bus" className="w-full max-w-[660px] h-auto drop-shadow-[0_28px_45px_rgba(0,0,0,0.7)]" data-testid="img-hero-bus" />
             </div>
           </div>
 
@@ -330,7 +334,6 @@ export function GalleryPage() {
   const openBooking = () => setBookingOpen(true);
 
   const photos = [
-    { img: heroBus, label: 'On Broadway' },
     { img: bacheloretteImg, label: 'Bachelorette Bash' },
     { img: birthdayImg, label: 'Birthday Nightclub' },
     { img: tailgateImg, label: 'Game Day Tailgate' },
