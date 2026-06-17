@@ -9,17 +9,16 @@ import bacheloretteImg from '@assets/IMG_20220526_234848_507_1772858254044.jpg';
 import birthdayImg from '@assets/IMG_20220723_114303_064_1772858334450.jpg';
 import tailgateImg from '@assets/IMG_20220124_211840_009_1772858028717.jpg';
 import corporateImg from '@assets/20220729_124917_1772857936688.jpg';
-import experienceImg from '@assets/IMG_20220522_233123_203_1772858183644.jpg';
 import heroVideo from '@assets/Pink_Hat_Video_Batch_Party_1773771232653.mp4';
 import heroVideo2 from '@assets/Words_PNR_Bach_1773771761737.mp4';
-import skylineBg from '@assets/nashville_riverfront_clear_sky.png';
-import stepLockImg from '@assets/step_lock_date.png';
-import stepRouteImg from '@assets/step_plan_route.png';
-import stepStockImg from '@assets/step_stock_up.png';
-import stepRideImg from '@assets/step_ride_repeat.png';
-import featureEnclosedImg from '@assets/feature_enclosed.png';
-import featureVipImg from '@assets/feature_vip_music.png';
-import featureBroadwayImg from '@assets/feature_broadway.png';
+import skylineBg from '@assets/nashville_riverfront_clear_sky.webp';
+import stepLockImg from '@assets/step_lock_date.webp';
+import stepRouteImg from '@assets/step_plan_route.webp';
+import stepStockImg from '@assets/step_stock_up.webp';
+import stepRideImg from '@assets/step_ride_repeat.webp';
+import featureEnclosedImg from '@assets/feature_enclosed.webp';
+import featureVipImg from '@assets/feature_vip_music.webp';
+import featureBroadwayImg from '@assets/feature_broadway.webp';
 import venueTitanImg from '@assets/stock_images/titan_stadium.jpg';
 import venueBridgestoneImg from '@assets/stock_images/bridgestone_arena.jpg';
 import venueBroadwayImg from '@assets/stock_images/broadway_nashville.jpg';
@@ -35,14 +34,6 @@ import venueMuralsImg from '@assets/stock_images/nashville_murals.jpg';
 import venueCentennialImg from '@assets/stock_images/centennial_park.jpg';
 import venueOpryImg from '@assets/stock_images/grand_ole_opry.jpg';
 import shuttleGroupImg from '@assets/IMG_20220910_192802_809_(1)_1774995948633.jpg';
-
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'iconify-icon': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement> & { icon: string, style?: React.CSSProperties }, HTMLElement>;
-    }
-  }
-}
 
 const FAREHARBOR_URL = "https://fareharbor.com/embeds/book/partynridenashville/?full-items=yes";
 

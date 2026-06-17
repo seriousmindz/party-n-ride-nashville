@@ -1,8 +1,38 @@
-import type { Express } from "express";
-import { createServer, type Server } from "http";
+import type { Express, Request, Response, NextFunction } from "express";
+import { type Server } from "http";
+import { timingSafeEqual } from "crypto";
 import { storage } from "./storage";
 import { insertBookingSchema, insertContactSchema } from "@shared/schema";
 import { ZodError } from "zod";
+
+/**
+ * Fail-closed admin guard.
+ *
+ * The previous implementation compared `req.headers["x-admin-key"] !== process.env.ADMIN_KEY`.
+ * When ADMIN_KEY was unset (the default on a fresh deploy), a request with no header made the
+ * comparison `undefined !== undefined` → false, so the 401 was skipped and every booking/contact
+ * (customer PII) became publicly readable. This guard denies access whenever the key is not
+ * configured, and uses a constant-time comparison to avoid leaking the key via timing.
+ */
+function requireAdmin(req: Request, res: Response, next: NextFunction) {
+  const configured = process.env.ADMIN_KEY;
+  if (!configured) {
+    return res.status(503).json({ error: "Admin API is not configured" });
+  }
+
+  const provided = req.headers["x-admin-key"];
+  if (typeof provided !== "string") {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+
+  const a = Buffer.from(provided);
+  const b = Buffer.from(configured);
+  if (a.length !== b.length || !timingSafeEqual(a, b)) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+
+  next();
+}
 
 export async function registerRoutes(
   httpServer: Server,
@@ -32,27 +62,21 @@ export async function registerRoutes(
     }
   });
 
-  app.get("/api/bookings", async (req, res) => {
-    const adminKey = req.headers["x-admin-key"];
-    if (adminKey !== process.env.ADMIN_KEY) return res.status(401).json({ error: "Unauthorized" });
+  app.get("/api/bookings", requireAdmin, async (_req, res) => {
     const bookings = await storage.getBookings();
     res.json(bookings);
   });
 
-  app.get("/api/bookings/:id", async (req, res) => {
-    const adminKey = req.headers["x-admin-key"];
-    if (adminKey !== process.env.ADMIN_KEY) return res.status(401).json({ error: "Unauthorized" });
-    const booking = await storage.getBooking(req.params.id);
+  app.get("/api/bookings/:id", requireAdmin, async (req, res) => {
+    const booking = await storage.getBooking(String(req.params.id));
     if (!booking) return res.status(404).json({ error: "Booking not found" });
     res.json(booking);
   });
 
-  app.patch("/api/bookings/:id/status", async (req, res) => {
-    const adminKey = req.headers["x-admin-key"];
-    if (adminKey !== process.env.ADMIN_KEY) return res.status(401).json({ error: "Unauthorized" });
+  app.patch("/api/bookings/:id/status", requireAdmin, async (req, res) => {
     const { status } = req.body;
     if (!status) return res.status(400).json({ error: "Status required" });
-    const booking = await storage.updateBookingStatus(req.params.id, status);
+    const booking = await storage.updateBookingStatus(String(req.params.id), status);
     if (!booking) return res.status(404).json({ error: "Booking not found" });
     res.json(booking);
   });
@@ -71,9 +95,7 @@ export async function registerRoutes(
     }
   });
 
-  app.get("/api/contacts", async (req, res) => {
-    const adminKey = req.headers["x-admin-key"];
-    if (adminKey !== process.env.ADMIN_KEY) return res.status(401).json({ error: "Unauthorized" });
+  app.get("/api/contacts", requireAdmin, async (_req, res) => {
     const contacts = await storage.getContacts();
     res.json(contacts);
   });

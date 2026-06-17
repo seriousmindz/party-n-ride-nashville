@@ -5,6 +5,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
+import { SeoHead } from "@/components/SeoHead";
 import { HeroPage, PackagesPage, SitesPage, PricingPage, ShuttlePage, FaqPage, ContactPage } from "@/pages/Home";
 import logoImg from "@assets/PartynRide-Logo-New-Blue_1774034577921.png";
 
@@ -70,6 +71,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
+        <SeoHead />
         <Toaster />
         {showIntro && <IntroSplash onComplete={handleIntroComplete} />}
         {!showIntro && <Router />}
