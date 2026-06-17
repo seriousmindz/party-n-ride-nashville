@@ -11,6 +11,7 @@ import tailgateImg from '@assets/IMG_20220124_211840_009_1772858028717.jpg';
 import corporateImg from '@assets/20220729_124917_1772857936688.jpg';
 import heroVideo from '@assets/Pink_Hat_Video_Batch_Party_1773771232653.mp4';
 import heroVideo2 from '@assets/Words_PNR_Bach_1773771761737.mp4';
+import heroBus from '@assets/hero_broadway_bus.webp';
 import skylineBg from '@assets/nashville_riverfront_clear_sky.webp';
 import stepLockImg from '@assets/step_lock_date.webp';
 import stepRouteImg from '@assets/step_plan_route.webp';
@@ -62,7 +63,7 @@ function BookingModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
   );
 }
 
-function NavBar({ openBooking, currentPage }: { openBooking: (pkg: string) => void; currentPage: string }) {
+function NavBar({ openBooking, currentPage, dark = false }: { openBooking: (pkg: string) => void; currentPage: string; dark?: boolean }) {
   const [, navigate] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -72,12 +73,22 @@ function NavBar({ openBooking, currentPage }: { openBooking: (pkg: string) => vo
     { path: "/sites", label: "Sites" },
     { path: "/pricing", label: "Pricing" },
     { path: "/shuttle", label: "Shuttle Service" },
+    { path: "/gallery", label: "Gallery" },
     { path: "/faq", label: "FAQ's" },
     { path: "/contact", label: "Contact" },
   ];
 
+  const navBg = dark ? "bg-black/85 backdrop-blur-md border-b border-[#D4AF37]/25" : "bg-white/90 backdrop-blur-sm border-b border-neutral-200";
+  const linkActive = dark ? "text-[#EBCB6B] border-b-2 border-[#D4AF37]" : "text-crimson-600 border-b-2 border-crimson-600";
+  const linkIdle = dark ? "text-neutral-200 hover:text-[#EBCB6B] border-b-2 border-transparent hover:border-[#D4AF37]" : "text-crimson-700 hover:text-crimson-600 border-b-2 border-transparent hover:border-crimson-600";
+  const bookBtn = dark ? "cta-gold" : "cta-gradient text-white";
+  const burst = dark ? "text-[#EBCB6B]" : "text-crimson-700";
+  const mobilePanel = dark ? "bg-black/95 backdrop-blur-md border-t border-[#D4AF37]/25" : "bg-white/95 backdrop-blur-md border-t border-neutral-200";
+  const mobileActive = dark ? "text-[#EBCB6B] border-l-2 border-[#D4AF37] bg-white/5" : "text-crimson-600 border-l-2 border-crimson-600 bg-red-50";
+  const mobileIdle = dark ? "text-neutral-200 hover:text-[#EBCB6B] hover:bg-white/5" : "text-crimson-700 hover:text-crimson-600 hover:bg-red-50";
+
   return (
-    <nav className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-sm border-b border-neutral-200">
+    <nav className={`fixed top-0 w-full z-50 ${navBg}`}>
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
         <div className="flex justify-between h-14 sm:h-16 items-center">
           <div className="min-w-[44px] min-h-[44px] flex items-center cursor-pointer" onClick={() => navigate("/")} data-testid="img-logo-wrapper">
@@ -85,23 +96,23 @@ function NavBar({ openBooking, currentPage }: { openBooking: (pkg: string) => vo
           </div>
           <div className="hidden lg:flex space-x-1 items-center">
             {navItems.map(item => (
-              <button key={item.path} onClick={() => navigate(item.path)} className={`font-display font-bold uppercase tracking-wider text-sm px-3 py-1.5 transition-all duration-300 ${currentPage === item.path ? 'text-crimson-600 border-b-2 border-crimson-600' : 'text-crimson-700 hover:text-crimson-600 border-b-2 border-transparent hover:border-crimson-600'}`} data-testid={`link-${item.label.toLowerCase().replace(/[^a-z]/g, '')}`}>{item.label}</button>
+              <button key={item.path} onClick={() => navigate(item.path)} className={`font-display font-bold uppercase tracking-wider text-sm px-3 py-1.5 transition-all duration-300 ${currentPage === item.path ? linkActive : linkIdle}`} data-testid={`link-${item.label.toLowerCase().replace(/[^a-z]/g, '')}`}>{item.label}</button>
             ))}
-            <button onClick={() => openBooking('custom')} className="cta-gradient text-white px-6 py-2.5 ml-3 rounded-xl shadow-[0_4px_20px_rgba(220,38,38,0.3)]" data-testid="button-nav-book">
+            <button onClick={() => openBooking('custom')} className={`${bookBtn} px-6 py-2.5 ml-3 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.35)]`} data-testid="button-nav-book">
               <span className="relative z-10 font-display font-bold uppercase tracking-widest text-xs">Book Now</span>
             </button>
           </div>
-          <button className="lg:hidden text-crimson-700 text-3xl min-w-[44px] min-h-[44px] flex items-center justify-center" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} data-testid="button-mobile-menu">
+          <button className={`lg:hidden text-3xl min-w-[44px] min-h-[44px] flex items-center justify-center ${burst}`} onClick={() => setMobileMenuOpen(!mobileMenuOpen)} data-testid="button-mobile-menu">
             {mobileMenuOpen ? '\u2715' : '\u2630'}
           </button>
         </div>
       </div>
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white/95 backdrop-blur-md border-t border-neutral-200 px-4 py-3 space-y-1 max-h-[80vh] overflow-y-auto">
+        <div className={`lg:hidden px-4 py-3 space-y-1 max-h-[80vh] overflow-y-auto ${mobilePanel}`}>
           {navItems.map(item => (
-            <button key={item.path} onClick={() => { navigate(item.path); setMobileMenuOpen(false); }} className={`block w-full text-left font-display font-bold uppercase tracking-wider text-base py-3 px-3 transition-all duration-200 min-h-[44px] ${currentPage === item.path ? 'text-crimson-600 border-l-2 border-crimson-600 bg-red-50' : 'text-crimson-700 hover:text-crimson-600 hover:bg-red-50'}`}>{item.label}</button>
+            <button key={item.path} onClick={() => { navigate(item.path); setMobileMenuOpen(false); }} className={`block w-full text-left font-display font-bold uppercase tracking-wider text-base py-3 px-3 transition-all duration-200 min-h-[44px] ${currentPage === item.path ? mobileActive : mobileIdle}`}>{item.label}</button>
           ))}
-          <button onClick={() => { openBooking('custom'); setMobileMenuOpen(false); }} className="block w-full cta-gradient text-white font-display font-bold py-3 uppercase tracking-wider text-sm text-center mt-2 min-h-[44px] rounded-xl shadow-[0_4px_20px_rgba(220,38,38,0.3)]"><span className="relative z-10">Book Now</span></button>
+          <button onClick={() => { openBooking('custom'); setMobileMenuOpen(false); }} className={`block w-full ${bookBtn} font-display font-bold py-3 uppercase tracking-wider text-sm text-center mt-2 min-h-[44px] rounded-xl`}><span className="relative z-10">Book Now</span></button>
         </div>
       )}
     </nav>
@@ -208,55 +219,79 @@ function SkewedCTA({ onClick, label }: { onClick: (e: React.MouseEvent) => void;
 export function HeroPage() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [bookingPackage, setBookingPackage] = useState('custom');
-  const [, navigate] = useLocation();
   const openBooking = (pkg: string) => { setBookingPackage(pkg); setBookingOpen(true); };
   const particleClick = useParticleClick();
 
+  const features = [
+    { icon: 'solar:users-group-rounded-bold', label: 'Up to 40 Passengers' },
+    { icon: 'solar:wineglass-bold', label: 'Premium Amenities' },
+    { icon: 'solar:shield-check-bold', label: 'Safe & Reliable' },
+    { icon: 'solar:music-note-2-bold', label: 'Premium Sound System' },
+    { icon: 'solar:clock-circle-bold', label: '2 Hour Minimum' },
+  ];
+
   return (
-    <PageShell scrollable openBooking={openBooking}>
+    <div className="theme-dark relative overflow-hidden" style={{ margin: 0, padding: 0, width: '100vw', height: '100vh' }}>
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} defaultPackage={bookingPackage} />
-      <NavBar openBooking={openBooking} currentPage="/" />
-      <div className="flex-1 flex flex-col">
-        <div className="flex-1 flex items-center justify-center px-4 sm:px-4 md:px-8 pt-16 sm:pt-20 pb-4">
-          <div className="w-full max-w-7xl flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-8">
-            <div className="w-full lg:w-1/2 text-center lg:text-left">
-              <div className="mb-4 sm:mb-6">
-                <img src={logoImg} alt="Party N Ride Nashville - Premier Party Bus & Shuttle Service" className="w-[280px] sm:w-[400px] md:w-full max-w-[500px] h-auto object-contain mx-auto lg:mx-0" data-testid="img-hero-logo" />
+      <NavBar openBooking={openBooking} currentPage="/" dark />
+
+      <div className="relative z-10 h-full w-full overflow-y-auto overflow-x-hidden">
+        <section className="relative min-h-[100svh] w-full flex items-center" aria-labelledby="hero-heading">
+          <div className="absolute inset-0 z-0">
+            <img src={heroBus} alt="Party 'N Ride Nashville Blue Bird party bus on Lower Broadway at dusk" className="w-full h-full object-cover object-center" />
+            <div className="absolute inset-0 hero-scrim"></div>
+          </div>
+
+          <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-8 pt-24 sm:pt-28 pb-16">
+            <div className="max-w-2xl">
+              <div className="flex items-center gap-1.5 mb-4 text-[#EBCB6B]" aria-label="Five star rated service">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <iconify-icon key={i} icon="solar:star-bold" className="text-lg sm:text-2xl" style={{ strokeWidth: 1.5 }}></iconify-icon>
+                ))}
               </div>
-              <h1 className="sr-only">Party 'N Ride Nashville - Premier Party Bus & Shuttle Service</h1>
-              <h2 className="text-base sm:text-xl md:text-2xl font-display font-bold text-neutral-900 tracking-tight uppercase mb-2 sm:mb-4">
-                Nashville's #1 Party Bus For{' '}
+              <h1 id="hero-heading" className="font-display font-bold uppercase leading-[0.95] tracking-tight text-white" style={{ fontSize: 'clamp(2.4rem, 7vw, 5.5rem)' }}>
+                Nashville's <span className="gold-text">Premier Party Bus</span> &amp; Shuttle Service
+              </h1>
+              <p className="mt-4 text-lg sm:text-2xl font-display tracking-wide text-neutral-200">
+                Ride together. Party together. <span className="text-[#EBCB6B]">Make memories.</span>
+              </p>
+              <div className="mt-3 text-base sm:text-xl font-body font-semibold text-neutral-300" data-testid="text-hero-description">
+                Nashville's #1 party bus for{' '}
                 <TypewriterCycler
                   phrases={['Bachelorettes', 'Birthdays', 'Game Days', 'Corporate Events', 'VIP Nights Out', 'Bar Crawls', 'Broadway Tours']}
-                  className="text-crimson-600"
+                  className="text-[#EBCB6B]"
                 />
-              </h2>
-              <p className="text-sm sm:text-base md:text-lg text-neutral-800 font-body font-semibold mb-4 sm:mb-8 max-w-xl mx-auto lg:mx-0 tracking-wide" data-testid="text-hero-description">
-                Private, enclosed, BYOB Nashville party bus experiences. Cups, coolers, ice, LED lighting, and a pro driver included.
-              </p>
-              <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-5 justify-center lg:justify-start">
-                <SkewedCTA onClick={(e: React.MouseEvent) => { particleClick(e); openBooking('custom'); }} label="Book Now" />
               </div>
-              <GlassPhoneBar testId="link-hero-phone" />
-              <button onClick={() => navigate('/packages')} className="mt-4 sm:mt-6 text-neutral-800 font-bold uppercase tracking-widest text-sm hover:text-crimson-600 transition-colors flex items-center gap-2 mx-auto lg:mx-0 min-h-[44px]" data-testid="button-hero-next">
-                View Packages <span className="text-xl">&rarr;</span>
-              </button>
-            </div>
-            <div className="w-full lg:w-1/2 flex flex-row lg:flex-col items-center justify-center lg:justify-end gap-3 sm:gap-4 relative">
-              <div className="absolute inset-0 bg-crimson-600/10 rounded-full blur-3xl animate-pulse w-3/4 h-3/4 m-auto"></div>
-              <div className="relative liquid-glass p-1.5 sm:p-2.5 rounded-2xl">
-                <video autoPlay muted loop playsInline className="w-[140px] h-[120px] sm:w-[220px] sm:h-[180px] md:w-[280px] md:h-[220px] object-cover rounded-xl" data-testid="video-hero">
-                  <source src={heroVideo} type="video/mp4" />
-                </video>
-              </div>
-              <div className="relative liquid-glass p-1.5 sm:p-2.5 rounded-2xl">
-                <video autoPlay muted loop playsInline className="w-[180px] h-[160px] sm:w-[280px] sm:h-[230px] md:w-[360px] md:h-[280px] object-cover rounded-xl" data-testid="video-hero-2">
-                  <source src={heroVideo2} type="video/mp4" />
-                </video>
+              <div className="mt-7 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+                <button onClick={(e: React.MouseEvent) => { particleClick(e); openBooking('custom'); }} className="cta-gold px-8 py-4 rounded-2xl min-h-[44px] shadow-[0_10px_30px_rgba(212,175,55,0.35)]" data-testid="button-hero-book">
+                  <span className="relative z-10 font-display font-bold uppercase tracking-widest text-sm sm:text-base flex items-center gap-2 justify-center">
+                    Book Now <iconify-icon icon="solar:arrow-right-linear" style={{ strokeWidth: 1.5 }}></iconify-icon>
+                  </span>
+                </button>
+                <a href="tel:6153374342" className="liquid-glass-phone inline-flex items-center justify-center gap-3 px-6 py-4 rounded-2xl min-h-[56px] no-underline" data-testid="link-hero-phone">
+                  <iconify-icon icon="solar:phone-calling-bold" className="text-xl text-[#EBCB6B]" style={{ strokeWidth: 1.5 }}></iconify-icon>
+                  <span className="font-display font-bold text-white text-base sm:text-lg tracking-wide">Call</span>
+                  <span className="font-display font-bold text-[#EBCB6B] text-lg sm:text-xl tracking-wider">615-337-4342</span>
+                </a>
               </div>
             </div>
           </div>
-        </div>
+
+          <button onClick={() => openBooking('custom')} className="book-tab hidden md:flex items-center justify-center fixed right-0 top-1/2 -translate-y-1/2 z-30 px-2.5 py-5 rounded-l-xl font-display font-bold uppercase text-sm shadow-[0_8px_24px_rgba(0,0,0,0.5)]" data-testid="button-book-tab" aria-label="Book now">
+            Book Now
+          </button>
+        </section>
+
+        <section className="feature-strip py-5 sm:py-6 px-4">
+          <div className="max-w-7xl mx-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5 sm:gap-3 text-center">
+            {features.map((f, i) => (
+              <div key={i} className="flex flex-col items-center gap-2">
+                <iconify-icon icon={f.icon} className="feat-icon text-2xl sm:text-3xl" style={{ strokeWidth: 1.5 }}></iconify-icon>
+                <span className="font-display font-bold uppercase tracking-wider text-[11px] sm:text-xs text-neutral-200">{f.label}</span>
+              </div>
+            ))}
+          </div>
+        </section>
 
         <KineticMarquee
           items={['BYOB', 'LED LIGHTS', 'BLUETOOTH', 'CUSTOM ROUTES', 'ENCLOSED BUS', 'PRO DRIVER', 'COOLERS & ICE']}
@@ -267,8 +302,73 @@ export function HeroPage() {
           direction="right" speed={0.6} variant="dark"
         />
 
+        <section className="relative px-5 sm:px-8 py-14 sm:py-20 text-center">
+          <h2 className="font-display font-bold uppercase tracking-tight text-white mb-4" style={{ fontSize: 'clamp(1.8rem, 4.5vw, 3.2rem)' }}>
+            Nashville's <span className="gold-text">#1 Choice</span> For Unforgettable Experiences
+          </h2>
+          <p className="max-w-2xl mx-auto text-neutral-300 font-body font-medium text-sm sm:text-lg leading-relaxed">
+            Whether it's a night out on Broadway, a bachelorette party, corporate event, concert, or special celebration, Party 'N Ride Nashville delivers the ultimate experience from start to finish.
+          </p>
+          <div className="mt-7 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+            <button onClick={(e: React.MouseEvent) => { particleClick(e); openBooking('custom'); }} className="cta-gold px-8 py-4 rounded-2xl min-h-[44px]" data-testid="button-choice-book">
+              <span className="relative z-10 font-display font-bold uppercase tracking-widest text-sm">Book Your Ride</span>
+            </button>
+            <span className="lets-ride text-4xl sm:text-6xl leading-none">Let's Ride!</span>
+          </div>
+        </section>
+
+        <Footer />
+        <div className="lg:hidden h-16 shrink-0"></div>
       </div>
-    </PageShell>
+      <MobileBottomBar openBooking={openBooking} />
+    </div>
+  );
+}
+
+export function GalleryPage() {
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const openBooking = () => setBookingOpen(true);
+
+  const photos = [
+    { img: heroBus, label: 'On Broadway' },
+    { img: bacheloretteImg, label: 'Bachelorette Bash' },
+    { img: birthdayImg, label: 'Birthday Nightclub' },
+    { img: tailgateImg, label: 'Game Day Tailgate' },
+    { img: corporateImg, label: 'Corporate & Events' },
+    { img: shuttleGroupImg, label: 'Group Shuttle' },
+  ];
+
+  return (
+    <div className="theme-dark relative overflow-hidden" style={{ margin: 0, padding: 0, width: '100vw', height: '100vh' }}>
+      <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
+      <NavBar openBooking={openBooking} currentPage="/gallery" dark />
+      <div className="relative z-10 h-full w-full overflow-y-auto overflow-x-hidden" style={{ background: '#08080A' }}>
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 pt-24 sm:pt-28 pb-16">
+          <div className="mb-8 border-l-4 border-[#D4AF37] pl-4">
+            <p className="text-[#EBCB6B] text-[10px] sm:text-xs font-bold tracking-[0.25em] uppercase mb-2">The Experience</p>
+            <h1 className="font-display font-bold uppercase tracking-tight text-white" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}>Gallery</h1>
+            <p className="text-neutral-300 font-body font-medium mt-2 max-w-2xl">A look at the rides, the crews, and the nights out across Music City.</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {photos.map((p, i) => (
+              <div key={i} className="relative liquid-glass-card rounded-2xl overflow-hidden h-56 sm:h-64 group" data-testid={`gallery-item-${i}`}>
+                <img src={p.img} alt={p.label} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent"></div>
+                <span className="absolute bottom-3 left-4 z-10 font-display font-bold uppercase tracking-wider text-white text-sm">{p.label}</span>
+              </div>
+            ))}
+          </div>
+          <div className="mt-10 text-center">
+            <button onClick={openBooking} className="cta-gold px-8 py-4 rounded-2xl min-h-[44px]" data-testid="button-gallery-book">
+              <span className="relative z-10 font-display font-bold uppercase tracking-widest text-sm">Book Your Ride</span>
+            </button>
+          </div>
+        </div>
+        <Footer />
+        <div className="lg:hidden h-16 shrink-0"></div>
+      </div>
+      <MobileBottomBar openBooking={openBooking} />
+    </div>
   );
 }
 

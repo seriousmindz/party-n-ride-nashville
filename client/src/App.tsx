@@ -6,7 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import { SeoHead } from "@/components/SeoHead";
-import { HeroPage, PackagesPage, SitesPage, PricingPage, ShuttlePage, FaqPage, ContactPage } from "@/pages/Home";
+import { HeroPage, PackagesPage, SitesPage, PricingPage, ShuttlePage, FaqPage, ContactPage, GalleryPage } from "@/pages/Home";
 import logoImg from "@assets/PartynRide-Logo-New-Blue_1774034577921.png";
 
 function IntroSplash({ onComplete }: { onComplete: () => void }) {
@@ -50,6 +50,7 @@ function Router() {
       <Route path="/sites" component={SitesPage}/>
       <Route path="/pricing" component={PricingPage}/>
       <Route path="/shuttle" component={ShuttlePage}/>
+      <Route path="/gallery" component={GalleryPage}/>
       <Route path="/faq" component={FaqPage}/>
       <Route path="/contact" component={ContactPage}/>
       <Route component={NotFound} />

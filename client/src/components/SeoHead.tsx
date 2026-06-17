@@ -32,6 +32,11 @@ const ROUTE_META: Record<string, Meta> = {
     description:
       "Custom shuttle and group transportation in Nashville, TN. One-way or round-trip party bus shuttles for corporate events, weddings & special occasions.",
   },
+  "/gallery": {
+    title: "Gallery | Party 'N Ride Nashville Party Bus",
+    description:
+      "See Party 'N Ride Nashville in action — our Blue Bird party bus, bachelorette and birthday crews, game-day tailgates and nights out across Music City.",
+  },
   "/faq": {
     title: "Party Bus FAQ | Party 'N Ride Nashville",
     description:

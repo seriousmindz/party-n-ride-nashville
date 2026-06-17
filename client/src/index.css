@@ -923,3 +923,106 @@
   transform: translateY(-1px);
   box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
 }
+/* ============================================================
+   DARK LUXURY THEME (black + gold) — Party 'N Ride redesign
+   Scoped under .theme-dark so inner (light) pages are unaffected
+   until Stage 2. Unlayered → wins over @layer utilities.
+   ============================================================ */
+.theme-dark {
+  --gold: #D4AF37;
+  --gold-soft: #EBCB6B;
+  --gold-deep: #8C6E29;
+  --ink: #08080A;
+  --ink-2: #101012;
+  background: var(--ink);
+  color: #E9E6DF;
+}
+
+.theme-dark .liquid-glass {
+  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.015) 55%, rgba(212,175,55,0.05) 100%);
+  border: 1px solid rgba(212,175,55,0.22);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+.theme-dark .liquid-glass:hover {
+  border-color: rgba(212,175,55,0.55);
+  box-shadow: 0 14px 44px rgba(212,175,55,0.12);
+}
+.theme-dark .liquid-glass::before { background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 100%); }
+
+.theme-dark .liquid-glass-card {
+  background: linear-gradient(145deg, rgba(255,255,255,0.04) 0%, rgba(0,0,0,0.45) 100%);
+  border: 1px solid rgba(212,175,55,0.18);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+}
+.theme-dark .liquid-glass-card:hover {
+  border-color: rgba(212,175,55,0.6);
+  box-shadow: 0 16px 48px rgba(212,175,55,0.16);
+}
+
+.theme-dark .liquid-glass-phone {
+  background: linear-gradient(135deg, rgba(212,175,55,0.14) 0%, rgba(212,175,55,0.05) 100%);
+  border: 1.5px solid rgba(212,175,55,0.42);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.45);
+}
+
+/* Gold CTA (replaces the red gradient on dark surfaces) */
+.cta-gold {
+  background: linear-gradient(135deg, var(--gold-deep), #D4AF37, var(--gold-soft), #D4AF37);
+  background-size: 300% 300%;
+  animation: cta-gradient-shift 5s ease infinite;
+  color: #1B1505;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.cta-gold:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 12px 35px rgba(212,175,55,0.45), 0 4px 15px rgba(0,0,0,0.4); }
+.cta-gold span { text-shadow: none; }
+
+/* Hero scrim over the bus image */
+.hero-scrim {
+  background:
+    linear-gradient(90deg, rgba(5,5,7,0.92) 0%, rgba(5,5,7,0.6) 42%, rgba(5,5,7,0.15) 70%, rgba(5,5,7,0.45) 100%),
+    linear-gradient(0deg, rgba(5,5,7,0.85) 0%, transparent 45%);
+}
+
+/* Vertical "Book Now" edge tab */
+.book-tab {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  background: linear-gradient(180deg, #D4AF37, #8C6E29);
+  color: #1B1505;
+  letter-spacing: 0.25em;
+}
+
+/* Gold feature strip */
+.feature-strip {
+  background: linear-gradient(180deg, rgba(16,16,18,0.96), rgba(8,8,10,0.98));
+  border-top: 1px solid rgba(212,175,55,0.25);
+  border-bottom: 1px solid rgba(212,175,55,0.25);
+}
+.feature-strip .feat-icon { color: #D4AF37; }
+
+/* "Let's Ride" gold script */
+.lets-ride {
+  font-family: var(--font-script);
+  background: linear-gradient(135deg, #8C6E29, #EBCB6B 45%, #fff 55%, #D4AF37 70%, #8C6E29);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: platinum-shimmer 4s ease-in-out infinite;
+}
+
+/* Gold gradient headline accent */
+.gold-text {
+  background: linear-gradient(135deg, #EBCB6B 0%, #D4AF37 45%, #8C6E29 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-gold, .lets-ride { animation: none; }
+  .cta-gold:hover { transform: none; }
+}
