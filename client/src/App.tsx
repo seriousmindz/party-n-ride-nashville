@@ -1,12 +1,5 @@
-import { useState, useEffect } from "react";
-import { Switch, Route } from "wouter";
-import { queryClient } from "./lib/queryClient";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import NotFound from "@/pages/not-found";
-import { SeoHead } from "@/components/SeoHead";
-import { HeroPage, PackagesPage, SitesPage, PricingPage, ShuttlePage, FaqPage, ContactPage, GalleryPage } from "@/pages/Home";
+import React, { useState, useEffect } from "react";
+import Landing from "@/pages/Landing";
 import logoImg from "@assets/PartynRide-Logo-New-Blue_1774034577921.png";
 
 function IntroSplash({ onComplete }: { onComplete: () => void }) {
@@ -24,7 +17,7 @@ function IntroSplash({ onComplete }: { onComplete: () => void }) {
       <div className="intro-glow-ring" />
       <div className="intro-glow-ring intro-glow-ring-2" />
       <div className="intro-logo-wrapper">
-        <img src={logoImg} alt="Party N Ride Nashville" className="intro-logo" />
+        <img src={logoImg} alt="Party 'N Ride Nashville" className="intro-logo" />
       </div>
       <div className="intro-tagline">
         <span>Nashville's #1 Party Bus</span>
@@ -42,25 +35,9 @@ function IntroSplash({ onComplete }: { onComplete: () => void }) {
   );
 }
 
-function Router() {
-  return (
-    <Switch>
-      <Route path="/" component={HeroPage}/>
-      <Route path="/packages" component={PackagesPage}/>
-      <Route path="/sites" component={SitesPage}/>
-      <Route path="/pricing" component={PricingPage}/>
-      <Route path="/shuttle" component={ShuttlePage}/>
-      <Route path="/gallery" component={GalleryPage}/>
-      <Route path="/faq" component={FaqPage}/>
-      <Route path="/contact" component={ContactPage}/>
-      <Route component={NotFound} />
-    </Switch>
-  );
-}
-
 function App() {
   const [showIntro, setShowIntro] = useState(() => {
-    if (sessionStorage.getItem('pnr-intro-seen')) return false;
+    if (typeof window !== 'undefined' && sessionStorage.getItem('pnr-intro-seen')) return false;
     return true;
   });
 
@@ -70,14 +47,10 @@ function App() {
   };
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <SeoHead />
-        <Toaster />
-        {showIntro && <IntroSplash onComplete={handleIntroComplete} />}
-        {!showIntro && <Router />}
-      </TooltipProvider>
-    </QueryClientProvider>
+    <>
+      {showIntro && <IntroSplash onComplete={handleIntroComplete} />}
+      {!showIntro && <Landing />}
+    </>
   );
 }
 
