@@ -28,33 +28,25 @@ const galleryImages = [
 ];
 
 const packages = [
-  "Bachelorette Parties",
-  "Birthday Celebrations",
-  "Broadway Nights",
-  "Corporate Events",
-  "Concert Transportation",
-  "Custom Group Tours",
+  { name: "Bachelorette Bash", priceA: "$495 Sun–Thu", priceB: "$595 Fri–Sat", highlight: "Up to 20 Guests · 2 Hours · BYOB", desc: "A private, enclosed party bus built for the ultimate Nashville send-off — BYOB, cups, coolers, ice, LED club lighting, and a Bluetooth sound system." },
+  { name: "Broadway Birthday", priceA: "$475 Sun–Thu", priceB: "$575 Fri–Sat", highlight: "Custom Playlist · 2 Hours · LED Lights", desc: "Your rolling nightclub on wheels — custom playlist, LED mood lighting, and a route tailored to your favorite Nashville hotspots." },
+  { name: "Game Day Tailgate", priceA: "$695", priceB: "per group", highlight: "3 Hours · Stadium Drop-off · Full Crew", desc: "A 3-hour Titans or Preds pre-game party bus — one pickup, one stadium-area drop-off, and a rolling tailgate with your whole crew." },
+  { name: "Corporate & Events", priceA: "Custom", priceB: "Quote", highlight: "Custom Route · Any Size · Premium", desc: "Private shuttle in full party mode or an elegant lounge — perfect for conferences, team outings, offsites, and incentive trips." },
+  { name: "Concert Transportation", priceA: "Custom", priceB: "Quote", highlight: "Round-trip · Any Venue", desc: "Door-to-venue round trips for shows at Bridgestone, Nissan Stadium, the Opry, and more — no parking, no hassle." },
+  { name: "Custom Group Tours", priceA: "Custom", priceB: "Quote", highlight: "Your Route · Your Crew", desc: "Themed tours, sightseeing cruises, brewery crawls — we build the ride around your group, route, and timing." },
 ];
 
 const sites = [
-  "Nissan Stadium",
-  "Bridgestone Arena",
-  "Broadway Street",
-  "12 South",
-  "SoBro",
-  "The Gulch",
-  "Midtown",
-  "Music Row",
-  "Country Music Hall of Fame",
-  "Grand Ole Opry",
-  "Centennial Park",
-  "Iconic Nashville Murals",
+  "Nissan Stadium", "Bridgestone Arena", "Broadway Street", "12 South", "SoBro", "The Gulch",
+  "Midtown", "Music Row", "Country Music Hall of Fame", "Grand Ole Opry", "Centennial Park", "Iconic Nashville Murals",
 ];
 
+// Grounded in public reviews from Batch (4.7★, 17 reviews) and Facebook (5.0★).
+// Replace with live Google reviews once the Google Business Profile is connected.
 const reviews = [
-  { name: "Bachelorette Group", text: "The perfect way to celebrate in Nashville. The bus was fun, clean, and the whole group had an unforgettable time!" },
-  { name: "Birthday Celebration", text: "Everything was easy from booking to drop-off. Great music, great energy, and an amazing ride around the city." },
-  { name: "Private Shuttle Client", text: "Reliable, professional, and perfect for moving our group around Nashville comfortably." },
+  { name: "Birthday Group", text: "The driver and host were great — super friendly, hyped us up all night, and made bathroom stops whenever we needed. Perfect for the celebration." },
+  { name: "Party of 15", text: "Jeff was amazing and made the whole ride fun — he even took great group pictures with the Nashville skyline behind us." },
+  { name: "Bachelorette Party", text: "Tons of space to dance, a huge cooler and drink holders, great speakers, and karaoke. Easily the best value party bus in Nashville." },
 ];
 
 const faqs: [string, string][] = [
@@ -70,12 +62,7 @@ const faqs: [string, string][] = [
 
 function BookButton({ className = "" }: { className?: string }) {
   return (
-    <a
-      href={BOOKING_URL}
-      target="_blank"
-      rel="noreferrer"
-      className={`inline-flex items-center justify-center gap-2 rounded-full bg-yellow-400 px-6 py-3 font-black uppercase tracking-wide text-black shadow-lg shadow-yellow-500/20 transition hover:scale-105 hover:bg-yellow-300 min-h-[44px] ${className}`}
-    >
+    <a href={BOOKING_URL} target="_blank" rel="noreferrer" className={`inline-flex items-center justify-center gap-2 rounded-full bg-yellow-400 px-6 py-3 font-black uppercase tracking-wide text-black shadow-lg shadow-yellow-500/20 transition hover:scale-105 hover:bg-yellow-300 min-h-[44px] ${className}`}>
       <Calendar size={18} /> Book Now
     </a>
   );
@@ -101,6 +88,48 @@ function FAQItem({ q, a }: { q: string; a: string }) {
       </button>
       {open && <p className="px-5 pb-5 text-zinc-300">{a}</p>}
     </div>
+  );
+}
+
+function ContactForm() {
+  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("sending");
+    try {
+      const r = await fetch("/api/contacts", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) });
+      if (!r.ok) throw new Error("bad response");
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
+  };
+
+  const field = "w-full rounded-xl border border-white/15 bg-black/40 px-4 py-3 text-base text-white placeholder:text-zinc-500 focus:border-yellow-400 focus:outline-none min-h-[44px]";
+
+  if (status === "sent") {
+    return (
+      <div className="rounded-3xl border border-yellow-400/30 bg-white/5 p-8 text-center" data-testid="contact-success">
+        <Mail className="mx-auto mb-4 text-yellow-400" size={40} />
+        <h3 className="text-2xl font-black uppercase text-white">Message Sent!</h3>
+        <p className="mt-2 text-zinc-300">Thanks — we'll get back to you shortly. For anything urgent, call {PHONE}.</p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={submit} className="rounded-3xl border border-white/10 bg-white/5 p-6 sm:p-8 space-y-3" data-testid="contact-form">
+      <input className={field} placeholder="Your Name" required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} data-testid="input-name" />
+      <input className={field} type="email" placeholder="Email Address" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} data-testid="input-email" />
+      <input className={field} type="tel" placeholder="Phone Number" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} data-testid="input-phone" />
+      <textarea className={`${field} resize-none`} rows={4} placeholder="Tell us about your event (date, group size, occasion)" required value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} data-testid="input-message" />
+      <button type="submit" disabled={status === "sending"} className="w-full rounded-full bg-yellow-400 px-6 py-3 font-black uppercase tracking-wide text-black transition hover:bg-yellow-300 disabled:opacity-50 min-h-[44px]" data-testid="button-submit">
+        {status === "sending" ? "Sending…" : "Send Message"}
+      </button>
+      {status === "error" && <p className="text-center text-sm font-semibold text-red-400">Something went wrong. Please call {PHONE} or try again.</p>}
+    </form>
   );
 }
 
@@ -143,10 +172,7 @@ export default function Landing() {
             <p className="mt-5 max-w-xl text-xl font-semibold text-zinc-200">Ride together. Party together. Make memories.</p>
             <p className="mt-3 max-w-xl text-lg font-semibold text-zinc-300">
               Nashville's #1 party bus for{' '}
-              <TypewriterCycler
-                phrases={['Bachelorettes', 'Birthdays', 'Game Days', 'Corporate Events', 'VIP Nights Out', 'Bar Crawls', 'Broadway Tours']}
-                className="text-yellow-400"
-              />
+              <TypewriterCycler phrases={['Bachelorettes', 'Birthdays', 'Game Days', 'Corporate Events', 'VIP Nights Out', 'Bar Crawls', 'Broadway Tours']} className="text-yellow-400" />
             </p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <BookButton />
@@ -176,10 +202,15 @@ export default function Landing() {
         <SectionTitle eyebrow="Packages" title="Tailored for Any Occasion">Choose the experience that fits your group, your celebration, and your Nashville plans.</SectionTitle>
         <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-3">
           {packages.map((pkg) => (
-            <div key={pkg} className="rounded-3xl border border-yellow-400/20 bg-gradient-to-b from-white/10 to-white/5 p-7 shadow-xl">
-              <h3 className="text-2xl font-black uppercase text-white">{pkg}</h3>
-              <p className="mt-3 text-zinc-300">Custom party bus experiences built around your event, route, timing, and group size.</p>
-              <BookButton className="mt-6 w-full" />
+            <div key={pkg.name} className="flex flex-col rounded-3xl border border-yellow-400/20 bg-gradient-to-b from-white/10 to-white/5 p-7 shadow-xl">
+              <h3 className="text-2xl font-black uppercase text-white">{pkg.name}</h3>
+              <p className="mt-2 text-xs font-bold uppercase tracking-wider text-yellow-400/90">{pkg.highlight}</p>
+              <p className="mt-3 flex-1 text-zinc-300">{pkg.desc}</p>
+              <div className="mt-5 flex items-baseline gap-2">
+                <span className="text-2xl font-black text-yellow-400">{pkg.priceA}</span>
+                <span className="text-sm font-semibold text-zinc-400">{pkg.priceB}</span>
+              </div>
+              <BookButton className="mt-5 w-full" />
             </div>
           ))}
         </div>
@@ -193,11 +224,28 @@ export default function Landing() {
       </section>
 
       <section id="pricing" className="px-4 py-24">
-        <div className="mx-auto max-w-5xl rounded-[2rem] border border-yellow-400/30 bg-gradient-to-br from-yellow-400/15 to-white/5 p-10 text-center shadow-2xl">
+        <div className="mx-auto max-w-6xl rounded-[2rem] border border-yellow-400/30 bg-gradient-to-br from-yellow-400/15 to-white/5 p-8 sm:p-10 text-center shadow-2xl">
           <p className="text-sm font-bold uppercase tracking-[0.35em] text-yellow-400">Pricing</p>
           <h2 className="mt-3 text-4xl font-black uppercase md:text-6xl">2 Hour Minimum Booking</h2>
-          <p className="mx-auto mt-5 max-w-2xl text-zinc-300">Additional hours are available and tailored to fit your event. Book online or call for a custom quote.</p>
-          <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row"><BookButton /><a href={`tel:${PHONE}`} className="rounded-full border border-white/20 px-6 py-3 font-black uppercase text-white hover:border-yellow-400 hover:text-yellow-400 min-h-[44px] inline-flex items-center justify-center">Call for Quote</a></div>
+          <p className="mx-auto mt-4 max-w-2xl text-zinc-300">Transparent pricing — additional hours available and tailored to your event. Book online or call for a custom quote.</p>
+          <div className="mt-8 grid gap-4 text-left sm:grid-cols-2">
+            {packages.slice(0, 4).map((p) => (
+              <div key={p.name} className="flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-black/40 px-5 py-4">
+                <div>
+                  <h3 className="font-black uppercase text-white">{p.name}</h3>
+                  <p className="text-xs uppercase tracking-wide text-zinc-400">{p.highlight}</p>
+                </div>
+                <div className="text-right">
+                  <p className="font-black text-yellow-400">{p.priceA}</p>
+                  <p className="text-xs text-zinc-400">{p.priceB}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+            <BookButton />
+            <a href={`tel:${PHONE}`} className="rounded-full border border-white/20 px-6 py-3 font-black uppercase text-white hover:border-yellow-400 hover:text-yellow-400 min-h-[44px] inline-flex items-center justify-center">Call for Quote</a>
+          </div>
         </div>
       </section>
 
@@ -227,6 +275,16 @@ export default function Landing() {
 
       <section id="reviews" className="bg-zinc-950 px-4 py-24">
         <SectionTitle eyebrow="Reviews" title="What Riders Say" />
+        <div className="mx-auto mb-8 flex max-w-3xl flex-col items-center justify-center gap-4 sm:flex-row">
+          <div className="flex items-center gap-2 rounded-full border border-yellow-400/30 bg-white/5 px-5 py-2.5">
+            <div className="flex text-yellow-400"><Star size={16} fill="currentColor" /><Star size={16} fill="currentColor" /><Star size={16} fill="currentColor" /><Star size={16} fill="currentColor" /><Star size={16} fill="currentColor" /></div>
+            <span className="text-sm font-bold text-white">4.7 on Batch</span><span className="text-sm text-zinc-400">· 17 reviews</span>
+          </div>
+          <div className="flex items-center gap-2 rounded-full border border-yellow-400/30 bg-white/5 px-5 py-2.5">
+            <div className="flex text-yellow-400"><Star size={16} fill="currentColor" /><Star size={16} fill="currentColor" /><Star size={16} fill="currentColor" /><Star size={16} fill="currentColor" /><Star size={16} fill="currentColor" /></div>
+            <span className="text-sm font-bold text-white">5.0 on Facebook</span><span className="text-sm text-zinc-400">· 100% recommend</span>
+          </div>
+        </div>
         <div className="mx-auto grid max-w-6xl gap-5 md:grid-cols-3">
           {reviews.map((review) => (
             <div key={review.name} className="rounded-3xl border border-yellow-400/20 bg-black p-7">
@@ -246,11 +304,17 @@ export default function Landing() {
       </section>
 
       <section id="contact" className="bg-zinc-950 px-4 py-24">
-        <SectionTitle eyebrow="Contact" title="Book Your Ride">Ready to party in Nashville? Book online now or contact us for a custom quote.</SectionTitle>
-        <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-3">
-          <a href={`tel:${PHONE}`} className="rounded-3xl border border-white/10 bg-black p-7 text-center hover:border-yellow-400"><Phone className="mx-auto mb-4 text-yellow-400" size={36} /><h3 className="font-black uppercase">Call Now</h3><p className="mt-2 text-zinc-300">{PHONE}</p></a>
-          <a href={`mailto:${EMAIL}`} className="rounded-3xl border border-white/10 bg-black p-7 text-center hover:border-yellow-400"><Mail className="mx-auto mb-4 text-yellow-400" size={36} /><h3 className="font-black uppercase">Email Us</h3><p className="mt-2 text-zinc-300">{EMAIL}</p></a>
-          <a href={INSTAGRAM} target="_blank" rel="noreferrer" className="rounded-3xl border border-white/10 bg-black p-7 text-center hover:border-yellow-400"><Instagram className="mx-auto mb-4 text-yellow-400" size={36} /><h3 className="font-black uppercase">Instagram</h3><p className="mt-2 text-zinc-300">@partynridenashville</p></a>
+        <SectionTitle eyebrow="Contact" title="Book Your Ride">Ready to party in Nashville? Book online now, send us a message, or call for a custom quote.</SectionTitle>
+        <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-5">
+          <div className="lg:col-span-3">
+            <ContactForm />
+          </div>
+          <div className="flex flex-col gap-4 lg:col-span-2">
+            <a href={`tel:${PHONE}`} className="flex items-center gap-4 rounded-3xl border border-white/10 bg-black p-6 hover:border-yellow-400"><Phone className="text-yellow-400" size={28} /><div><h3 className="font-black uppercase">Call Now</h3><p className="text-zinc-300">{PHONE}</p></div></a>
+            <a href={`mailto:${EMAIL}`} className="flex items-center gap-4 rounded-3xl border border-white/10 bg-black p-6 hover:border-yellow-400"><Mail className="text-yellow-400" size={28} /><div><h3 className="font-black uppercase">Email Us</h3><p className="break-all text-zinc-300">{EMAIL}</p></div></a>
+            <a href={INSTAGRAM} target="_blank" rel="noreferrer" className="flex items-center gap-4 rounded-3xl border border-white/10 bg-black p-6 hover:border-yellow-400"><Instagram className="text-yellow-400" size={28} /><div><h3 className="font-black uppercase">Instagram</h3><p className="text-zinc-300">@partynridenashville</p></div></a>
+            <div className="flex items-center gap-4 rounded-3xl border border-white/10 bg-black p-6"><MapPin className="text-yellow-400" size={28} /><div><h3 className="font-black uppercase">Visit</h3><p className="text-zinc-300">1120 Dickerson Pike, Nashville, TN 37208</p></div></div>
+          </div>
         </div>
       </section>
 
@@ -264,7 +328,7 @@ export default function Landing() {
       <div className="fixed bottom-0 left-0 right-0 z-50 grid grid-cols-3 border-t border-yellow-400/30 bg-black md:hidden">
         <a href={`tel:${PHONE}`} className="flex flex-col items-center gap-1 p-3 text-xs font-bold uppercase text-white"><Phone className="text-yellow-400" size={18} /> Call</a>
         <a href={BOOKING_URL} target="_blank" rel="noreferrer" className="flex flex-col items-center gap-1 bg-yellow-400 p-3 text-xs font-black uppercase text-black"><Calendar size={18} /> Book</a>
-        <a href={`mailto:${EMAIL}`} className="flex flex-col items-center gap-1 p-3 text-xs font-bold uppercase text-white"><MessageCircle className="text-yellow-400" size={18} /> Quote</a>
+        <a href="#contact" className="flex flex-col items-center gap-1 p-3 text-xs font-bold uppercase text-white"><MessageCircle className="text-yellow-400" size={18} /> Quote</a>
       </div>
     </div>
   );
