@@ -8,8 +8,8 @@ import busCutout from "@assets/bus-cutout.webp";
 import skylineBg from "@assets/nashville_riverfront_clear_sky.webp";
 import galBachelorette from "@assets/IMG_20220526_234848_507_1772858254044.jpg";
 import galBirthday from "@assets/IMG_20220723_114303_064_1772858334450.jpg";
-import galTailgate from "@assets/IMG_20220124_211840_009_1772858028717.jpg";
-import galCorporate from "@assets/20220729_124917_1772857936688.jpg";
+import galTailgate from "@assets/IMG_20220124_211840_009_1772858028717.webp";
+import galCorporate from "@assets/20220729_124917_1772857936688.webp";
 import galShuttle from "@assets/IMG_20220910_192802_809_(1)_1774995948633.jpg";
 import galBroadway from "@assets/stock_images/broadway_nashville.jpg";
 
@@ -94,15 +94,21 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 function ContactForm() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("sending");
+    setErrorMsg("");
     try {
       const r = await fetch("/api/contacts", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) });
-      if (!r.ok) throw new Error("bad response");
+      if (!r.ok) {
+        const err = await r.json().catch(() => ({}));
+        throw new Error(err.error || "We couldn't send your message.");
+      }
       setStatus("sent");
-    } catch {
+    } catch (err) {
+      setErrorMsg(err instanceof Error ? err.message : "Something went wrong.");
       setStatus("error");
     }
   };
@@ -111,7 +117,7 @@ function ContactForm() {
 
   if (status === "sent") {
     return (
-      <div className="rounded-3xl border border-yellow-400/30 bg-white/5 p-8 text-center" data-testid="contact-success">
+      <div className="rounded-3xl border border-yellow-400/30 bg-white/5 p-8 text-center" data-testid="contact-success" role="status" aria-live="polite">
         <Mail className="mx-auto mb-4 text-yellow-400" size={40} />
         <h3 className="text-2xl font-black uppercase text-white">Message Sent!</h3>
         <p className="mt-2 text-zinc-300">Thanks — we'll get back to you shortly. For anything urgent, call {PHONE}.</p>
@@ -121,14 +127,14 @@ function ContactForm() {
 
   return (
     <form onSubmit={submit} className="rounded-3xl border border-white/10 bg-white/5 p-6 sm:p-8 space-y-3" data-testid="contact-form">
-      <input className={field} placeholder="Your Name" required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} data-testid="input-name" />
-      <input className={field} type="email" placeholder="Email Address" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} data-testid="input-email" />
-      <input className={field} type="tel" placeholder="Phone Number" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} data-testid="input-phone" />
-      <textarea className={`${field} resize-none`} rows={4} placeholder="Tell us about your event (date, group size, occasion)" required value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} data-testid="input-message" />
+      <input className={field} placeholder="Your Name" aria-label="Your name" autoComplete="name" required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} data-testid="input-name" />
+      <input className={field} type="email" placeholder="Email Address" aria-label="Email address" autoComplete="email" inputMode="email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} data-testid="input-email" />
+      <input className={field} type="tel" placeholder="Phone Number" aria-label="Phone number" autoComplete="tel" inputMode="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} data-testid="input-phone" />
+      <textarea className={`${field} resize-none`} rows={4} placeholder="Tell us about your event (date, group size, occasion)" aria-label="Tell us about your event" required value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} data-testid="input-message" />
       <button type="submit" disabled={status === "sending"} className="w-full rounded-full bg-yellow-400 px-6 py-3 font-black uppercase tracking-wide text-black transition hover:bg-yellow-300 disabled:opacity-50 min-h-[44px]" data-testid="button-submit">
         {status === "sending" ? "Sending…" : "Send Message"}
       </button>
-      {status === "error" && <p className="text-center text-sm font-semibold text-red-400">Something went wrong. Please call {PHONE} or try again.</p>}
+      {status === "error" && <p className="text-center text-sm font-semibold text-red-400" role="status" aria-live="polite">{errorMsg || "Something went wrong."} Please call {PHONE} or try again.</p>}
     </form>
   );
 }
@@ -139,7 +145,7 @@ export default function Landing() {
       <header className="fixed left-0 right-0 top-0 z-50 border-b border-yellow-400/30 bg-black/85 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
           <a href="#home" className="flex items-center gap-3" aria-label="Party 'N Ride Nashville home">
-            <img src={logoImg} alt="Party 'N Ride Nashville logo" className="h-12 w-auto" />
+            <img src={logoImg} alt="Party 'N Ride Nashville logo" width={160} height={48} decoding="async" className="h-12 w-auto" />
           </a>
           <nav className="hidden items-center gap-6 text-sm font-bold uppercase tracking-wide text-zinc-200 lg:flex" aria-label="Main navigation">
             {['Home','Packages','Sites','Pricing','Shuttle Service','Gallery','Reviews','FAQ','Contact'].map((item) => (
@@ -157,8 +163,8 @@ export default function Landing() {
         Book Now
       </a>
 
-      <section id="home" className="relative flex min-h-screen items-center overflow-hidden pt-24">
-        <img src={skylineBg} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover object-center opacity-60" />
+      <section id="home" className="relative flex min-h-[100svh] items-center overflow-hidden pt-24">
+        <img src={skylineBg} alt="" aria-hidden="true" width={1408} height={768} fetchPriority="high" decoding="async" className="absolute inset-0 h-full w-full object-cover object-center opacity-60" />
         <div className="absolute inset-0 bg-gradient-to-r from-black via-black/75 to-black/20" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black to-transparent" />
         <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-20 lg:grid-cols-2">
@@ -182,7 +188,7 @@ export default function Landing() {
             </div>
           </motion.div>
           <motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.9, delay: 0.2 }} className="relative">
-            <img src={busCutout} alt="Party 'N Ride Nashville party bus" className="w-full drop-shadow-2xl" />
+            <img src={busCutout} alt="Party 'N Ride Nashville party bus" width={1266} height={399} fetchPriority="high" decoding="async" className="h-auto w-full drop-shadow-2xl" />
           </motion.div>
         </div>
       </section>
@@ -257,7 +263,7 @@ export default function Landing() {
             <p className="mt-5 text-lg leading-8 text-zinc-300">Corporate events, special occasions, one-way rides, round trips, and general group shuttle needs in Nashville. We move your group from point A to B comfortably and efficiently.</p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row"><BookButton /><a href={`mailto:${EMAIL}`} className="inline-flex items-center justify-center gap-2 rounded-full border border-yellow-400 px-6 py-3 font-black uppercase text-yellow-400 hover:bg-yellow-400 hover:text-black min-h-[44px]"><Mail size={18} /> Request Quote</a></div>
           </div>
-          <img src={galShuttle} alt="Party 'N Ride Nashville group shuttle" className="rounded-[2rem] border border-yellow-400/20 shadow-2xl object-cover h-full max-h-96 w-full" />
+          <img src={galShuttle} alt="Party 'N Ride Nashville group shuttle" loading="lazy" decoding="async" width={1200} height={900} className="rounded-[2rem] border border-yellow-400/20 shadow-2xl object-cover h-full max-h-96 w-full" />
         </div>
       </section>
 
@@ -266,7 +272,7 @@ export default function Landing() {
         <div className="mx-auto grid max-w-7xl gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {galleryImages.map((img) => (
             <div key={img.title} className="group overflow-hidden rounded-3xl border border-white/10 bg-white/5">
-              <img src={img.src} alt={img.title} className="h-72 w-full object-cover transition duration-500 group-hover:scale-110" />
+              <img src={img.src} alt={img.title} loading="lazy" decoding="async" width={1200} height={900} className="h-72 w-full object-cover transition duration-500 group-hover:scale-110" />
               <div className="p-5"><h3 className="font-black uppercase text-yellow-400">{img.title}</h3></div>
             </div>
           ))}

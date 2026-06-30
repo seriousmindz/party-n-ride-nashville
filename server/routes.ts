@@ -63,22 +63,36 @@ export async function registerRoutes(
   });
 
   app.get("/api/bookings", requireAdmin, async (_req, res) => {
-    const bookings = await storage.getBookings();
-    res.json(bookings);
+    try {
+      res.json(await storage.getBookings());
+    } catch {
+      res.status(500).json({ error: "Failed to load bookings" });
+    }
   });
 
   app.get("/api/bookings/:id", requireAdmin, async (req, res) => {
-    const booking = await storage.getBooking(String(req.params.id));
-    if (!booking) return res.status(404).json({ error: "Booking not found" });
-    res.json(booking);
+    try {
+      const booking = await storage.getBooking(String(req.params.id));
+      if (!booking) return res.status(404).json({ error: "Booking not found" });
+      res.json(booking);
+    } catch {
+      res.status(500).json({ error: "Failed to load booking" });
+    }
   });
 
+  const ALLOWED_STATUSES = ["pending", "confirmed", "completed", "cancelled"];
   app.patch("/api/bookings/:id/status", requireAdmin, async (req, res) => {
-    const { status } = req.body;
-    if (!status) return res.status(400).json({ error: "Status required" });
-    const booking = await storage.updateBookingStatus(String(req.params.id), status);
-    if (!booking) return res.status(404).json({ error: "Booking not found" });
-    res.json(booking);
+    const { status } = req.body ?? {};
+    if (!status || !ALLOWED_STATUSES.includes(status)) {
+      return res.status(400).json({ error: `Status must be one of: ${ALLOWED_STATUSES.join(", ")}` });
+    }
+    try {
+      const booking = await storage.updateBookingStatus(String(req.params.id), status);
+      if (!booking) return res.status(404).json({ error: "Booking not found" });
+      res.json(booking);
+    } catch {
+      res.status(500).json({ error: "Failed to update booking" });
+    }
   });
 
   app.post("/api/contacts", async (req, res) => {
@@ -96,8 +110,11 @@ export async function registerRoutes(
   });
 
   app.get("/api/contacts", requireAdmin, async (_req, res) => {
-    const contacts = await storage.getContacts();
-    res.json(contacts);
+    try {
+      res.json(await storage.getContacts());
+    } catch {
+      res.status(500).json({ error: "Failed to load contacts" });
+    }
   });
 
   return httpServer;

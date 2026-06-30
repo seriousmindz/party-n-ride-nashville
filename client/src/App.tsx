@@ -37,7 +37,10 @@ function IntroSplash({ onComplete }: { onComplete: () => void }) {
 
 function App() {
   const [showIntro, setShowIntro] = useState(() => {
-    if (typeof window !== 'undefined' && sessionStorage.getItem('pnr-intro-seen')) return false;
+    if (typeof window === 'undefined') return true;
+    if (sessionStorage.getItem('pnr-intro-seen')) return false;
+    // Respect reduced-motion: skip the animated splash entirely.
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return false;
     return true;
   });
 

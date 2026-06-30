@@ -69,6 +69,12 @@ export function TypewriterCycler({ phrases, className = '' }: { phrases: string[
   const pauseRef = useRef(false);
 
   useEffect(() => {
+    // Respect reduced-motion: show the first phrase statically, no typing/cursor.
+    if (typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+      setDisplay(phrases[0] ?? '');
+      setCursorVisible(false);
+      return;
+    }
     const cursorInterval = setInterval(() => setCursorVisible(v => !v), 530);
     let timeoutId: ReturnType<typeof setTimeout>;
 
